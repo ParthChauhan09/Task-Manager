@@ -51,7 +51,7 @@ export function Sidebar({
             </div>
           </div>
           <p className="text-[10px] font-mono uppercase tracking-wider text-slate-400 mt-1">
-            v1.0.0 // Local Drive
+            v2.0.0 // User testing
           </p>
         </div>
 
@@ -106,8 +106,8 @@ export function Sidebar({
                 onMouseEnter={() => setHoveredOrgId(org.id)}
                 onMouseLeave={() => setHoveredOrgId(null)}
                 className={`group/item relative rounded-xl flex items-center justify-between p-3 cursor-pointer select-none transition-all duration-300 ${isActive
-                    ? "bg-slate-100 border-l-2 border-slate-900 shadow-sm"
-                    : "hover:bg-slate-50 border-l-2 border-transparent"
+                  ? "bg-slate-100 border-l-2 border-slate-900 shadow-sm"
+                  : "hover:bg-slate-50 border-l-2 border-transparent"
                   }`}
                 onClick={() => onSelectOrg(org.id)}
               >
@@ -154,8 +154,8 @@ export function Sidebar({
                   {/* Upcoming incomplete count pill (hidden when hover actions appear for sleek neatness) */}
                   <span
                     className={`text-[10px] font-mono px-2 py-0.5 rounded-full transition-all border ${hoveredOrgId === org.id
-                        ? "md:opacity-0 md:scale-75"
-                        : "opacity-100 scale-100"
+                      ? "md:opacity-0 md:scale-75"
+                      : "opacity-100 scale-100"
                       } ${upcoming > 0
                         ? isActive
                           ? "bg-white border-slate-200 text-slate-800"

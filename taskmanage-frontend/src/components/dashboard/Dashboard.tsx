@@ -74,6 +74,8 @@ export function Dashboard({ onLogout }: DashboardProps) {
                             onAddDate={() => dash.setDateDialog({ isOpen: true })}
                             onAddTask={() => dash.setTaskDialog({ isOpen: true, isEdit: false })}
                             filteredCount={filteredTasks.length}
+                            allCollapsed={sortedDates.length > 0 && sortedDates.every((d) => !!dash.collapsedDates[d])}
+                            onCollapseAll={() => dash.collapseAll(sortedDates)}
                         />
 
                         <div className="flex-1 overflow-y-auto p-4 sm:p-8 space-y-6 sm:space-y-10">

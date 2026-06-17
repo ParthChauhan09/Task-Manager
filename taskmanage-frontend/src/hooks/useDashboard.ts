@@ -156,6 +156,17 @@ export function useDashboard() {
     setCollapsedDates((prev) => ({ ...prev, [dateStr]: !prev[dateStr] }));
   };
 
+  const collapseAll = (dates: string[]) => {
+    const allCollapsed = dates.every((d) => collapsedDates[d]);
+    if (allCollapsed) {
+      // all already collapsed → expand all
+      setCollapsedDates({});
+    } else {
+      // collapse all
+      setCollapsedDates(Object.fromEntries(dates.map((d) => [d, true])));
+    }
+  };
+
   return {
     // data
     organizations,
@@ -169,6 +180,7 @@ export function useDashboard() {
     setIsMobileSidebarOpen,
     collapsedDates,
     toggleCollapseDate,
+    collapseAll,
     // dialogs
     orgDialog, setOrgDialog,
     dateDialog, setDateDialog,
