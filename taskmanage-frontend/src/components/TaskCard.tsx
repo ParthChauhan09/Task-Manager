@@ -20,7 +20,6 @@ import { TiltingCard } from "./TiltingCard";
 import { motion, AnimatePresence } from "motion/react";
 
 interface TaskCardProps {
-  key?: string | number;
   task: Task;
   onToggleComplete: (id: string) => void;
   onEditTask: (task: Task) => void;
