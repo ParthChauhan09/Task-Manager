@@ -95,13 +95,13 @@ export function useOrganizations() {
       prev.map((o) =>
         o.id === orgId
           ? {
-              ...o,
-              tasks: o.tasks.map((t) =>
-                t.id === taskId
-                  ? { ...t, subtasks: [...t.subtasks, sub], completed: false }
-                  : t
-              ),
-            }
+            ...o,
+            tasks: o.tasks.map((t) =>
+              t.id === taskId
+                ? { ...t, subtasks: [...t.subtasks, sub], completed: false }
+                : t
+            ),
+          }
           : o
       )
     );
@@ -118,17 +118,17 @@ export function useOrganizations() {
       prev.map((o) =>
         o.id === orgId
           ? {
-              ...o,
-              tasks: o.tasks.map((t) => {
-                if (t.id !== taskId) return t;
-                const updatedSubs = t.subtasks.map((s) =>
-                  s.id === subtaskId ? updated : s
-                );
-                const allDone =
-                  updatedSubs.length > 0 && updatedSubs.every((s) => s.completed);
-                return { ...t, subtasks: updatedSubs, completed: allDone ? true : t.completed };
-              }),
-            }
+            ...o,
+            tasks: o.tasks.map((t) => {
+              if (t.id !== taskId) return t;
+              const updatedSubs = t.subtasks.map((s) =>
+                s.id === subtaskId ? updated : s
+              );
+              const allDone =
+                updatedSubs.length > 0 && updatedSubs.every((s) => s.completed);
+              return { ...t, subtasks: updatedSubs, completed: allDone ? true : t.completed };
+            }),
+          }
           : o
       )
     );
@@ -140,13 +140,13 @@ export function useOrganizations() {
       prev.map((o) =>
         o.id === orgId
           ? {
-              ...o,
-              tasks: o.tasks.map((t) =>
-                t.id === taskId
-                  ? { ...t, subtasks: t.subtasks.filter((s) => s.id !== subtaskId) }
-                  : t
-              ),
-            }
+            ...o,
+            tasks: o.tasks.map((t) =>
+              t.id === taskId
+                ? { ...t, subtasks: t.subtasks.filter((s) => s.id !== subtaskId) }
+                : t
+            ),
+          }
           : o
       )
     );

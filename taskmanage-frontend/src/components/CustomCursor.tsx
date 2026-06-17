@@ -63,7 +63,7 @@ export function CustomCursor() {
           y: cursorY,
         }}
       />
-      
+
       {/* Soft outer glow spring trail */}
       <motion.div
         className="fixed w-7 h-7 rounded-full border border-slate-300 bg-slate-500/5 z-[9998] pointer-events-none -translate-x-1/2 -translate-y-1/2"

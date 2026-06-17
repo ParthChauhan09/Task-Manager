@@ -4,7 +4,7 @@
  */
 
 import { useState } from "react";
-import { Folder, Plus, Trash2, Edit3, MoreVertical, Layers, CheckSquare } from "lucide-react";
+import { Folder, Plus, Trash2, Edit3, Layers, LogOut } from "lucide-react";
 import { Organization } from "../types";
 import { motion } from "motion/react";
 
@@ -15,6 +15,7 @@ interface SidebarProps {
   onCreateOrg: () => void;
   onRenameOrg: (id: string, name: string) => void;
   onDeleteOrg: (id: string) => void;
+  onLogout: () => void;
 }
 
 export function Sidebar({
@@ -24,6 +25,7 @@ export function Sidebar({
   onCreateOrg,
   onRenameOrg,
   onDeleteOrg,
+  onLogout,
 }: SidebarProps) {
   const [hoveredOrgId, setHoveredOrgId] = useState<string | null>(null);
 
@@ -103,24 +105,21 @@ export function Sidebar({
                 key={org.id}
                 onMouseEnter={() => setHoveredOrgId(org.id)}
                 onMouseLeave={() => setHoveredOrgId(null)}
-                className={`group/item relative rounded-xl flex items-center justify-between p-3 cursor-pointer select-none transition-all duration-300 ${
-                  isActive
+                className={`group/item relative rounded-xl flex items-center justify-between p-3 cursor-pointer select-none transition-all duration-300 ${isActive
                     ? "bg-slate-100 border-l-2 border-slate-900 shadow-sm"
                     : "hover:bg-slate-50 border-l-2 border-transparent"
-                }`}
+                  }`}
                 onClick={() => onSelectOrg(org.id)}
               >
                 {/* Organ Name details */}
                 <div className="flex items-center gap-3 overflow-hidden pr-2">
                   <Folder
-                    className={`h-4 w-4 shrink-0 transition-all ${
-                      isActive ? "text-slate-900" : "text-slate-400 group-hover/item:text-slate-600"
-                    }`}
+                    className={`h-4 w-4 shrink-0 transition-all ${isActive ? "text-slate-900" : "text-slate-400 group-hover/item:text-slate-600"
+                      }`}
                   />
                   <span
-                    className={`text-sm truncate font-medium transition-colors ${
-                      isActive ? "text-slate-900 font-semibold" : "text-slate-600 group-hover/item:text-slate-800"
-                    }`}
+                    className={`text-sm truncate font-medium transition-colors ${isActive ? "text-slate-900 font-semibold" : "text-slate-600 group-hover/item:text-slate-800"
+                      }`}
                   >
                     {org.name}
                   </span>
@@ -130,9 +129,8 @@ export function Sidebar({
                 <div className="flex items-center gap-1 shrink-0">
                   {/* Inline Action Nodes configured on Hover */}
                   <div
-                    className={`flex items-center gap-0.5 transition-opacity duration-200 ${
-                      hoveredOrgId === org.id ? "opacity-100" : "opacity-0 pointer-events-none md:absolute md:right-3 md:group-hover/item:opacity-100 md:group-hover/item:pointer-events-auto"
-                    }`}
+                    className={`flex items-center gap-0.5 transition-opacity duration-200 ${hoveredOrgId === org.id ? "opacity-100" : "opacity-0 pointer-events-none md:absolute md:right-3 md:group-hover/item:opacity-100 md:group-hover/item:pointer-events-auto"
+                      }`}
                     onClick={(e) => e.stopPropagation()} // Stop triggering selection on action click
                   >
                     <button
@@ -155,17 +153,15 @@ export function Sidebar({
 
                   {/* Upcoming incomplete count pill (hidden when hover actions appear for sleek neatness) */}
                   <span
-                    className={`text-[10px] font-mono px-2 py-0.5 rounded-full transition-all border ${
-                      hoveredOrgId === org.id
+                    className={`text-[10px] font-mono px-2 py-0.5 rounded-full transition-all border ${hoveredOrgId === org.id
                         ? "md:opacity-0 md:scale-75"
                         : "opacity-100 scale-100"
-                    } ${
-                      upcoming > 0
+                      } ${upcoming > 0
                         ? isActive
                           ? "bg-white border-slate-200 text-slate-800"
                           : "bg-slate-200 border-transparent text-slate-600"
                         : "bg-transparent border-transparent text-slate-300"
-                    }`}
+                      }`}
                   >
                     {upcoming}
                   </span>
@@ -176,7 +172,7 @@ export function Sidebar({
         )}
       </div>
 
-      {/* Aesthetic Workspace Summary */}
+      {/* Footer — stats + logout */}
       <div className="p-4 border-t border-slate-100 bg-slate-50/50 text-[11px] text-slate-400 font-mono space-y-1">
         <div className="flex justify-between">
           <span>Total Tasks:</span>
@@ -190,6 +186,13 @@ export function Sidebar({
             {organizations.reduce((sum, o) => sum + o.tasks.filter(t => !t.completed).length, 0)}
           </span>
         </div>
+        <button
+          onClick={onLogout}
+          className="cursor-pointer w-full mt-2 flex items-center gap-2 text-slate-400 hover:text-red-500 transition-colors pt-2 border-t border-slate-100"
+        >
+          <LogOut className="h-3.5 w-3.5" />
+          <span>Sign out</span>
+        </button>
       </div>
     </div>
   );

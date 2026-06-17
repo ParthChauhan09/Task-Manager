@@ -94,11 +94,10 @@ export function TaskCard({
   return (
     <TiltingCard
       maxTilt={6}
-      className={`relative flex flex-col p-5 select-none transition-all duration-300 ${
-        task.completed
+      className={`relative flex flex-col p-5 select-none transition-all duration-300 ${task.completed
           ? "border-slate-200/60 bg-slate-50/50 opacity-70 shadow-none grayscale"
           : `${priorityColors[task.priority].glow} border-slate-100 bg-white`
-      }`}
+        }`}
     >
       {/* Top Card Bar - Completion, Title & Actions */}
       <div className="flex items-start justify-between gap-3">
@@ -120,19 +119,17 @@ export function TaskCard({
           <div className="text-left flex-1 min-w-0">
             <h4
               id={`task-title-text-${task.id}`}
-              className={`text-sm font-semibold tracking-tight transition-all leading-snug break-words ${
-                task.completed
+              className={`text-sm font-semibold tracking-tight transition-all leading-snug break-words ${task.completed
                   ? "line-through text-slate-400"
                   : "text-slate-900"
-              }`}
+                }`}
             >
               {task.title}
             </h4>
             {task.description && (
               <p
-                className={`mt-1.5 text-xs font-sans leading-relaxed break-words line-clamp-3 ${
-                  task.completed ? "text-slate-400" : "text-slate-500"
-                }`}
+                className={`mt-1.5 text-xs font-sans leading-relaxed break-words line-clamp-3 ${task.completed ? "text-slate-400" : "text-slate-500"
+                  }`}
               >
                 {task.description}
               </p>
@@ -166,9 +163,8 @@ export function TaskCard({
         <div className="flex items-center gap-2">
           {/* Priority flag */}
           <span
-            className={`text-[9px] font-bold font-mono tracking-widest uppercase px-2 py-0.5 rounded border ${
-              priorityColors[task.priority].bg
-            }`}
+            className={`text-[9px] font-bold font-mono tracking-widest uppercase px-2 py-0.5 rounded border ${priorityColors[task.priority].bg
+              }`}
           >
             {task.priority}
           </span>
@@ -198,11 +194,10 @@ export function TaskCard({
             initial={{ width: 0 }}
             animate={{ width: `${progressPercent}%` }}
             transition={{ duration: 0.4, ease: "easeOut" }}
-            className={`h-full bg-gradient-to-r ${
-              task.completed
+            className={`h-full bg-gradient-to-r ${task.completed
                 ? "from-slate-400 to-slate-300"
                 : "from-indigo-600 to-blue-500"
-            }`}
+              }`}
           />
         </div>
       )}
@@ -277,11 +272,10 @@ export function TaskCard({
                     ) : (
                       <span
                         onDoubleClick={() => startEditSubtask(sub)}
-                        className={`text-xs truncate transition-all cursor-text font-sans ${
-                          sub.completed
+                        className={`text-xs truncate transition-all cursor-text font-sans ${sub.completed
                             ? "line-through text-slate-400"
                             : "text-slate-600"
-                        }`}
+                          }`}
                       >
                         {sub.title}
                       </span>

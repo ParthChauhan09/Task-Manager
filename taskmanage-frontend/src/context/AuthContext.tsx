@@ -13,14 +13,14 @@ interface AuthContextValue {
 const AuthContext = createContext<AuthContextValue | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser]     = useState<AuthUser | null>(null);
-  const [token, setToken]   = useState<string | null>(null);
+  const [user, setUser] = useState<AuthUser | null>(null);
+  const [token, setToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true); // true while we verify stored token
 
   // On mount — restore session from localStorage
   useEffect(() => {
     const storedToken = localStorage.getItem("tm_token");
-    const storedUser  = localStorage.getItem("tm_user");
+    const storedUser = localStorage.getItem("tm_user");
 
     if (storedToken && storedUser) {
       try {

@@ -8,10 +8,10 @@ export function formatDateLabel(dateString: string): string {
   const [year, month, day] = dateString.split('-').map(Number);
   // Create date using local timezone to avoid UTC shift
   const dateObj = new Date(year, month - 1, day);
-  
+
   const today = new Date();
   const todayStr = formatDateISO(today);
-  
+
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
   const tomorrowStr = formatDateISO(tomorrow);
@@ -30,7 +30,7 @@ export function formatDateLabel(dateString: string): string {
 
   // Format: "15 May 2026"
   const months = [
-    "Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
   ];
   return `${day} ${months[month - 1]} ${year}`;

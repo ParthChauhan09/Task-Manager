@@ -67,9 +67,8 @@ export function TiltingCard({
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`stroke-follow-card bg-white rounded-2xl overflow-hidden shadow-sm transition-all duration-300 ease-out ${
-        isHovered ? "shadow-md -translate-y-1 scale-[1.01]" : ""
-      } ${className}`}
+      className={`stroke-follow-card bg-white rounded-2xl overflow-hidden shadow-sm transition-all duration-300 ease-out ${isHovered ? "shadow-md -translate-y-1 scale-[1.01]" : ""
+        } ${className}`}
       style={
         {
           transform: isHovered
