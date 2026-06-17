@@ -1,7 +1,9 @@
+import { Routes, Route, Navigate } from "react-router-dom";
 import { motion } from "motion/react";
 import { useAuth } from "./context/AuthContext";
 import { AuthPage } from "./components/AuthPage";
-import { Dashboard } from "./components/dashboard/Dashboard.tsx";
+import { Dashboard } from "./components/dashboard/Dashboard";
+import { DateDetailPage } from "./pages/DateDetailPage";
 
 export default function App() {
   const { user, isLoading, logout } = useAuth();
@@ -20,5 +22,11 @@ export default function App() {
 
   if (!user) return <AuthPage />;
 
-  return <Dashboard onLogout={logout} />;
+  return (
+    <Routes>
+      <Route path="/" element={<Dashboard onLogout={logout} />} />
+      <Route path="/workspace/:orgId/date/:date" element={<DateDetailPage onLogout={logout} />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+  );
 }

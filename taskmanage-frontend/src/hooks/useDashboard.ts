@@ -25,14 +25,13 @@ export interface ConfirmDialogState {
   onConfirm: () => void;
 }
 
-export function useDashboard() {
+export function useDashboard(forcedOrgId?: string) {
   const orgStore = useOrganizations();
   const { organizations, createOrg, renameOrg, deleteOrg, createTask, updateTask, deleteTask, toggleTaskComplete, createSubtask, updateSubtask, deleteSubtask } = orgStore;
 
-  const [activeOrgId, setActiveOrgId] = useState<string | null>(null);
+  const [activeOrgId, setActiveOrgId] = useState<string | null>(forcedOrgId ?? null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
-  const [collapsedDates, setCollapsedDates] = useState<Record<string, boolean>>({});
 
   const [orgDialog, setOrgDialog] = useState<OrgDialogState>({ isOpen: false, isEdit: false });
   const [dateDialog, setDateDialog] = useState<{ isOpen: boolean }>({ isOpen: false });
@@ -152,21 +151,6 @@ export function useDashboard() {
     if (activeOrg) await deleteSubtask(activeOrg.id, taskId, subtaskId);
   };
 
-  const toggleCollapseDate = (dateStr: string) => {
-    setCollapsedDates((prev) => ({ ...prev, [dateStr]: !prev[dateStr] }));
-  };
-
-  const collapseAll = (dates: string[]) => {
-    const allCollapsed = dates.every((d) => collapsedDates[d]);
-    if (allCollapsed) {
-      // all already collapsed → expand all
-      setCollapsedDates({});
-    } else {
-      // collapse all
-      setCollapsedDates(Object.fromEntries(dates.map((d) => [d, true])));
-    }
-  };
-
   return {
     // data
     organizations,
@@ -178,9 +162,6 @@ export function useDashboard() {
     setSearchQuery,
     isMobileSidebarOpen,
     setIsMobileSidebarOpen,
-    collapsedDates,
-    toggleCollapseDate,
-    collapseAll,
     // dialogs
     orgDialog, setOrgDialog,
     dateDialog, setDateDialog,

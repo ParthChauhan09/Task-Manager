@@ -1,4 +1,4 @@
-import { Search, Plus, Calendar, Filter, X, Menu, ChevronsDownUp, ChevronsUpDown } from "lucide-react";
+import { Search, Plus, Calendar, Filter, X, Menu } from "lucide-react";
 import { Organization } from "../../types";
 
 interface AppTopBarProps {
@@ -10,14 +10,11 @@ interface AppTopBarProps {
     onAddDate: () => void;
     onAddTask: () => void;
     filteredCount: number;
-    allCollapsed: boolean;
-    onCollapseAll: () => void;
 }
 
 export function AppTopBar({
     activeOrg, searchQuery, onSearchChange,
-    onOpenMobileSidebar, onRenameOrg, onAddDate, onAddTask,
-    filteredCount, allCollapsed, onCollapseAll,
+    onOpenMobileSidebar, onRenameOrg, onAddDate, onAddTask, filteredCount,
 }: AppTopBarProps) {
     return (
         <div className="p-4 sm:p-6 border-b border-slate-200 bg-white flex flex-col sm:flex-row gap-4 items-stretch sm:items-center justify-between z-10">
@@ -52,7 +49,7 @@ export function AppTopBar({
                     <input
                         id="search-tasks-field"
                         type="text"
-                        placeholder="Search tasks, descriptions..."
+                        placeholder="Search dates..."
                         value={searchQuery}
                         onChange={(e) => onSearchChange(e.target.value)}
                         className="w-full bg-slate-50 text-xs border border-slate-200 text-slate-800 placeholder-slate-400 rounded-xl pl-10 pr-3 py-2.5 h-10 focus:outline-none focus:border-slate-400 transition-all focus:ring-1 focus:ring-slate-300"
@@ -74,22 +71,6 @@ export function AppTopBar({
                         </button>
                     </div>
                 )}
-
-                {/* Collapse / Expand all */}
-                <button
-                    id="collapse-all-btn"
-                    onClick={onCollapseAll}
-                    title={allCollapsed ? "Expand all date groups" : "Collapse all date groups"}
-                    className="cursor-pointer h-10 px-3 border border-slate-200 bg-white hover:bg-slate-50 text-slate-500 hover:text-slate-900 rounded-xl flex items-center gap-1.5 transition-all active:scale-95"
-                >
-                    {allCollapsed
-                        ? <ChevronsUpDown className="h-3.5 w-3.5" />
-                        : <ChevronsDownUp className="h-3.5 w-3.5" />
-                    }
-                    <span className="text-xs font-semibold hidden sm:inline">
-                        {allCollapsed ? "Expand" : "Collapse"}
-                    </span>
-                </button>
 
                 <button
                     id="header-add-date-btn"
