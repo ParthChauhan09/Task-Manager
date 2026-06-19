@@ -23,15 +23,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const storedToken = localStorage.getItem("tm_token");
     const storedUser = localStorage.getItem("tm_user");
 
-    if (storedToken && storedUser) {
-      try {
-        setToken(storedToken);
-        setUser(JSON.parse(storedUser));
-      } catch {
+    if (!storedToken) {
+      if (storedUser) {
         clearStorage();
       }
+      setIsLoading(false);
+      return;
     }
-    setIsLoading(false);
+
+    setToken(storedToken);
+
+    authApi
+      .me()
+      .then((currentUser) => {
+        persist(storedToken, currentUser);
+      })
+      .catch(() => {
+        clearStorage();
+        setToken(null);
+        setUser(null);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, []);
 
   function persist(token: string, user: AuthUser) {

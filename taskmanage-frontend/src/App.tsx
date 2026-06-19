@@ -4,6 +4,7 @@ import { useAuth } from "./context/AuthContext";
 import { AuthPage } from "./components/AuthPage";
 import { Dashboard } from "./components/dashboard/Dashboard";
 import { DateDetailPage } from "./pages/DateDetailPage";
+import { AdminDashboard } from "./components/admin/AdminDashboard";
 
 export default function App() {
   const { user, isLoading, logout } = useAuth();
@@ -21,6 +22,7 @@ export default function App() {
   }
 
   if (!user) return <AuthPage />;
+  if (user.role === "admin") return <AdminDashboard user={user} onLogout={logout} />;
 
   return (
     <Routes>

@@ -26,4 +26,10 @@ export interface Organization {
   id: string;
   name: string;
   tasks: Task[];
+  owner?: {
+    id: string;
+    name: string;
+    email: string;
+    role: "user" | "admin";
+  };
 }

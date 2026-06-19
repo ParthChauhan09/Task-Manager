@@ -7,6 +7,7 @@ export interface IUser extends Document {
     password?: string;
     googleId?: string;
     authProvider: "local" | "google";
+    role: "user" | "admin";
     comparePassword(candidate: string): Promise<boolean>;
 }
 
@@ -27,6 +28,12 @@ const UserSchema = new Schema<IUser>(
             enum: ["local", "google"],
             required: true,
             default: "local",
+        },
+        role: {
+            type: String,
+            enum: ["user", "admin"],
+            required: true,
+            default: "user",
         },
     },
     { timestamps: true }

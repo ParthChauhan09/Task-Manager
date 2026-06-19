@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { connectDB } from "./db";
 import authRoutes from "./routes/auth";
+import adminRoutes from "./routes/admin";
 import orgRoutes from "./routes/organizations";
 import taskRoutes from "./routes/tasks";
 import { protect } from "./middleware/auth";
@@ -26,6 +27,7 @@ app.get("/", (_req, res) => {
 app.use(protect);
 
 app.use("/api/organizations", orgRoutes);
+app.use("/api/admin", adminRoutes);
 
 // Tasks and subtasks are nested under an org
 app.use("/api/organizations/:orgId/tasks", taskRoutes);

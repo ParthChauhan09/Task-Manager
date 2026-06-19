@@ -3,8 +3,8 @@ import { AuthRequest } from "../middleware/auth";
 import { Organization } from "../models/Organization";
 
 // Fetch org and verify ownership in one shot — shared by all methods
-async function getOwnedOrg(orgId: string, userId: string) {
-    return Organization.findOne({ _id: orgId, owner: userId });
+async function getAccessibleOrg(orgId: string, userId: string, isAdmin: boolean) {
+    return isAdmin ? Organization.findById(orgId) : Organization.findOne({ _id: orgId, owner: userId });
 }
 
 export class TaskController {
@@ -13,7 +13,7 @@ export class TaskController {
     // GET /api/organizations/:orgId/tasks
     static async getTasks(req: AuthRequest, res: Response): Promise<void> {
         try {
-            const org = await getOwnedOrg(req.params.orgId, req.userId!);
+            const org = await getAccessibleOrg(req.params.orgId, req.userId!, req.userRole === "admin");
             if (!org) { res.status(404).json({ message: "Organization not found" }); return; }
 
             res.json(org.tasks);
@@ -31,7 +31,7 @@ export class TaskController {
                 return;
             }
 
-            const org = await getOwnedOrg(req.params.orgId, req.userId!);
+            const org = await getAccessibleOrg(req.params.orgId, req.userId!, req.userRole === "admin");
             if (!org) { res.status(404).json({ message: "Organization not found" }); return; }
 
             org.tasks.push({
@@ -55,7 +55,7 @@ export class TaskController {
     // PATCH /api/organizations/:orgId/tasks/:taskId
     static async updateTask(req: AuthRequest, res: Response): Promise<void> {
         try {
-            const org = await getOwnedOrg(req.params.orgId, req.userId!);
+            const org = await getAccessibleOrg(req.params.orgId, req.userId!, req.userRole === "admin");
             if (!org) { res.status(404).json({ message: "Organization not found" }); return; }
 
             const task = org.tasks.id(req.params.taskId);
@@ -84,7 +84,7 @@ export class TaskController {
     // DELETE /api/organizations/:orgId/tasks/:taskId
     static async deleteTask(req: AuthRequest, res: Response): Promise<void> {
         try {
-            const org = await getOwnedOrg(req.params.orgId, req.userId!);
+            const org = await getAccessibleOrg(req.params.orgId, req.userId!, req.userRole === "admin");
             if (!org) { res.status(404).json({ message: "Organization not found" }); return; }
 
             const task = org.tasks.id(req.params.taskId);
@@ -106,7 +106,7 @@ export class TaskController {
             const { title } = req.body;
             if (!title) { res.status(400).json({ message: "title is required" }); return; }
 
-            const org = await getOwnedOrg(req.params.orgId, req.userId!);
+            const org = await getAccessibleOrg(req.params.orgId, req.userId!, req.userRole === "admin");
             if (!org) { res.status(404).json({ message: "Organization not found" }); return; }
 
             const task = org.tasks.id(req.params.taskId);
@@ -127,7 +127,7 @@ export class TaskController {
     // PATCH /api/organizations/:orgId/tasks/:taskId/subtasks/:subtaskId
     static async updateSubtask(req: AuthRequest, res: Response): Promise<void> {
         try {
-            const org = await getOwnedOrg(req.params.orgId, req.userId!);
+            const org = await getAccessibleOrg(req.params.orgId, req.userId!, req.userRole === "admin");
             if (!org) { res.status(404).json({ message: "Organization not found" }); return; }
 
             const task = org.tasks.id(req.params.taskId);
@@ -154,7 +154,7 @@ export class TaskController {
     // DELETE /api/organizations/:orgId/tasks/:taskId/subtasks/:subtaskId
     static async deleteSubtask(req: AuthRequest, res: Response): Promise<void> {
         try {
-            const org = await getOwnedOrg(req.params.orgId, req.userId!);
+            const org = await getAccessibleOrg(req.params.orgId, req.userId!, req.userRole === "admin");
             if (!org) { res.status(404).json({ message: "Organization not found" }); return; }
 
             const task = org.tasks.id(req.params.taskId);

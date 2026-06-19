@@ -3,8 +3,8 @@ import jwt, { SignOptions } from "jsonwebtoken";
 import { User } from "../models/User";
 
 export class AuthController {
-    private static userPayload(user: { id: string; name: string; email: string }) {
-        return { id: user.id, name: user.name, email: user.email };
+    private static userPayload(user: { id: string; name: string; email: string; role: "user" | "admin" }) {
+        return { id: user.id, name: user.name, email: user.email, role: user.role };
     }
 
     private static signToken(id: string): string {
@@ -52,7 +52,7 @@ export class AuthController {
         return profile;
     }
 
-    private static async issueSession(user: { id: string; name: string; email: string }) {
+    private static async issueSession(user: { id: string; name: string; email: string; role: "user" | "admin" }) {
         return {
             token: AuthController.signToken(user.id),
             user: AuthController.userPayload(user),
@@ -164,14 +164,14 @@ export class AuthController {
 
             const token = authHeader.split(" ")[1];
             const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as { id: string };
-            const user = await User.findById(decoded.id).select("-password");
+            const user = await User.findById(decoded.id).select("name email role");
 
             if (!user) {
                 res.status(404).json({ message: "User not found" });
                 return;
             }
 
-            res.json({ user: { id: user.id, name: user.name, email: user.email } });
+            res.json({ user: { id: user.id, name: user.name, email: user.email, role: (user as any).role ?? "user" } });
         } catch {
             res.status(401).json({ message: "Not authorized, token invalid or expired" });
         }

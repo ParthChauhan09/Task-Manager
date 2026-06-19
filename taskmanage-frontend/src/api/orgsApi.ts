@@ -28,6 +28,14 @@ function normalizeOrg(org: any): Organization {
   return {
     id: org._id ?? org.id,
     name: org.name,
+    owner: org.owner
+      ? {
+          id: org.owner._id ?? org.owner.id,
+          name: org.owner.name,
+          email: org.owner.email,
+          role: org.owner.role,
+        }
+      : undefined,
     tasks: (org.tasks ?? []).map(normalizeTask),
   };
 }

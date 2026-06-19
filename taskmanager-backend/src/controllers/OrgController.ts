@@ -3,10 +3,16 @@ import { AuthRequest } from "../middleware/auth";
 import { Organization } from "../models/Organization";
 
 export class OrgController {
+  private static isAdmin(req: AuthRequest) {
+    return req.userRole === "admin";
+  }
+
   // GET /api/organizations
   static async getAll(req: AuthRequest, res: Response): Promise<void> {
     try {
-      const orgs = await Organization.find({ owner: req.userId });
+      const orgs = await (OrgController.isAdmin(req)
+        ? Organization.find().populate("owner", "name email role")
+        : Organization.find({ owner: req.userId }));
       res.json(orgs);
     } catch {
       res.status(500).json({ message: "Server error" });
@@ -38,11 +44,11 @@ export class OrgController {
         return;
       }
 
-      const org = await Organization.findOneAndUpdate(
-        { _id: req.params.orgId, owner: req.userId },
-        { name },
-        { new: true }
-      );
+      const query = OrgController.isAdmin(req)
+        ? { _id: req.params.orgId }
+        : { _id: req.params.orgId, owner: req.userId };
+
+      const org = await Organization.findOneAndUpdate(query, { name }, { new: true });
 
       if (!org) {
         res.status(404).json({ message: "Organization not found" });
@@ -58,10 +64,11 @@ export class OrgController {
   // DELETE /api/organizations/:orgId
   static async remove(req: AuthRequest, res: Response): Promise<void> {
     try {
-      const org = await Organization.findOneAndDelete({
-        _id: req.params.orgId,
-        owner: req.userId,
-      });
+      const query = OrgController.isAdmin(req)
+        ? { _id: req.params.orgId }
+        : { _id: req.params.orgId, owner: req.userId };
+
+      const org = await Organization.findOneAndDelete(query);
 
       if (!org) {
         res.status(404).json({ message: "Organization not found" });
