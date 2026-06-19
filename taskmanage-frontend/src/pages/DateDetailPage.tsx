@@ -153,7 +153,7 @@ export function DateDetailPage({ onLogout: _ }: DateDetailPageProps) {
       </div>
 
       {/* Task grid */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-8 py-8">
+      <div className="px-4 sm:px-8 py-8">
         {tasksOnDate.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24 text-center">
             <div className="w-14 h-14 rounded-full bg-white border border-slate-200 flex items-center justify-center mb-4 shadow-sm">
@@ -174,7 +174,7 @@ export function DateDetailPage({ onLogout: _ }: DateDetailPageProps) {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"
+            className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8"
           >
             {tasksOnDate.map((task) => (
               <TaskCard

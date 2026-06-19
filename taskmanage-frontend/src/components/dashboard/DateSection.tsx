@@ -88,7 +88,7 @@ export function DateSection({
                         exit={{ opacity: 0, height: 0 }}
                         className="overflow-hidden"
                     >
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-1">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 py-3">
                             {tasks.map((task) => (
                                 <TaskCard
                                     key={task.id}
