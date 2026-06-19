@@ -19,6 +19,7 @@ import { Task, Subtask } from "../types";
 import { TiltingCard } from "./TiltingCard";
 import { motion, AnimatePresence } from "motion/react";
 import { createPortal } from "react-dom";
+import { TaskDetailModal } from "./TaskDetailModal";
 
 interface TaskCardProps {
   task: Task;
@@ -50,6 +51,7 @@ export function TaskCard({
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number; placement: "above" | "below" } | null>(null);
   const addInputRef = useRef<HTMLInputElement>(null);
   const modifiedAncestorsRef = useRef<HTMLElement[]>([]);
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
 
   const totalSubtasks = task.subtasks.length;
   const completedSubtasks = task.subtasks.filter((s) => s.completed).length;
@@ -66,7 +68,15 @@ export function TaskCard({
 
     const close = () => setContextMenu(null);
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close();
+      if (e.key === "Escape") {
+        if (
+          document.activeElement instanceof HTMLInputElement ||
+          document.activeElement instanceof HTMLTextAreaElement
+        ) {
+          return;
+        }
+        close();
+      }
     };
 
     window.addEventListener("keydown", handleKeyDown);
@@ -188,14 +198,26 @@ export function TaskCard({
       <TiltingCard
         maxTilt={6}
         onContextMenu={openContextMenu}
-        className={`relative flex flex-col p-5 select-none transition-all duration-300 ${task.completed
+        onClick={(e) => {
+          const target = e.target as HTMLElement;
+          if (
+            target.closest("button") ||
+            target.closest("input") ||
+            target.closest("form") ||
+            target.closest("a")
+          ) {
+            return;
+          }
+          setIsDetailModalOpen(true);
+        }}
+        className={`relative flex flex-col p-6 select-none transition-all duration-300 ${task.completed
           ? "border-slate-200/60 bg-slate-50/50 opacity-70 shadow-none grayscale"
           : `${priorityColors[task.priority].glow} border-slate-100 bg-white`
           } ${
             contextMenu
               ? "z-[51] ring-2 ring-indigo-500/50 shadow-2xl scale-[1.02] bg-white border-transparent !opacity-100 !grayscale-0"
               : ""
-          }`}
+          } cursor-pointer`}
       >
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-start gap-3 w-full group/title">
@@ -532,6 +554,17 @@ export function TaskCard({
           </>,
           document.body
         )}
+
+      <TaskDetailModal
+        isOpen={isDetailModalOpen}
+        onClose={() => setIsDetailModalOpen(false)}
+        task={task}
+        onAddSubtask={onAddSubtask}
+        onToggleSubtask={onToggleSubtask}
+        onEditSubtask={onEditSubtask}
+        onDeleteSubtask={onDeleteSubtask}
+        priorityColors={priorityColors}
+      />
     </>
   );
 }

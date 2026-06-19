@@ -25,6 +25,19 @@ export function DateDetailPage({ onLogout: _ }: DateDetailPageProps) {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key !== "Escape") return;
+      
+      // Don't navigate if user is typing
+      if (
+        document.activeElement instanceof HTMLInputElement ||
+        document.activeElement instanceof HTMLTextAreaElement
+      ) {
+        return;
+      }
+
+      // Check if task detail modal or context menu is open
+      const isCardOverlayOpen = document.querySelector('.z-\\[100\\]') || document.querySelector('.z-\\[70\\]');
+      if (isCardOverlayOpen) return;
+
       const anyDialogOpen =
         dash.orgDialog.isOpen ||
         dash.dateDialog.isOpen ||
