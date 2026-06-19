@@ -220,6 +220,86 @@ export function DateDialog({ isOpen, onClose, onSubmit }: DateDialogProps) {
   );
 }
 
+// 2b. Move Task Date Dialog
+interface MoveTaskDateDialogProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSubmit: (date: string) => void;
+  taskTitle?: string;
+  initialDate?: string;
+}
+
+export function MoveTaskDateDialog({
+  isOpen,
+  onClose,
+  onSubmit,
+  taskTitle,
+  initialDate = "",
+}: MoveTaskDateDialogProps) {
+  const [date, setDate] = useState(initialDate);
+
+  useEffect(() => {
+    if (isOpen) {
+      setDate(initialDate || new Date().toISOString().split("T")[0]);
+    }
+  }, [isOpen, initialDate]);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (date) {
+      onSubmit(date);
+      onClose();
+    }
+  };
+
+  return (
+    <DialogBase
+      isOpen={isOpen}
+      onClose={onClose}
+      title="Move Task Date"
+      description={taskTitle ? `Shift "${taskTitle}" to a different day.` : "Shift this task to a different day."}
+    >
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="text-left">
+          <label htmlFor="move-task-date-input" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+            New Date
+          </label>
+          <div className="relative">
+            <input
+              id="move-task-date-input"
+              type="date"
+              required
+              autoFocus
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-800 placeholder-slate-400 focus:border-slate-400 focus:outline-none transition-colors font-sans"
+            />
+            <Calendar className="absolute right-3.5 top-3 h-4 w-4 text-slate-400 pointer-events-none" />
+          </div>
+        </div>
+
+        <div className="flex justify-end gap-2 pt-2">
+          <button
+            id="move-task-date-cancel-btn"
+            type="button"
+            onClick={onClose}
+            className="cursor-pointer rounded-xl bg-slate-100 px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-200 hover:text-slate-800 transition-all focus:outline-none"
+          >
+            Cancel
+          </button>
+          <button
+            id="move-task-date-submit-btn"
+            type="submit"
+            className="cursor-pointer rounded-xl bg-slate-900 px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-slate-800 active:scale-95 transition-all focus:outline-none"
+          >
+            Move Task
+          </button>
+        </div>
+      </form>
+    </DialogBase>
+  );
+}
+
 // 3. Task Dialog (Create / Edit Task)
 interface TaskDialogProps {
   isOpen: boolean;

@@ -18,6 +18,13 @@ export interface TaskDialogState {
   prepopulatedDate?: string;
 }
 
+export interface MoveTaskDateDialogState {
+  isOpen: boolean;
+  targetTaskId?: string;
+  taskTitle?: string;
+  initialDate?: string;
+}
+
 export interface ConfirmDialogState {
   isOpen: boolean;
   title: string;
@@ -36,6 +43,7 @@ export function useDashboard(forcedOrgId?: string) {
   const [orgDialog, setOrgDialog] = useState<OrgDialogState>({ isOpen: false, isEdit: false });
   const [dateDialog, setDateDialog] = useState<{ isOpen: boolean }>({ isOpen: false });
   const [taskDialog, setTaskDialog] = useState<TaskDialogState>({ isOpen: false, isEdit: false });
+  const [moveTaskDateDialog, setMoveTaskDateDialog] = useState<MoveTaskDateDialogState>({ isOpen: false });
   const [confirmDialog, setConfirmDialog] = useState<ConfirmDialogState>({
     isOpen: false, title: "", message: "", onConfirm: () => { },
   });
@@ -120,6 +128,20 @@ export function useDashboard(forcedOrgId?: string) {
     });
   };
 
+  const handleTriggerMoveTaskDate = (task: Task) => {
+    setMoveTaskDateDialog({
+      isOpen: true,
+      targetTaskId: task.id,
+      taskTitle: task.title,
+      initialDate: task.date,
+    });
+  };
+
+  const handleMoveTaskDate = async (date: string) => {
+    if (!activeOrg || !moveTaskDateDialog.targetTaskId) return;
+    await updateTask(activeOrg.id, moveTaskDateDialog.targetTaskId, { date });
+  };
+
   const handleDeleteTask = (taskId: string) => {
     if (!activeOrg) return;
     const target = activeOrg.tasks.find((t) => t.id === taskId);
@@ -166,6 +188,7 @@ export function useDashboard(forcedOrgId?: string) {
     orgDialog, setOrgDialog,
     dateDialog, setDateDialog,
     taskDialog, setTaskDialog,
+    moveTaskDateDialog, setMoveTaskDateDialog,
     confirmDialog, setConfirmDialog,
     // handlers
     handleCreateOrg,
@@ -176,6 +199,8 @@ export function useDashboard(forcedOrgId?: string) {
     handleAddOrUpdateTask,
     handleToggleTaskComplete,
     handleTriggerEditTask,
+    handleTriggerMoveTaskDate,
+    handleMoveTaskDate,
     handleDeleteTask,
     handleAddSubtask,
     handleToggleSubtask,

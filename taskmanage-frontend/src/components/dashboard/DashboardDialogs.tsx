@@ -1,27 +1,31 @@
 import { Priority } from "../../types";
-import { OrgDialog, DateDialog, TaskDialog, ConfirmDialog } from "../Dialogs";
-import { OrgDialogState, TaskDialogState, ConfirmDialogState } from "../../hooks/useDashboard";
+import { OrgDialog, DateDialog, MoveTaskDateDialog, TaskDialog, ConfirmDialog } from "../Dialogs";
+import { OrgDialogState, TaskDialogState, ConfirmDialogState, MoveTaskDateDialogState } from "../../hooks/useDashboard";
 
 interface DashboardDialogsProps {
     orgDialog: OrgDialogState;
     setOrgDialog: (s: OrgDialogState) => void;
     dateDialog: { isOpen: boolean };
     setDateDialog: (s: { isOpen: boolean }) => void;
+    moveTaskDateDialog: MoveTaskDateDialogState;
+    setMoveTaskDateDialog: (s: MoveTaskDateDialogState) => void;
     taskDialog: TaskDialogState;
     setTaskDialog: (s: TaskDialogState) => void;
     confirmDialog: ConfirmDialogState;
     setConfirmDialog: (s: ConfirmDialogState) => void;
     onSubmitOrg: (name: string) => void;
     onSubmitDate: (date: string) => void;
+    onSubmitMoveTaskDate: (date: string) => void;
     onSubmitTask: (fields: { title: string; description: string; date: string; priority: Priority }) => void;
 }
 
 export function DashboardDialogs({
     orgDialog, setOrgDialog,
     dateDialog, setDateDialog,
+    moveTaskDateDialog, setMoveTaskDateDialog,
     taskDialog, setTaskDialog,
     confirmDialog, setConfirmDialog,
-    onSubmitOrg, onSubmitDate, onSubmitTask,
+    onSubmitOrg, onSubmitDate, onSubmitMoveTaskDate, onSubmitTask,
 }: DashboardDialogsProps) {
     return (
         <>
@@ -37,6 +41,14 @@ export function DashboardDialogs({
                 isOpen={dateDialog.isOpen}
                 onClose={() => setDateDialog({ isOpen: false })}
                 onSubmit={onSubmitDate}
+            />
+
+            <MoveTaskDateDialog
+                isOpen={moveTaskDateDialog.isOpen}
+                onClose={() => setMoveTaskDateDialog({ isOpen: false })}
+                onSubmit={onSubmitMoveTaskDate}
+                taskTitle={moveTaskDateDialog.taskTitle}
+                initialDate={moveTaskDateDialog.initialDate}
             />
 
             <TaskDialog

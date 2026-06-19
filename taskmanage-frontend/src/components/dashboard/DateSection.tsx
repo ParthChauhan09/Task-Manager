@@ -14,6 +14,7 @@ interface DateSectionProps {
     onDeleteDateGroup: (date: string) => void;
     onToggleComplete: (taskId: string) => void;
     onEditTask: (task: Task) => void;
+    onMoveTaskDate: (task: Task) => void;
     onDeleteTask: (taskId: string) => void;
     onAddSubtask: (taskId: string, title: string) => void;
     onToggleSubtask: (taskId: string, subtaskId: string) => void;
@@ -24,7 +25,7 @@ interface DateSectionProps {
 export function DateSection({
     dateStr, tasks, isCollapsed, animationIndex,
     onToggleCollapse, onAddTask, onDeleteDateGroup,
-    onToggleComplete, onEditTask, onDeleteTask,
+    onToggleComplete, onEditTask, onMoveTaskDate, onDeleteTask,
     onAddSubtask, onToggleSubtask, onEditSubtask, onDeleteSubtask,
 }: DateSectionProps) {
     const totalCount = tasks.length;
@@ -94,6 +95,7 @@ export function DateSection({
                                     task={task}
                                     onToggleComplete={onToggleComplete}
                                     onEditTask={onEditTask}
+                                    onMoveTaskDate={onMoveTaskDate}
                                     onDeleteTask={onDeleteTask}
                                     onAddSubtask={onAddSubtask}
                                     onToggleSubtask={onToggleSubtask}

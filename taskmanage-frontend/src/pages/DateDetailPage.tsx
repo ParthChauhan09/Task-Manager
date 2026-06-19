@@ -28,13 +28,14 @@ export function DateDetailPage({ onLogout: _ }: DateDetailPageProps) {
       const anyDialogOpen =
         dash.orgDialog.isOpen ||
         dash.dateDialog.isOpen ||
+        dash.moveTaskDateDialog.isOpen ||
         dash.taskDialog.isOpen ||
         dash.confirmDialog.isOpen;
       if (!anyDialogOpen) navigate("/");
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [navigate, dash.orgDialog.isOpen, dash.dateDialog.isOpen, dash.taskDialog.isOpen, dash.confirmDialog.isOpen]);
+  }, [navigate, dash.orgDialog.isOpen, dash.dateDialog.isOpen, dash.moveTaskDateDialog.isOpen, dash.taskDialog.isOpen, dash.confirmDialog.isOpen]);
 
   const org = useMemo(
     () => dash.organizations.find((o) => o.id === orgId) ?? null,
@@ -181,6 +182,7 @@ export function DateDetailPage({ onLogout: _ }: DateDetailPageProps) {
                 task={task}
                 onToggleComplete={dash.handleToggleTaskComplete}
                 onEditTask={dash.handleTriggerEditTask}
+                onMoveTaskDate={dash.handleTriggerMoveTaskDate}
                 onDeleteTask={dash.handleDeleteTask}
                 onAddSubtask={dash.handleAddSubtask}
                 onToggleSubtask={dash.handleToggleSubtask}
@@ -198,6 +200,8 @@ export function DateDetailPage({ onLogout: _ }: DateDetailPageProps) {
         setOrgDialog={dash.setOrgDialog}
         dateDialog={dash.dateDialog}
         setDateDialog={dash.setDateDialog}
+        moveTaskDateDialog={dash.moveTaskDateDialog}
+        setMoveTaskDateDialog={dash.setMoveTaskDateDialog}
         taskDialog={dash.taskDialog}
         setTaskDialog={dash.setTaskDialog}
         confirmDialog={dash.confirmDialog}
@@ -210,6 +214,7 @@ export function DateDetailPage({ onLogout: _ }: DateDetailPageProps) {
           }
         }}
         onSubmitDate={dash.handleAddDateGroup}
+        onSubmitMoveTaskDate={dash.handleMoveTaskDate}
         onSubmitTask={dash.handleAddOrUpdateTask}
       />
     </div>

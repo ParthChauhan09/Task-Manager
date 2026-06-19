@@ -148,6 +148,8 @@ export function Dashboard({ user, onLogout }: DashboardProps) {
                 setOrgDialog={dash.setOrgDialog}
                 dateDialog={dash.dateDialog}
                 setDateDialog={dash.setDateDialog}
+                moveTaskDateDialog={dash.moveTaskDateDialog}
+                setMoveTaskDateDialog={dash.setMoveTaskDateDialog}
                 taskDialog={dash.taskDialog}
                 setTaskDialog={dash.setTaskDialog}
                 confirmDialog={dash.confirmDialog}
@@ -160,6 +162,7 @@ export function Dashboard({ user, onLogout }: DashboardProps) {
                     }
                 }}
                 onSubmitDate={dash.handleAddDateGroup}
+                onSubmitMoveTaskDate={dash.handleMoveTaskDate}
                 onSubmitTask={dash.handleAddOrUpdateTask}
             />
         </div>
