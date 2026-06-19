@@ -47,15 +47,22 @@ export function TaskCard({
   const [newSubtaskTitle, setNewSubtaskTitle] = useState("");
   const [editingSubtaskId, setEditingSubtaskId] = useState<string | null>(null);
   const [editingSubtaskTitle, setEditingSubtaskTitle] = useState("");
-  const [contextMenu, setContextMenu] = useState<{ x: number; y: number } | null>(null);
+  const [contextMenu, setContextMenu] = useState<{ x: number; y: number; placement: "above" | "below" } | null>(null);
   const addInputRef = useRef<HTMLInputElement>(null);
+  const modifiedAncestorsRef = useRef<HTMLElement[]>([]);
 
   const totalSubtasks = task.subtasks.length;
   const completedSubtasks = task.subtasks.filter((s) => s.completed).length;
   const progressPercent = totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
 
   useEffect(() => {
-    if (!contextMenu) return;
+    if (!contextMenu) {
+      modifiedAncestorsRef.current.forEach((el) => {
+        el.classList.remove("temp-no-stacking");
+      });
+      modifiedAncestorsRef.current = [];
+      return;
+    }
 
     const close = () => setContextMenu(null);
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -67,6 +74,10 @@ export function TaskCard({
     window.addEventListener("scroll", close, true);
 
     return () => {
+      modifiedAncestorsRef.current.forEach((el) => {
+        el.classList.remove("temp-no-stacking");
+      });
+      modifiedAncestorsRef.current = [];
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("resize", close);
       window.removeEventListener("scroll", close, true);
@@ -101,7 +112,55 @@ export function TaskCard({
 
   const openContextMenu = (e: React.MouseEvent) => {
     e.preventDefault();
-    setContextMenu({ x: e.clientX, y: e.clientY });
+    const cardEl = e.currentTarget as HTMLElement;
+
+    // Clear stacking context on all parent/ancestor elements so card renders above backdrop
+    const ancestors: HTMLElement[] = [];
+    let parent = cardEl.parentElement;
+    while (parent && parent !== document.body) {
+      const style = window.getComputedStyle(parent);
+      if (
+        style.transform !== "none" ||
+        style.opacity !== "1" ||
+        style.filter !== "none" ||
+        style.perspective !== "none"
+      ) {
+        parent.classList.add("temp-no-stacking");
+        ancestors.push(parent);
+      }
+      parent = parent.parentElement;
+    }
+    modifiedAncestorsRef.current = ancestors;
+
+    // Calculate menu position relative to the task card's bottom-right corner
+    const rect = cardEl.getBoundingClientRect();
+    const menuWidth = 208; // width matching w-52 (13rem)
+    const estimatedMenuHeight = 170; // Better estimation of menu height for flip detection
+
+    // Align right edge of menu with right edge of card
+    let x = rect.right - menuWidth;
+
+    // Determine vertical placement: below by default, flip to above if it overflows the screen bottom
+    let placement: "above" | "below" = "below";
+    let y = rect.bottom + 8;
+
+    if (rect.bottom + 8 + estimatedMenuHeight > window.innerHeight - 16) {
+      placement = "above";
+      y = rect.top - 8;
+    }
+
+    // Viewport boundary checks
+    if (x < 16) {
+      x = 16;
+    } else if (x + menuWidth > window.innerWidth - 16) {
+      x = window.innerWidth - menuWidth - 16;
+    }
+
+    if (y < 16) {
+      y = 16;
+    }
+
+    setContextMenu({ x, y, placement });
   };
 
   const closeContextMenu = () => setContextMenu(null);
@@ -121,8 +180,8 @@ export function TaskCard({
     },
   };
 
-  const menuX = contextMenu ? Math.min(contextMenu.x, window.innerWidth - 224) : 0;
-  const menuY = contextMenu ? Math.min(contextMenu.y, window.innerHeight - 240) : 0;
+  const menuX = contextMenu ? contextMenu.x : 0;
+  const menuY = contextMenu ? contextMenu.y : 0;
 
   return (
     <>
@@ -132,6 +191,10 @@ export function TaskCard({
         className={`relative flex flex-col p-5 select-none transition-all duration-300 ${task.completed
           ? "border-slate-200/60 bg-slate-50/50 opacity-70 shadow-none grayscale"
           : `${priorityColors[task.priority].glow} border-slate-100 bg-white`
+          } ${
+            contextMenu
+              ? "z-[51] ring-2 ring-indigo-500/50 shadow-2xl scale-[1.02] bg-white border-transparent !opacity-100 !grayscale-0"
+              : ""
           }`}
       >
         <div className="flex items-start justify-between gap-3">
@@ -403,10 +466,21 @@ export function TaskCard({
       {contextMenu &&
         createPortal(
           <>
-            <div className="fixed inset-0 z-[60]" onClick={closeContextMenu} />
+            <div
+              className="fixed inset-0 z-50 bg-slate-900/15 backdrop-blur-[3px] transition-all duration-300"
+              onClick={closeContextMenu}
+              onContextMenu={(e) => {
+                e.preventDefault();
+                closeContextMenu();
+              }}
+            />
             <div
               className="fixed z-[70] w-52 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl shadow-slate-900/15"
-              style={{ left: menuX, top: menuY }}
+              style={{
+                left: menuX,
+                top: menuY,
+                transform: contextMenu?.placement === "above" ? "translateY(-100%)" : "none",
+              }}
               onClick={(e) => e.stopPropagation()}
             >
               <button

@@ -93,3 +93,15 @@ html {
 .stroke-follow-card:hover::before {
   opacity: 1;
 }
+
+/* Prevent parent elements from establishing a stacking context when context menu is open */
+.temp-no-stacking {
+  transform: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  opacity: 1 !important;
+  will-change: auto !important;
+  perspective: none !important;
+  z-index: auto !important;
+}
+
