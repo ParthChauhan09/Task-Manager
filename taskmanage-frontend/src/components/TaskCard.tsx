@@ -198,6 +198,14 @@ export function TaskCard({
       <TiltingCard
         maxTilt={6}
         onContextMenu={openContextMenu}
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            setIsDetailModalOpen(true);
+          }
+        }}
+        onMouseEnter={(e) => e.currentTarget.focus()}
         onClick={(e) => {
           const target = e.target as HTMLElement;
           if (
@@ -210,7 +218,7 @@ export function TaskCard({
           }
           setIsDetailModalOpen(true);
         }}
-        className={`relative flex flex-col p-6 select-none transition-all duration-300 ${task.completed
+        className={`task-nav-item relative flex flex-col p-6 select-none transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500/80 focus:shadow-lg focus:-translate-y-0.5 ${task.completed
           ? "border-slate-200/60 bg-slate-50/50 opacity-70 shadow-none grayscale"
           : `${priorityColors[task.priority].glow} border-slate-100 bg-white`
           } ${

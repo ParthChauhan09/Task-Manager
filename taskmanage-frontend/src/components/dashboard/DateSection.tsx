@@ -3,6 +3,8 @@ import { ChevronDown, ChevronRight, Plus, Trash2 } from "lucide-react";
 import { Task } from "../../types";
 import { TaskCard } from "../TaskCard";
 import { formatDateLabel } from "../../utils/dateHelpers";
+import { useRef } from "react";
+import { useGridNavigation } from "../../hooks/useGridNavigation";
 
 interface DateSectionProps {
     dateStr: string;
@@ -31,6 +33,9 @@ export function DateSection({
     const totalCount = tasks.length;
     const completeCount = tasks.filter((t) => t.completed).length;
     const progressPercent = totalCount > 0 ? (completeCount / totalCount) * 100 : 0;
+
+    const gridRef = useRef<HTMLDivElement>(null);
+    useGridNavigation(gridRef, ".task-nav-item");
 
     return (
         <motion.div
@@ -88,7 +93,7 @@ export function DateSection({
                         exit={{ opacity: 0, height: 0 }}
                         className="overflow-hidden"
                     >
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 py-3">
+                        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 py-3">
                             {tasks.map((task) => (
                                 <TaskCard
                                     key={task.id}

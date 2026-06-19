@@ -8,7 +8,8 @@ import { DateCapsuleStrip } from "../components/dashboard/DateCapsuleStrip";
 import { CustomCursor } from "../components/CustomCursor";
 import { formatDateLabel, sortDatesChronologically } from "../utils/dateHelpers";
 import { Task } from "../types";
-import { useMemo, useEffect } from "react";
+import { useMemo, useEffect, useRef } from "react";
+import { useGridNavigation } from "../hooks/useGridNavigation";
 
 interface DateDetailPageProps {
   onLogout: () => void;
@@ -75,6 +76,9 @@ export function DateDetailPage({ onLogout: _ }: DateDetailPageProps) {
     });
     return map;
   }, [org]);
+
+  const gridRef = useRef<HTMLDivElement>(null);
+  useGridNavigation(gridRef, ".task-nav-item");
 
   const totalCount = tasksOnDate.length;
   const doneCount = tasksOnDate.filter((t) => t.completed).length;
@@ -185,6 +189,7 @@ export function DateDetailPage({ onLogout: _ }: DateDetailPageProps) {
           </div>
         ) : (
           <motion.div
+            ref={gridRef}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8"

@@ -11,6 +11,8 @@ import { useTaskFilters } from "../../hooks/useTaskFilters";
 import { formatDateLabel } from "../../utils/dateHelpers";
 import { Inbox, Calendar } from "lucide-react";
 import { AuthUser } from "../../api/authApi";
+import { useRef } from "react";
+import { useGridNavigation } from "../../hooks/useGridNavigation";
 
 interface DashboardProps {
     user: AuthUser | null;
@@ -21,6 +23,9 @@ export function Dashboard({ user, onLogout }: DashboardProps) {
     const dash = useDashboard();
     const navigate = useNavigate();
     const { groupedTasksMap, sortedDates } = useTaskFilters(dash.activeOrg, dash.searchQuery);
+
+    const datesGridRef = useRef<HTMLDivElement>(null);
+    useGridNavigation(datesGridRef, ".date-nav-item");
 
     if (!dash.isHydrated) {
         return (
@@ -96,7 +101,7 @@ export function Dashboard({ user, onLogout }: DashboardProps) {
                                     <p className="text-[11px] font-mono text-slate-400 uppercase tracking-wider mb-4">
                                         {sortedDates.length} schedule{sortedDates.length !== 1 ? "s" : ""} — click a date to view tasks
                                     </p>
-                                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                                    <div ref={datesGridRef} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
                                         {sortedDates.map((dateStr, i) => {
                                             const tasks = groupedTasksMap[dateStr] ?? [];
                                             const done = tasks.filter((t) => t.completed).length;
@@ -105,11 +110,13 @@ export function Dashboard({ user, onLogout }: DashboardProps) {
                                             return (
                                                 <motion.button
                                                     key={dateStr}
+                                                    autoFocus={i === 0}
                                                     initial={{ opacity: 0, y: 10 }}
                                                     animate={{ opacity: 1, y: 0 }}
                                                     transition={{ delay: i * 0.05 }}
+                                                    onMouseEnter={(e) => e.currentTarget.focus()}
                                                     onClick={() => navigate(`/workspace/${dash.activeOrg!.id}/date/${dateStr}`)}
-                                                    className="cursor-pointer text-left bg-white border border-slate-200 rounded-2xl p-4 hover:border-slate-300 hover:shadow-sm transition-all group"
+                                                    className="date-nav-item cursor-pointer text-left bg-white border border-slate-200 rounded-2xl p-4 hover:border-slate-300 hover:shadow-sm transition-all group focus:outline-none focus:ring-2 focus:ring-indigo-500/80 focus:-translate-y-0.5 focus:shadow-md"
                                                 >
                                                     <div className="flex items-start justify-between gap-2 mb-3">
                                                         <Calendar className="h-4 w-4 text-slate-400 shrink-0 mt-0.5 group-hover:text-indigo-500 transition-colors" />
