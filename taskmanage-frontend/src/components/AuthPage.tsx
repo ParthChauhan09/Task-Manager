@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Sparkles, Mail, Lock, User, AlertCircle, Loader2 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
+import { GoogleSignInButton } from "./GoogleSignInButton";
 
 export function AuthPage() {
-    const { login, register } = useAuth();
+    const { login, register, loginWithGoogle } = useAuth();
+    const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID as string | undefined;
 
     const [mode, setMode] = useState<"login" | "register">("login");
     const [name, setName] = useState("");
@@ -33,6 +35,19 @@ export function AuthPage() {
         }
     };
 
+    const handleGoogleCredential = async (credential: string) => {
+        setError(null);
+        setIsLoading(true);
+        try {
+            await loginWithGoogle(credential);
+        } catch (err: any) {
+            const msg = err?.response?.data?.message || "Google sign-in failed.";
+            setError(msg);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     const switchMode = () => {
         setMode((m) => (m === "login" ? "register" : "login"));
         setError(null);
@@ -49,7 +64,6 @@ export function AuthPage() {
                 transition={{ duration: 0.4 }}
                 className="w-full max-w-sm"
             >
-                {/* Brand */}
                 <div className="text-center mb-8">
                     <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-slate-900 mb-4">
                         <Sparkles className="h-6 w-6 text-white" />
@@ -62,7 +76,6 @@ export function AuthPage() {
                     </p>
                 </div>
 
-                {/* Card */}
                 <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
                     <AnimatePresence mode="wait">
                         <motion.form
@@ -74,7 +87,6 @@ export function AuthPage() {
                             onSubmit={handleSubmit}
                             className="space-y-4"
                         >
-                            {/* Name field — register only */}
                             {mode === "register" && (
                                 <div>
                                     <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">
@@ -95,7 +107,6 @@ export function AuthPage() {
                                 </div>
                             )}
 
-                            {/* Email */}
                             <div>
                                 <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">
                                     Email
@@ -114,7 +125,6 @@ export function AuthPage() {
                                 </div>
                             </div>
 
-                            {/* Password */}
                             <div>
                                 <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">
                                     Password
@@ -133,7 +143,6 @@ export function AuthPage() {
                                 </div>
                             </div>
 
-                            {/* Error */}
                             <AnimatePresence>
                                 {error && (
                                     <motion.div
@@ -148,7 +157,6 @@ export function AuthPage() {
                                 )}
                             </AnimatePresence>
 
-                            {/* Submit */}
                             <button
                                 type="submit"
                                 disabled={isLoading}
@@ -165,7 +173,18 @@ export function AuthPage() {
                         </motion.form>
                     </AnimatePresence>
 
-                    {/* Mode switch */}
+                    <div className="my-5 flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.28em] text-slate-300">
+                        <span className="h-px flex-1 bg-slate-200" />
+                        <span>Or use Google</span>
+                        <span className="h-px flex-1 bg-slate-200" />
+                    </div>
+
+                    <GoogleSignInButton
+                        clientId={googleClientId}
+                        onCredential={handleGoogleCredential}
+                        disabled={isLoading}
+                    />
+
                     <p className="text-center text-xs text-slate-400 mt-5">
                         {mode === "login" ? "Don't have an account?" : "Already have an account?"}{" "}
                         <button
