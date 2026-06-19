@@ -10,12 +10,14 @@ import { useDashboard } from "../../hooks/useDashboard";
 import { useTaskFilters } from "../../hooks/useTaskFilters";
 import { formatDateLabel } from "../../utils/dateHelpers";
 import { Inbox, Calendar } from "lucide-react";
+import { AuthUser } from "../../api/authApi";
 
 interface DashboardProps {
+    user: AuthUser | null;
     onLogout: () => void;
 }
 
-export function Dashboard({ onLogout }: DashboardProps) {
+export function Dashboard({ user, onLogout }: DashboardProps) {
     const dash = useDashboard();
     const navigate = useNavigate();
     const { groupedTasksMap, sortedDates } = useTaskFilters(dash.activeOrg, dash.searchQuery);
@@ -40,6 +42,7 @@ export function Dashboard({ onLogout }: DashboardProps) {
             {/* Desktop sidebar */}
             <div className="hidden md:flex shrink-0 h-full">
                 <Sidebar
+                    user={user}
                     organizations={dash.organizations}
                     activeOrgId={dash.activeOrg?.id ?? null}
                     onSelectOrg={(id) => { dash.setActiveOrgId(id); dash.setSearchQuery(""); }}
@@ -52,6 +55,7 @@ export function Dashboard({ onLogout }: DashboardProps) {
 
             {/* Mobile sidebar */}
             <MobileSidebar
+                user={user}
                 isOpen={dash.isMobileSidebarOpen}
                 organizations={dash.organizations}
                 activeOrgId={dash.activeOrg?.id ?? null}

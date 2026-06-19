@@ -1,8 +1,10 @@
 import { motion, AnimatePresence } from "motion/react";
 import { Sidebar } from "../Sidebar";
 import { Organization } from "../../types";
+import { AuthUser } from "../../api/authApi";
 
 interface MobileSidebarProps {
+    user: AuthUser | null;
     isOpen: boolean;
     organizations: Organization[];
     activeOrgId: string | null;
@@ -15,7 +17,7 @@ interface MobileSidebarProps {
 }
 
 export function MobileSidebar({
-    isOpen, organizations, activeOrgId, onClose,
+    user, isOpen, organizations, activeOrgId, onClose,
     onSelectOrg, onCreateOrg, onRenameOrg, onDeleteOrg, onLogout,
 }: MobileSidebarProps) {
     return (
@@ -33,6 +35,7 @@ export function MobileSidebar({
                         className="fixed inset-y-0 left-0 w-72 h-full z-50 md:hidden shadow-2xl flex"
                     >
                         <Sidebar
+                            user={user}
                             organizations={organizations}
                             activeOrgId={activeOrgId}
                             onSelectOrg={(id) => { onSelectOrg(id); onClose(); }}

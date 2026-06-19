@@ -1,14 +1,11 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { useState } from "react";
-import { Folder, Plus, Trash2, Edit3, Layers, LogOut } from "lucide-react";
+import { Folder, Plus, Trash2, Edit3, Layers, LogOut, UserCircle2 } from "lucide-react";
 import { Organization } from "../types";
 import { motion } from "motion/react";
+import { AuthUser } from "../api/authApi";
 
 interface SidebarProps {
+  user: AuthUser | null;
   organizations: Organization[];
   activeOrgId: string | null;
   onSelectOrg: (id: string) => void;
@@ -19,6 +16,7 @@ interface SidebarProps {
 }
 
 export function Sidebar({
+  user,
   organizations,
   activeOrgId,
   onSelectOrg,
@@ -28,6 +26,9 @@ export function Sidebar({
   onLogout,
 }: SidebarProps) {
   const [hoveredOrgId, setHoveredOrgId] = useState<string | null>(null);
+  const initials = user?.name
+    ? user.name.split(" ").map((part) => part[0]).join("").slice(0, 2).toUpperCase()
+    : "U";
 
   // Calculate upcoming (incomplete) tasks for each organization
   const getUpcomingCount = (org: Organization) => {
@@ -174,6 +175,22 @@ export function Sidebar({
 
       {/* Footer — stats + logout */}
       <div className="p-4 border-t border-slate-100 bg-slate-50/50 text-[11px] text-slate-400 font-mono space-y-1">
+        <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-3 py-2 mb-3 shadow-sm">
+          <span className="h-9 w-9 rounded-full bg-slate-900 text-white flex items-center justify-center shrink-0">
+            <UserCircle2 className="h-4.5 w-4.5" />
+          </span>
+          <div className="min-w-0 flex-1">
+            <p className="text-[11px] font-semibold text-slate-900 truncate">
+              {user?.name || "Signed in user"}
+            </p>
+            <p className="text-[10px] text-slate-400 truncate">
+              {user?.email || "Account profile"}
+            </p>
+          </div>
+          <span className="h-7 w-7 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-[10px] font-bold">
+            {initials}
+          </span>
+        </div>
         <div className="flex justify-between">
           <span>Total Tasks:</span>
           <span className="text-slate-700">

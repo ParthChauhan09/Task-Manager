@@ -24,7 +24,7 @@ export default function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<Dashboard onLogout={logout} />} />
+      <Route path="/" element={<Dashboard user={user} onLogout={logout} />} />
       <Route path="/workspace/:orgId/date/:date" element={<DateDetailPage onLogout={logout} />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
