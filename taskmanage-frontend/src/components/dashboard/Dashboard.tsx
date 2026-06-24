@@ -6,6 +6,7 @@ import { AppTopBar } from "./AppTopBar";
 import { WorkspaceWelcome } from "./WorkspaceWelcome";
 import { MobileSidebar } from "./MobileSidebar";
 import { DashboardDialogs } from "./DashboardDialogs";
+import { ShortcutOverlay } from "../ShortcutOverlay";
 import { useDashboard } from "../../hooks/useDashboard";
 import { useTaskFilters } from "../../hooks/useTaskFilters";
 import { formatDateLabel } from "../../utils/dateHelpers";
@@ -26,6 +27,46 @@ export function Dashboard({ user, onLogout }: DashboardProps) {
 
     const datesGridRef = useRef<HTMLDivElement>(null);
     useGridNavigation(datesGridRef, ".date-nav-item");
+
+    const dashboardShortcuts = [
+        {
+            keyStr: "m",
+            label: "Make Workspace",
+            action: () => dash.setOrgDialog({ isOpen: true, isEdit: false }),
+        },
+        {
+            keyStr: "s",
+            label: "Switch Workspace",
+            action: () => {
+                if (dash.organizations.length <= 1) return;
+                const idx = dash.organizations.findIndex((o) => o.id === dash.activeOrg?.id);
+                const nextIdx = (idx + 1) % dash.organizations.length;
+                dash.setActiveOrgId(dash.organizations[nextIdx].id);
+                dash.setSearchQuery("");
+            },
+        },
+        {
+            keyStr: "d",
+            label: "Add Date Group",
+            action: () => dash.setDateDialog({ isOpen: true }),
+        },
+        {
+            keyStr: "p",
+            label: "Plan Task",
+            action: () => dash.setTaskDialog({ isOpen: true, isEdit: false }),
+        },
+        {
+            keyStr: "f",
+            label: "Search Dates",
+            action: () => {
+                const searchEl = document.getElementById("search-tasks-field");
+                if (searchEl) {
+                    searchEl.focus();
+                    (searchEl as HTMLInputElement).select();
+                }
+            },
+        },
+    ];
 
     if (!dash.isHydrated) {
         return (
@@ -149,6 +190,8 @@ export function Dashboard({ user, onLogout }: DashboardProps) {
                     />
                 )}
             </div>
+
+            <ShortcutOverlay shortcuts={dashboardShortcuts} />
 
             <DashboardDialogs
                 orgDialog={dash.orgDialog}

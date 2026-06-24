@@ -6,6 +6,7 @@ import { TaskCard } from "../components/TaskCard";
 import { DashboardDialogs } from "../components/dashboard/DashboardDialogs";
 import { DateCapsuleStrip } from "../components/dashboard/DateCapsuleStrip";
 import { CustomCursor } from "../components/CustomCursor";
+import { ShortcutOverlay } from "../components/ShortcutOverlay";
 import { formatDateLabel, sortDatesChronologically } from "../utils/dateHelpers";
 import { Task } from "../types";
 import { useMemo, useEffect, useRef } from "react";
@@ -79,6 +80,41 @@ export function DateDetailPage({ onLogout: _ }: DateDetailPageProps) {
 
   const gridRef = useRef<HTMLDivElement>(null);
   useGridNavigation(gridRef, ".task-nav-item");
+
+  const datePageShortcuts = [
+    {
+      keyStr: "p",
+      label: "Add Task",
+      action: () => dash.setTaskDialog({ isOpen: true, isEdit: false, prepopulatedDate: date }),
+    },
+    {
+      keyStr: "ArrowLeft",
+      displayKey: "←",
+      label: "Prev Date Group",
+      action: () => {
+        if (allDates.length <= 1) return;
+        const curIdx = allDates.indexOf(date!);
+        const prevIdx = (curIdx - 1 + allDates.length) % allDates.length;
+        navigate(`/workspace/${orgId}/date/${allDates[prevIdx]}`);
+      },
+    },
+    {
+      keyStr: "ArrowRight",
+      displayKey: "→",
+      label: "Next Date Group",
+      action: () => {
+        if (allDates.length <= 1) return;
+        const curIdx = allDates.indexOf(date!);
+        const nextIdx = (curIdx + 1) % allDates.length;
+        navigate(`/workspace/${orgId}/date/${allDates[nextIdx]}`);
+      },
+    },
+    {
+      keyStr: "d",
+      label: "Delete Date Group",
+      action: () => dash.handleDeleteDateGroup(date!),
+    },
+  ];
 
   const totalCount = tasksOnDate.length;
   const doneCount = tasksOnDate.filter((t) => t.completed).length;
@@ -211,6 +247,8 @@ export function DateDetailPage({ onLogout: _ }: DateDetailPageProps) {
           </motion.div>
         )}
       </div>
+
+      <ShortcutOverlay shortcuts={datePageShortcuts} />
 
       {/* Reuse same dialogs — they work with any orgId via useDashboard */}
       <DashboardDialogs
