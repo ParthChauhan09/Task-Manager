@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Check, Mail, Lock, User, AlertCircle, Loader2 } from "lucide-react";
+import { Check, Mail, Lock, User, AlertCircle, Loader2, Eye, EyeOff } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import { GoogleSignInButton } from "./GoogleSignInButton";
 
@@ -12,6 +12,7 @@ export function AuthPage() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -54,6 +55,7 @@ export function AuthPage() {
         setName("");
         setEmail("");
         setPassword("");
+        setShowPassword(false);
     };
 
     return (
@@ -132,14 +134,26 @@ export function AuthPage() {
                                 <div className="relative">
                                     <Lock className="absolute left-3.5 top-3.5 h-4 w-4 text-[#8E8E93]" />
                                     <input
-                                        type="password"
+                                        type={showPassword ? "text" : "password"}
                                         required
                                         minLength={6}
                                         placeholder="••••••••"
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
-                                        className="w-full pl-10 pr-4 py-2.5 text-sm rounded-full border border-transparent bg-[#F5F5F7] text-[#1C1C1E] placeholder-[#8E8E93]/60 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#5856D6]/20 transition-all font-sans"
+                                        className="w-full pl-10 pr-12 py-2.5 text-sm rounded-full border border-transparent bg-[#F5F5F7] text-[#1C1C1E] placeholder-[#8E8E93]/60 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#5856D6]/20 transition-all font-sans"
                                     />
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        className="absolute right-3.5 top-1/2 -translate-y-1/2 h-7 w-7 flex items-center justify-center text-[#8E8E93] hover:text-[#1C1C1E] hover:bg-[#E5E5EA]/40 rounded-full transition-colors focus:outline-none cursor-pointer"
+                                        title={showPassword ? "Hide password" : "Show password"}
+                                    >
+                                        {showPassword ? (
+                                            <EyeOff className="h-4 w-4" />
+                                        ) : (
+                                            <Eye className="h-4 w-4" />
+                                        )}
+                                    </button>
                                 </div>
                             </div>
 
