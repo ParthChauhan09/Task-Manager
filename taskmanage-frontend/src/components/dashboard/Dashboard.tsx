@@ -7,12 +7,13 @@ import { WorkspaceWelcome } from "./WorkspaceWelcome";
 import { MobileSidebar } from "./MobileSidebar";
 import { DashboardDialogs } from "./DashboardDialogs";
 import { ShortcutOverlay } from "../ShortcutOverlay";
+import { GuideModal } from "../GuideModal";
 import { useDashboard } from "../../hooks/useDashboard";
 import { useTaskFilters } from "../../hooks/useTaskFilters";
 import { formatDateLabel } from "../../utils/dateHelpers";
 import { Inbox, Calendar } from "lucide-react";
 import { AuthUser } from "../../api/authApi";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useGridNavigation } from "../../hooks/useGridNavigation";
 
 interface DashboardProps {
@@ -24,6 +25,16 @@ export function Dashboard({ user, onLogout }: DashboardProps) {
     const dash = useDashboard();
     const navigate = useNavigate();
     const { groupedTasksMap, sortedDates } = useTaskFilters(dash.activeOrg, dash.searchQuery);
+
+    const [isGuideOpen, setIsGuideOpen] = useState(false);
+
+    useEffect(() => {
+        const hasSeen = localStorage.getItem("has_seen_guide");
+        if (!hasSeen) {
+            setIsGuideOpen(true);
+            localStorage.setItem("has_seen_guide", "true");
+        }
+    }, []);
 
     const datesGridRef = useRef<HTMLDivElement>(null);
     useGridNavigation(datesGridRef, ".date-nav-item");
@@ -96,6 +107,7 @@ export function Dashboard({ user, onLogout }: DashboardProps) {
                     onRenameOrg={(id, name) => dash.setOrgDialog({ isOpen: true, isEdit: true, initialName: name, targetId: id })}
                     onDeleteOrg={dash.handleDeleteOrg}
                     onLogout={onLogout}
+                    onOpenGuide={() => setIsGuideOpen(true)}
                 />
             </div>
 
@@ -111,6 +123,7 @@ export function Dashboard({ user, onLogout }: DashboardProps) {
                 onRenameOrg={(id, name) => dash.setOrgDialog({ isOpen: true, isEdit: true, initialName: name, targetId: id })}
                 onDeleteOrg={dash.handleDeleteOrg}
                 onLogout={onLogout}
+                onOpenGuide={() => setIsGuideOpen(true)}
             />
 
             {/* Main content */}
@@ -192,6 +205,7 @@ export function Dashboard({ user, onLogout }: DashboardProps) {
             </div>
 
             <ShortcutOverlay shortcuts={dashboardShortcuts} />
+            <GuideModal isOpen={isGuideOpen} onClose={() => setIsGuideOpen(false)} />
 
             <DashboardDialogs
                 orgDialog={dash.orgDialog}

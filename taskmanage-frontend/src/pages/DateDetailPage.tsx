@@ -1,15 +1,16 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
-import { ArrowLeft, Plus, Calendar } from "lucide-react";
+import { ArrowLeft, Plus, Calendar, HelpCircle } from "lucide-react";
 import { useDashboard } from "../hooks/useDashboard";
 import { TaskCard } from "../components/TaskCard";
 import { DashboardDialogs } from "../components/dashboard/DashboardDialogs";
 import { DateCapsuleStrip } from "../components/dashboard/DateCapsuleStrip";
 import { CustomCursor } from "../components/CustomCursor";
 import { ShortcutOverlay } from "../components/ShortcutOverlay";
+import { GuideModal } from "../components/GuideModal";
 import { formatDateLabel, sortDatesChronologically } from "../utils/dateHelpers";
 import { Task } from "../types";
-import { useMemo, useEffect, useRef } from "react";
+import { useMemo, useEffect, useRef, useState } from "react";
 import { useGridNavigation } from "../hooks/useGridNavigation";
 
 interface DateDetailPageProps {
@@ -22,6 +23,7 @@ export function DateDetailPage({ onLogout: _ }: DateDetailPageProps) {
 
   // Reuse the same dashboard hook so all handlers + dialogs work identically
   const dash = useDashboard(orgId);
+  const [isGuideOpen, setIsGuideOpen] = useState(false);
 
   // Esc → go back to dashboard (only when no dialog is open)
   useEffect(() => {
@@ -187,6 +189,14 @@ export function DateDetailPage({ onLogout: _ }: DateDetailPageProps) {
               </div>
             )}
             <button
+              id="date-page-help-btn"
+              onClick={() => setIsGuideOpen(true)}
+              title="App Guide"
+              className="cursor-pointer h-9 w-9 rounded-full border border-[#E5E5EA] bg-[#F5F5F7] hover:bg-[#E5E5EA]/60 flex items-center justify-center text-[#8E8E93] hover:text-[#1C1C1E] transition-colors"
+            >
+              <HelpCircle className="h-4.5 w-4.5" />
+            </button>
+            <button
               onClick={() => dash.setTaskDialog({ isOpen: true, isEdit: false, prepopulatedDate: date })}
               className="cursor-pointer h-9 px-4 bg-[#5856D6] hover:bg-[#4846B6] text-white rounded-full text-xs font-medium flex items-center gap-1.5 shadow-sm shadow-[#5856D6]/15 transition-all active:scale-95 animate-checkbox-pop"
             >
@@ -249,6 +259,7 @@ export function DateDetailPage({ onLogout: _ }: DateDetailPageProps) {
       </div>
 
       <ShortcutOverlay shortcuts={datePageShortcuts} />
+      <GuideModal isOpen={isGuideOpen} onClose={() => setIsGuideOpen(false)} />
 
       {/* Reuse same dialogs — they work with any orgId via useDashboard */}
       <DashboardDialogs

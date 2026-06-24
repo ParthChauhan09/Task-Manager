@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Folder, Plus, Trash2, Edit3, Layers, LogOut, UserCircle2 } from "lucide-react";
+import { Folder, Plus, Trash2, Edit3, Layers, LogOut, UserCircle2, HelpCircle } from "lucide-react";
 import { Organization } from "../types";
 import { motion } from "motion/react";
 import { AuthUser } from "../api/authApi";
@@ -13,6 +13,7 @@ interface SidebarProps {
   onRenameOrg: (id: string, name: string) => void;
   onDeleteOrg: (id: string) => void;
   onLogout: () => void;
+  onOpenGuide: () => void;
 }
 
 export function Sidebar({
@@ -24,6 +25,7 @@ export function Sidebar({
   onRenameOrg,
   onDeleteOrg,
   onLogout,
+  onOpenGuide,
 }: SidebarProps) {
   const [hoveredOrgId, setHoveredOrgId] = useState<string | null>(null);
   const initials = user?.name
@@ -53,9 +55,9 @@ export function Sidebar({
           id="sidebar-create-org-btn"
           onClick={onCreateOrg}
           title="Create Workspace"
-          className="cursor-pointer h-7 w-7 rounded-full bg-[#F5F5F7] hover:bg-[#E5E5EA] flex items-center justify-center text-[#8E8E93] hover:text-[#1C1C1E] transition-all focus:outline-none"
+          className="cursor-pointer h-10 w-10 rounded-full bg-[#F5F5F7] hover:bg-[#E5E5EA] flex items-center justify-center text-[#8E8E93] hover:text-[#1C1C1E] transition-all focus:outline-none"
         >
-          <Plus className="h-4 w-4" />
+          <Plus className="h-4.5 w-4.5" />
         </button>
       </div>
 
@@ -199,13 +201,22 @@ export function Sidebar({
             {organizations.reduce((sum, o) => sum + o.tasks.filter(t => !t.completed).length, 0)}
           </span>
         </div>
-        <button
-          onClick={onLogout}
-          className="cursor-pointer w-full mt-3 flex items-center gap-2 text-xs text-[#8E8E93] hover:text-[#FF3B30] transition-colors pt-3 border-t border-[#E5E5EA] font-sans font-medium"
-        >
-          <LogOut className="h-3.5 w-3.5" />
-          <span>Sign out</span>
-        </button>
+        <div className="flex justify-between items-center mt-3 pt-3 border-t border-[#E5E5EA]/60 font-sans">
+          <button
+            onClick={onOpenGuide}
+            className="cursor-pointer flex items-center gap-1.5 text-xs text-[#8E8E93] hover:text-[#5856D6] transition-colors font-medium"
+          >
+            <HelpCircle className="h-3.5 w-3.5" />
+            <span>Guide</span>
+          </button>
+          <button
+            onClick={onLogout}
+            className="cursor-pointer flex items-center gap-1.5 text-xs text-[#8E8E93] hover:text-[#FF3B30] transition-colors font-medium"
+          >
+            <LogOut className="h-3.5 w-3.5" />
+            <span>Sign out</span>
+          </button>
+        </div>
       </div>
     </div>
   );
