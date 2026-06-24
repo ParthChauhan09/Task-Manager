@@ -204,7 +204,7 @@ export function Dashboard({ user, onLogout }: DashboardProps) {
                 )}
             </div>
 
-            <ShortcutOverlay shortcuts={dashboardShortcuts} />
+            <ShortcutOverlay overlayId="dashboard" shortcuts={dashboardShortcuts} />
             <GuideModal isOpen={isGuideOpen} onClose={() => setIsGuideOpen(false)} />
 
             <DashboardDialogs

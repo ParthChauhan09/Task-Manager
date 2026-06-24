@@ -10,9 +10,10 @@ export interface Shortcut {
 
 interface ShortcutOverlayProps {
   shortcuts: Shortcut[];
+  overlayId: string;
 }
 
-export function ShortcutOverlay({ shortcuts }: ShortcutOverlayProps) {
+export function ShortcutOverlay({ shortcuts, overlayId }: ShortcutOverlayProps) {
   const [isCtrlHeld, setIsCtrlHeld] = useState(false);
 
   useEffect(() => {
@@ -24,12 +25,21 @@ export function ShortcutOverlay({ shortcuts }: ShortcutOverlayProps) {
         activeEl instanceof HTMLTextAreaElement ||
         (activeEl && activeEl.getAttribute("contenteditable") === "true");
 
+      if (isTyping) return;
+
+      // Check if a task-detail modal is open in the DOM
+      const isDetailOpen = !!document.getElementById("task-detail-modal");
+      if (isDetailOpen && overlayId !== "task-detail") {
+        return;
+      }
+      if (!isDetailOpen && overlayId === "task-detail") {
+        return;
+      }
+
       // We still want to handle releasing Ctrl even if typing
       if (e.key === "Control") {
         setIsCtrlHeld(true);
       }
-
-      if (isTyping) return;
 
       // Check if Ctrl is held and one of the shortcut keys is pressed
       if (e.ctrlKey) {

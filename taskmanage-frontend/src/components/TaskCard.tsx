@@ -575,6 +575,8 @@ export function TaskCard({
         onToggleSubtask={onToggleSubtask}
         onEditSubtask={onEditSubtask}
         onDeleteSubtask={onDeleteSubtask}
+        onToggleComplete={onToggleComplete}
+        onDeleteTask={onDeleteTask}
         priorityColors={priorityColors}
       />
     </>

@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { Task, Subtask } from "../types";
 import { createPortal } from "react-dom";
+import { ShortcutOverlay } from "./ShortcutOverlay";
 
 interface TaskDetailModalProps {
   isOpen: boolean;
@@ -28,6 +29,8 @@ interface TaskDetailModalProps {
   onToggleSubtask: (taskId: string, subtaskId: string) => void;
   onEditSubtask: (taskId: string, subtaskId: string, newTitle: string) => void;
   onDeleteSubtask: (taskId: string, subtaskId: string) => void;
+  onToggleComplete?: (taskId: string) => void;
+  onDeleteTask?: (taskId: string) => void;
   priorityColors: Record<string, { bg: string; glow: string }>;
 }
 
@@ -39,6 +42,8 @@ export function TaskDetailModal({
   onToggleSubtask,
   onEditSubtask,
   onDeleteSubtask,
+  onToggleComplete,
+  onDeleteTask,
   priorityColors
 }: TaskDetailModalProps) {
   const [newSubtaskTitle, setNewSubtaskTitle] = useState("");
@@ -66,6 +71,28 @@ export function TaskDetailModal({
   const totalSubtasks = task.subtasks.length;
   const completedSubtasks = task.subtasks.filter((s) => s.completed).length;
   const progressPercent = totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
+
+  const detailShortcuts = [
+    {
+      keyStr: "c",
+      label: "Toggle Complete",
+      action: () => {
+        if (onToggleComplete) {
+          onToggleComplete(task.id);
+        }
+      },
+    },
+    {
+      keyStr: "d",
+      label: "Delete Task",
+      action: () => {
+        if (onDeleteTask) {
+          onDeleteTask(task.id);
+          onClose();
+        }
+      },
+    },
+  ];
 
   const handleAddSubtaskSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -103,6 +130,7 @@ export function TaskDetailModal({
 
           {/* Modal Container */}
           <motion.div
+            id="task-detail-modal"
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -290,6 +318,7 @@ export function TaskDetailModal({
                 </form>
               </div>
             </div>
+            <ShortcutOverlay overlayId="task-detail" shortcuts={detailShortcuts} />
           </motion.div>
         </div>
       )}

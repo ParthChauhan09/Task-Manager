@@ -258,7 +258,7 @@ export function DateDetailPage({ onLogout: _ }: DateDetailPageProps) {
         )}
       </div>
 
-      <ShortcutOverlay shortcuts={datePageShortcuts} />
+      <ShortcutOverlay overlayId="date-page" shortcuts={datePageShortcuts} />
       <GuideModal isOpen={isGuideOpen} onClose={() => setIsGuideOpen(false)} />
 
       {/* Reuse same dialogs — they work with any orgId via useDashboard */}
