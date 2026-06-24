@@ -1,9 +1,11 @@
 import { Response } from "express";
 import { AuthRequest } from "../middleware/auth";
 import { Organization } from "../models/Organization";
+import { isValidObjectId } from "../utils/validation";
 
 // Fetch org and verify ownership in one shot — shared by all methods
 async function getAccessibleOrg(orgId: string, userId: string, isAdmin: boolean) {
+    if (!isValidObjectId(orgId)) return null;
     return isAdmin ? Organization.findById(orgId) : Organization.findOne({ _id: orgId, owner: userId });
 }
 
@@ -13,6 +15,11 @@ export class TaskController {
     // GET /api/organizations/:orgId/tasks
     static async getTasks(req: AuthRequest, res: Response): Promise<void> {
         try {
+            if (!isValidObjectId(req.params.orgId)) {
+                res.status(400).json({ message: "Invalid organization ID" });
+                return;
+            }
+
             const org = await getAccessibleOrg(req.params.orgId, req.userId!, req.userRole === "admin");
             if (!org) { res.status(404).json({ message: "Organization not found" }); return; }
 
@@ -28,6 +35,11 @@ export class TaskController {
             const { title, description, date, priority } = req.body;
             if (!title || !date) {
                 res.status(400).json({ message: "title and date are required" });
+                return;
+            }
+
+            if (!isValidObjectId(req.params.orgId)) {
+                res.status(400).json({ message: "Invalid organization ID" });
                 return;
             }
 
@@ -55,6 +67,11 @@ export class TaskController {
     // PATCH /api/organizations/:orgId/tasks/:taskId
     static async updateTask(req: AuthRequest, res: Response): Promise<void> {
         try {
+            if (!isValidObjectId(req.params.orgId) || !isValidObjectId(req.params.taskId)) {
+                res.status(400).json({ message: "Invalid organization ID or task ID" });
+                return;
+            }
+
             const org = await getAccessibleOrg(req.params.orgId, req.userId!, req.userRole === "admin");
             if (!org) { res.status(404).json({ message: "Organization not found" }); return; }
 
@@ -84,6 +101,11 @@ export class TaskController {
     // DELETE /api/organizations/:orgId/tasks/:taskId
     static async deleteTask(req: AuthRequest, res: Response): Promise<void> {
         try {
+            if (!isValidObjectId(req.params.orgId) || !isValidObjectId(req.params.taskId)) {
+                res.status(400).json({ message: "Invalid organization ID or task ID" });
+                return;
+            }
+
             const org = await getAccessibleOrg(req.params.orgId, req.userId!, req.userRole === "admin");
             if (!org) { res.status(404).json({ message: "Organization not found" }); return; }
 
@@ -106,6 +128,11 @@ export class TaskController {
             const { title } = req.body;
             if (!title) { res.status(400).json({ message: "title is required" }); return; }
 
+            if (!isValidObjectId(req.params.orgId) || !isValidObjectId(req.params.taskId)) {
+                res.status(400).json({ message: "Invalid organization ID or task ID" });
+                return;
+            }
+
             const org = await getAccessibleOrg(req.params.orgId, req.userId!, req.userRole === "admin");
             if (!org) { res.status(404).json({ message: "Organization not found" }); return; }
 
@@ -127,6 +154,11 @@ export class TaskController {
     // PATCH /api/organizations/:orgId/tasks/:taskId/subtasks/:subtaskId
     static async updateSubtask(req: AuthRequest, res: Response): Promise<void> {
         try {
+            if (!isValidObjectId(req.params.orgId) || !isValidObjectId(req.params.taskId) || !isValidObjectId(req.params.subtaskId)) {
+                res.status(400).json({ message: "Invalid organization ID, task ID, or subtask ID" });
+                return;
+            }
+
             const org = await getAccessibleOrg(req.params.orgId, req.userId!, req.userRole === "admin");
             if (!org) { res.status(404).json({ message: "Organization not found" }); return; }
 
@@ -154,6 +186,11 @@ export class TaskController {
     // DELETE /api/organizations/:orgId/tasks/:taskId/subtasks/:subtaskId
     static async deleteSubtask(req: AuthRequest, res: Response): Promise<void> {
         try {
+            if (!isValidObjectId(req.params.orgId) || !isValidObjectId(req.params.taskId) || !isValidObjectId(req.params.subtaskId)) {
+                res.status(400).json({ message: "Invalid organization ID, task ID, or subtask ID" });
+                return;
+            }
+
             const org = await getAccessibleOrg(req.params.orgId, req.userId!, req.userRole === "admin");
             if (!org) { res.status(404).json({ message: "Organization not found" }); return; }
 

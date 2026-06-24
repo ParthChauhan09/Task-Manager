@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import jwt, { SignOptions } from "jsonwebtoken";
 import { User } from "../models/User";
+import { AuthRequest } from "../middleware/auth";
+import { isValidEmail } from "../utils/validation";
 
 export class AuthController {
     private static userPayload(user: { id: string; name: string; email: string; role: "user" | "admin" }) {
@@ -69,15 +71,26 @@ export class AuthController {
                 return;
             }
 
-            const existing = await User.findOne({ email });
+            if (!isValidEmail(email)) {
+                res.status(400).json({ message: "Please provide a valid email address" });
+                return;
+            }
+
+            const normalizedEmail = email.toLowerCase().trim();
+
+            const existing = await User.findOne({ email: normalizedEmail });
             if (existing) {
                 res.status(409).json({ message: "Email already registered" });
                 return;
             }
 
-            const user = await User.create({ name, email, password, authProvider: "local" });
+            const user = await User.create({ name, email: normalizedEmail, password, authProvider: "local" });
             res.status(201).json(await AuthController.issueSession(user));
-        } catch {
+        } catch (error: any) {
+            if (error.name === "ValidationError") {
+                res.status(400).json({ message: error.message });
+                return;
+            }
             res.status(500).json({ message: "Server error" });
         }
     }
@@ -92,7 +105,14 @@ export class AuthController {
                 return;
             }
 
-            const user = await User.findOne({ email });
+            if (!isValidEmail(email)) {
+                res.status(400).json({ message: "Please provide a valid email address" });
+                return;
+            }
+
+            const normalizedEmail = email.toLowerCase().trim();
+
+            const user = await User.findOne({ email: normalizedEmail });
             if (!user || !(await user.comparePassword(password))) {
                 res.status(401).json({ message: "Invalid email or password" });
                 return;
@@ -122,7 +142,7 @@ export class AuthController {
                 return;
             }
 
-            const normalizedEmail = email.toLowerCase();
+            const normalizedEmail = email.toLowerCase().trim();
             const name = (profile.name || email.split("@")[0]).trim();
 
             let user = await User.findOne({ $or: [{ googleId }, { email: normalizedEmail }] });
@@ -154,26 +174,18 @@ export class AuthController {
     }
 
     // GET /api/auth/me
-    static async me(req: Request, res: Response): Promise<void> {
+    static async me(req: AuthRequest, res: Response): Promise<void> {
         try {
-            const authHeader = req.headers.authorization;
-            if (!authHeader || !authHeader.startsWith("Bearer ")) {
-                res.status(401).json({ message: "Not authorized" });
-                return;
-            }
-
-            const token = authHeader.split(" ")[1];
-            const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as { id: string };
-            const user = await User.findById(decoded.id).select("name email role");
+            const user = await User.findById(req.userId).select("name email role");
 
             if (!user) {
                 res.status(404).json({ message: "User not found" });
                 return;
             }
 
-            res.json({ user: { id: user.id, name: user.name, email: user.email, role: (user as any).role ?? "user" } });
+            res.json({ user: { id: user.id, name: user.name, email: user.email, role: user.role ?? "user" } });
         } catch {
-            res.status(401).json({ message: "Not authorized, token invalid or expired" });
+            res.status(500).json({ message: "Server error" });
         }
     }
 }

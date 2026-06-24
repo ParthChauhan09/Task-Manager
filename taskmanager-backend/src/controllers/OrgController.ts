@@ -1,6 +1,7 @@
 import { Response } from "express";
 import { AuthRequest } from "../middleware/auth";
 import { Organization } from "../models/Organization";
+import { isValidObjectId } from "../utils/validation";
 
 export class OrgController {
   private static isAdmin(req: AuthRequest) {
@@ -44,6 +45,11 @@ export class OrgController {
         return;
       }
 
+      if (!isValidObjectId(req.params.orgId)) {
+        res.status(400).json({ message: "Invalid organization ID" });
+        return;
+      }
+
       const query = OrgController.isAdmin(req)
         ? { _id: req.params.orgId }
         : { _id: req.params.orgId, owner: req.userId };
@@ -64,6 +70,11 @@ export class OrgController {
   // DELETE /api/organizations/:orgId
   static async remove(req: AuthRequest, res: Response): Promise<void> {
     try {
+      if (!isValidObjectId(req.params.orgId)) {
+        res.status(400).json({ message: "Invalid organization ID" });
+        return;
+      }
+
       const query = OrgController.isAdmin(req)
         ? { _id: req.params.orgId }
         : { _id: req.params.orgId, owner: req.userId };
