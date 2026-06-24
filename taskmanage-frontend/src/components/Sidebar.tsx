@@ -3,6 +3,7 @@ import { Folder, Plus, Trash2, Edit3, Layers, LogOut, UserCircle2, HelpCircle, S
 import { Organization } from "../types";
 import { motion } from "motion/react";
 import { AuthUser } from "../api/authApi";
+import { Logo } from "./Logo";
 
 interface SidebarProps {
   user: AuthUser | null;
@@ -43,13 +44,16 @@ export function Sidebar({
     <div className="w-72 border-r border-[#E5E5EA] bg-white flex flex-col h-full relative z-30 font-sans select-none">
       {/* Brand Header */}
       <div className="p-6 border-b border-[#E5E5EA]/60 flex justify-between items-center">
-        <div>
-          <span className="block font-sans text-xl font-bold tracking-tight text-[#1C1C1E]">
-            taskManage
-          </span>
-          <p className="text-[10px] text-[#8E8E93] mt-0.5 font-sans font-medium">
-            Workspace Manager
-          </p>
+        <div className="flex items-center gap-3">
+          <Logo size={36} />
+          <div>
+            <span className="block font-sans text-xl font-bold tracking-tight text-[#1C1C1E]">
+              ListMark
+            </span>
+            <p className="text-[10px] text-[#8E8E93] mt-0.5 font-sans font-medium">
+              Workspace Manager
+            </p>
+          </div>
         </div>
 
         {/* Global Create Org Trigger */}

@@ -1,4 +1,5 @@
-import { Check, LogOut, Menu } from "lucide-react";
+import { LogOut, Menu } from "lucide-react";
+import { Logo } from "../Logo";
 
 interface WorkspaceWelcomeProps {
     onCreateOrg: () => void;
@@ -16,11 +17,11 @@ export function WorkspaceWelcome({ onCreateOrg, onLogout, onOpenMobileSidebar }:
             >
                 <Menu className="h-5 w-5" />
             </button>
-            <div className="w-12 h-12 rounded-full bg-apple-purple text-white flex items-center justify-center mb-5 shadow-sm shadow-apple-purple/15">
-                <Check className="h-6 w-6 stroke-[3.5px]" />
+            <div className="mb-5">
+                <Logo size={56} />
             </div>
             <h2 className="font-display font-semibold text-xl sm:text-2xl text-[#1C1C1E] tracking-tight">
-                Start taskManage
+                Start ListMark
             </h2>
             <p className="max-w-md text-xs text-[#8E8E93] font-sans mt-3 leading-relaxed">
                 Create a workspace to start planning tasks and tracking deadlines.

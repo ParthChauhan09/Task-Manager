@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import { Organization } from "../types";
 import { getTodayDateString, formatDateISO } from "../utils/dateHelpers";
 
-const STORAGE_KEY = "taskManage-data";
+const STORAGE_KEY = "ListMark-data";
 
 function getInitialData(): Organization[] {
   const today = getTodayDateString();
@@ -114,7 +114,7 @@ export function useLocalStorage() {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(initial));
       }
     } catch (e) {
-      console.error("Failed to parse taskManage values from localStorage, resetting", e);
+      console.error("Failed to parse ListMark values from localStorage, resetting", e);
       const initial = getInitialData();
       setOrganizations(initial);
     }
@@ -127,7 +127,7 @@ export function useLocalStorage() {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
     } catch (e) {
-      console.error("Failed to save taskManage values to localStorage", e);
+      console.error("Failed to save ListMark values to localStorage", e);
     }
   };
 

@@ -1,5 +1,5 @@
 {
-  "name": "taskManage",
+  "name": "ListMark",
   "description": "A highly polished, modern task management application featuring organizations, date-grouped schedules, tasks with priorities, and inline subtask management.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]

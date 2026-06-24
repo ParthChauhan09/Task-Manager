@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X, Layers, Calendar, Keyboard, Sparkles, ChevronRight, ChevronLeft, HelpCircle } from "lucide-react";
+import { Logo } from "./Logo";
 
 interface GuideModalProps {
   isOpen: boolean;
@@ -18,8 +19,8 @@ export function GuideModal({ isOpen, onClose }: GuideModalProps) {
 
   const steps = [
     {
-      title: "Welcome to taskManage",
-      icon: <Sparkles className="h-7 w-7 text-apple-purple" />,
+      title: "Welcome to ListMark",
+      icon: <Logo size={28} />,
       content: (
         <div className="space-y-3 text-center">
           <p className="text-sm text-[#8E8E93] leading-relaxed">

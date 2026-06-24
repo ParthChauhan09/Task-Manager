@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Check, Mail, Lock, User, AlertCircle, Loader2, Eye, EyeOff } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import { GoogleSignInButton } from "./GoogleSignInButton";
+import { Logo } from "./Logo";
 
 export function AuthPage() {
     const { login, register, loginWithGoogle } = useAuth();
@@ -67,11 +68,11 @@ export function AuthPage() {
                 className="w-full max-w-sm"
             >
                 <div className="text-center mb-8">
-                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-apple-purple mb-3.5 shadow-md shadow-apple-purple/25">
-                        <Check className="h-6 w-6 text-white stroke-[3px]" />
+                    <div className="mb-3.5 flex justify-center">
+                        <Logo size={56} />
                     </div>
                     <h1 className="font-display text-2xl font-semibold tracking-tight text-[#1C1C1E]">
-                        taskManage
+                        ListMark
                     </h1>
                     <p className="text-[13px] text-[#8E8E93] mt-1 font-normal">
                         {mode === "login" ? "Sign in to organize your work." : "Create an account to get started."}

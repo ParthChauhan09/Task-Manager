@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <!-- White rounded square container with dark border -->
+  <rect
+    x="3.5"
+    y="3.5"
+    width="93"
+    height="93"
+    rx="24"
+    fill="#FFFFFF"
+    stroke="#1C1C1E"
+    stroke-width="5"
+  />
+  <!-- Top list line (dark charcoal) -->
+  <rect
+    x="20"
+    y="26"
+    width="44"
+    height="8"
+    rx="4"
+    fill="#1C1C1E"
+  />
+  <!-- The brand dot/mark next to the first line (default purple) -->
+  <circle
+    cx="78"
+    cy="30"
+    r="5.5"
+    fill="#5856D6"
+  />
+  <!-- Middle list line (medium dark gray) -->
+  <rect
+    x="20"
+    y="46"
+    width="34"
+    height="8"
+    rx="4"
+    fill="#636366"
+  />
+  <!-- Bottom list line (medium light gray) -->
+  <rect
+    x="20"
+    y="66"
+    width="26"
+    height="8"
+    rx="4"
+    fill="#AEAEB2"
+  />
+</svg>
