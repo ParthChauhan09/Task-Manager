@@ -1,15 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
+:root {
+  --theme-primary: #5856D6;
+  --theme-primary-hover: #4846B6;
+  --theme-secondary: #4F46E5;
+  --theme-secondary-hover: #4338CA;
+  --theme-glow: rgba(88, 86, 214, 0.2);
+}
+
 @theme {
   --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, monospace;
 
-  --color-apple-purple: #5856D6;
-  --color-apple-purple-hover: #4846B6;
-  --color-apple-indigo: #4F46E5;
-  --color-apple-indigo-hover: #4338CA;
+  --color-apple-purple: var(--theme-primary);
+  --color-apple-purple-hover: var(--theme-primary-hover);
+  --color-apple-indigo: var(--theme-secondary);
+  --color-apple-indigo-hover: var(--theme-secondary-hover);
   --color-apple-red: #FF3B30;
   --color-apple-green: #34C759;
   --color-apple-orange: #FF9500;

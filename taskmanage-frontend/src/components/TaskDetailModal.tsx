@@ -184,7 +184,7 @@ export function TaskDetailModal({
               <div className="space-y-4 border-t border-[#E5E5EA]/60 pt-6">
                 <div className="flex items-center justify-between">
                   <h3 className="font-display text-base font-semibold tracking-tight text-[#1C1C1E] flex items-center gap-2">
-                    <ListTodo className="h-5 w-5 text-[#5856D6]" />
+                    <ListTodo className="h-5 w-5 text-apple-purple" />
                     Action Items
                   </h3>
                   <span className="text-xs font-medium text-[#8E8E93]">
@@ -199,7 +199,7 @@ export function TaskDetailModal({
                       initial={{ width: 0 }}
                       animate={{ width: `${progressPercent}%` }}
                       transition={{ duration: 0.4, ease: "easeOut" }}
-                      className="h-full bg-gradient-to-r from-[#5856D6] to-[#4F46E5] rounded-full"
+                      className="h-full bg-gradient-to-r from-apple-purple to-apple-indigo rounded-full"
                     />
                   </div>
                 )}
@@ -230,11 +230,11 @@ export function TaskDetailModal({
                                   className="cursor-pointer shrink-0 focus:outline-none transition-all active:scale-90"
                                 >
                                   {sub.completed ? (
-                                    <div className="h-5 w-5 rounded-full bg-[#5856D6] text-white flex items-center justify-center animate-checkbox-pop shadow-sm shadow-[#5856D6]/20">
+                                    <div className="h-5 w-5 rounded-full bg-apple-purple text-white flex items-center justify-center animate-checkbox-pop shadow-sm shadow-apple-purple/20">
                                       <Check className="h-3.5 w-3.5 stroke-[3px]" />
                                     </div>
                                   ) : (
-                                    <div className="h-5 w-5 rounded-full border-2 border-[#8E8E93]/40 hover:border-[#5856D6] hover:bg-[#5856D6]/5 transition-all" />
+                                    <div className="h-5 w-5 rounded-full border-2 border-[#8E8E93]/40 hover:border-apple-purple hover:bg-apple-purple/5 transition-all" />
                                   )}
                                 </button>
 
@@ -253,7 +253,7 @@ export function TaskDetailModal({
                                         handleSaveSubtaskEdit(sub.id);
                                       }
                                     }}
-                                    className="w-full bg-white text-sm border border-[#E5E5EA] text-[#1C1C1E] px-4 py-1.5 rounded-full focus:outline-none focus:border-[#5856D6] font-sans"
+                                    className="w-full bg-white text-sm border border-[#E5E5EA] text-[#1C1C1E] px-4 py-1.5 rounded-full focus:outline-none focus:border-apple-purple font-sans"
                                     autoFocus
                                   />
                                 ) : (
@@ -320,11 +320,11 @@ export function TaskDetailModal({
                         e.currentTarget.blur();
                       }
                     }}
-                    className="flex-1 bg-[#F5F5F7] text-sm border border-transparent text-[#1C1C1E] px-4 py-2.5 rounded-full focus:outline-none focus:bg-white focus:border-[#5856D6] focus:ring-2 focus:ring-[#5856D6]/10 font-sans transition-all"
+                    className="flex-1 bg-[#F5F5F7] text-sm border border-transparent text-[#1C1C1E] px-4 py-2.5 rounded-full focus:outline-none focus:bg-white focus:border-apple-purple focus:ring-2 focus:ring-apple-purple/10 font-sans transition-all"
                   />
                   <button
                     type="submit"
-                    className="cursor-pointer shrink-0 h-10 w-10 bg-[#5856D6] text-white hover:bg-[#4846B6] rounded-full flex items-center justify-center transition-all shadow-sm shadow-[#5856D6]/20"
+                    className="cursor-pointer shrink-0 h-10 w-10 bg-apple-purple text-white hover:bg-apple-purple-hover rounded-full flex items-center justify-center transition-all shadow-sm shadow-apple-purple/20"
                   >
                     <Plus className="h-5 w-5" />
                   </button>

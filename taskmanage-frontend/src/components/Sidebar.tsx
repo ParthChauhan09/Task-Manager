@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Folder, Plus, Trash2, Edit3, Layers, LogOut, UserCircle2, HelpCircle } from "lucide-react";
+import { Folder, Plus, Trash2, Edit3, Layers, LogOut, UserCircle2, HelpCircle, Settings } from "lucide-react";
 import { Organization } from "../types";
 import { motion } from "motion/react";
 import { AuthUser } from "../api/authApi";
@@ -14,6 +14,7 @@ interface SidebarProps {
   onDeleteOrg: (id: string) => void;
   onLogout: () => void;
   onOpenGuide: () => void;
+  onOpenSettings?: () => void;
 }
 
 export function Sidebar({
@@ -26,6 +27,7 @@ export function Sidebar({
   onDeleteOrg,
   onLogout,
   onOpenGuide,
+  onOpenSettings,
 }: SidebarProps) {
   const [hoveredOrgId, setHoveredOrgId] = useState<string | null>(null);
   const initials = user?.name
@@ -82,7 +84,7 @@ export function Sidebar({
             <button
               id="empty-sidebar-create-btn"
               onClick={onCreateOrg}
-              className="mt-2 text-xs font-medium text-[#5856D6] hover:underline cursor-pointer"
+              className="mt-2 text-xs font-medium text-apple-purple hover:underline cursor-pointer"
             >
               + Create Workspace
             </button>
@@ -101,7 +103,7 @@ export function Sidebar({
                 onMouseEnter={() => setHoveredOrgId(org.id)}
                 onMouseLeave={() => setHoveredOrgId(null)}
                 className={`group/item relative rounded-full flex items-center justify-between px-4 h-9 cursor-pointer transition-all ${isActive
-                  ? "bg-[#5856D6] text-white shadow-sm shadow-[#5856D6]/15"
+                  ? "bg-apple-purple text-white shadow-sm shadow-apple-purple/15"
                   : "hover:bg-[#E5E5EA]/50 text-[#1C1C1E]"
                   }`}
                 onClick={() => onSelectOrg(org.id)}
@@ -174,7 +176,7 @@ export function Sidebar({
       {/* Footer — stats + logout */}
       <div className="p-4 border-t border-[#E5E5EA]/60 bg-[#F5F5F7]/30 space-y-1.5 font-sans">
         <div className="flex items-center gap-3 rounded-2xl border border-[#E5E5EA]/60 bg-white/50 px-3.5 py-2.5 mb-3 font-sans">
-          <span className="h-9 w-9 rounded-full bg-[#5856D6] text-white flex items-center justify-center shrink-0 shadow-sm shadow-[#5856D6]/15">
+          <span className="h-9 w-9 rounded-full bg-apple-purple text-white flex items-center justify-center shrink-0 shadow-sm shadow-apple-purple/15">
             <UserCircle2 className="h-5 w-5" />
           </span>
           <div className="min-w-0 flex-1">
@@ -185,7 +187,7 @@ export function Sidebar({
               {user?.email || "Account settings"}
             </p>
           </div>
-          <span className="h-7 w-7 rounded-full bg-[#5856D6]/10 text-[#5856D6] flex items-center justify-center text-[10px] font-bold">
+          <span className="h-7 w-7 rounded-full bg-apple-purple/10 text-apple-purple flex items-center justify-center text-[10px] font-bold">
             {initials}
           </span>
         </div>
@@ -197,18 +199,29 @@ export function Sidebar({
         </div>
         <div className="flex justify-between px-1 text-xs text-[#8E8E93] font-sans">
           <span>Incomplete:</span>
-          <span className="text-[#5856D6] font-semibold">
+          <span className="text-apple-purple font-semibold">
             {organizations.reduce((sum, o) => sum + o.tasks.filter(t => !t.completed).length, 0)}
           </span>
         </div>
         <div className="flex justify-between items-center mt-3 pt-3 border-t border-[#E5E5EA]/60 font-sans">
           <button
             onClick={onOpenGuide}
-            className="cursor-pointer flex items-center gap-1.5 text-xs text-[#8E8E93] hover:text-[#5856D6] transition-colors font-medium"
+            className="cursor-pointer flex items-center gap-1.5 text-xs text-[#8E8E93] hover:text-apple-purple transition-colors font-medium"
           >
             <HelpCircle className="h-3.5 w-3.5" />
             <span>Guide</span>
           </button>
+          
+          {onOpenSettings && (
+            <button
+              onClick={onOpenSettings}
+              className="cursor-pointer flex items-center gap-1.5 text-xs text-[#8E8E93] hover:text-apple-purple transition-colors font-medium"
+            >
+              <Settings className="h-3.5 w-3.5" />
+              <span>Theme</span>
+            </button>
+          )}
+
           <button
             onClick={onLogout}
             className="cursor-pointer flex items-center gap-1.5 text-xs text-[#8E8E93] hover:text-[#FF3B30] transition-colors font-medium"

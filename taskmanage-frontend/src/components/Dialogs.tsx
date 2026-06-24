@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { X, Calendar, AlertTriangle, Layers, FolderPlus } from "lucide-react";
+import { X, Calendar, AlertTriangle, Layers, FolderPlus, Check } from "lucide-react";
 import { Priority } from "../types";
 
 interface DialogBaseProps {
@@ -120,7 +120,7 @@ export function OrgDialog({ isOpen, onClose, onSubmit, initialValue = "", isEdit
             placeholder="e.g. Personal Projects"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full rounded-full border border-[#E5E5EA] bg-[#F5F5F7] px-4 py-2.5 text-sm text-[#1C1C1E] placeholder-[#8E8E93]/60 focus:border-[#5856D6] focus:bg-white focus:ring-2 focus:ring-[#5856D6]/10 focus:outline-none transition-all font-sans"
+            className="w-full rounded-full border border-[#E5E5EA] bg-[#F5F5F7] px-4 py-2.5 text-sm text-[#1C1C1E] placeholder-[#8E8E93]/60 focus:border-apple-purple focus:bg-white focus:ring-2 focus:ring-apple-purple/10 focus:outline-none transition-all font-sans"
           />
         </div>
 
@@ -136,7 +136,7 @@ export function OrgDialog({ isOpen, onClose, onSubmit, initialValue = "", isEdit
           <button
             id="org-submit-btn"
             type="submit"
-            className="cursor-pointer rounded-full bg-[#5856D6] px-5 py-2.5 text-xs font-medium text-white shadow-sm shadow-[#5856D6]/15 hover:bg-[#4846B6] active:scale-95 transition-all focus:outline-none"
+            className="cursor-pointer rounded-full bg-apple-purple px-5 py-2.5 text-xs font-medium text-white shadow-sm shadow-apple-purple/15 hover:bg-apple-purple-hover active:scale-95 transition-all focus:outline-none"
           >
             {isEdit ? "Save Changes" : "Create Workspace"}
           </button>
@@ -192,7 +192,7 @@ export function DateDialog({ isOpen, onClose, onSubmit }: DateDialogProps) {
               autoFocus
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="w-full rounded-full border border-[#E5E5EA] bg-[#F5F5F7] px-4 py-2.5 text-sm text-[#1C1C1E] focus:border-[#5856D6] focus:bg-white focus:ring-2 focus:ring-[#5856D6]/10 focus:outline-none transition-all font-sans"
+              className="w-full rounded-full border border-[#E5E5EA] bg-[#F5F5F7] px-4 py-2.5 text-sm text-[#1C1C1E] focus:border-apple-purple focus:bg-white focus:ring-2 focus:ring-apple-purple/10 focus:outline-none transition-all font-sans"
             />
             <Calendar className="absolute right-4 top-3.5 h-4 w-4 text-[#8E8E93] pointer-events-none" />
           </div>
@@ -210,7 +210,7 @@ export function DateDialog({ isOpen, onClose, onSubmit }: DateDialogProps) {
           <button
             id="date-submit-btn"
             type="submit"
-            className="cursor-pointer rounded-full bg-[#5856D6] px-5 py-2.5 text-xs font-medium text-white shadow-sm shadow-[#5856D6]/15 hover:bg-[#4846B6] active:scale-95 transition-all focus:outline-none"
+            className="cursor-pointer rounded-full bg-apple-purple px-5 py-2.5 text-xs font-medium text-white shadow-sm shadow-apple-purple/15 hover:bg-apple-purple-hover active:scale-95 transition-all focus:outline-none"
           >
             Add Date Group
           </button>
@@ -272,7 +272,7 @@ export function MoveTaskDateDialog({
               autoFocus
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="w-full rounded-full border border-[#E5E5EA] bg-[#F5F5F7] px-4 py-2.5 text-sm text-[#1C1C1E] focus:border-[#5856D6] focus:bg-white focus:ring-2 focus:ring-[#5856D6]/10 focus:outline-none transition-all font-sans"
+              className="w-full rounded-full border border-[#E5E5EA] bg-[#F5F5F7] px-4 py-2.5 text-sm text-[#1C1C1E] focus:border-apple-purple focus:bg-white focus:ring-2 focus:ring-apple-purple/10 focus:outline-none transition-all font-sans"
             />
             <Calendar className="absolute right-4 top-3.5 h-4 w-4 text-[#8E8E93] pointer-events-none" />
           </div>
@@ -290,7 +290,7 @@ export function MoveTaskDateDialog({
           <button
             id="move-task-date-submit-btn"
             type="submit"
-            className="cursor-pointer rounded-full bg-[#5856D6] px-5 py-2.5 text-xs font-medium text-white shadow-sm shadow-[#5856D6]/15 hover:bg-[#4846B6] active:scale-95 transition-all focus:outline-none"
+            className="cursor-pointer rounded-full bg-apple-purple px-5 py-2.5 text-xs font-medium text-white shadow-sm shadow-apple-purple/15 hover:bg-apple-purple-hover active:scale-95 transition-all focus:outline-none"
           >
             Move Task
           </button>
@@ -374,7 +374,7 @@ export function TaskDialog({ isOpen, onClose, onSubmit, initialValues, isEdit = 
             placeholder="e.g. Conduct CDN system load inspection"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full rounded-full border border-[#E5E5EA] bg-[#F5F5F7] px-4.5 py-2.5 text-sm text-[#1C1C1E] placeholder-[#8E8E93]/60 focus:border-[#5856D6] focus:bg-white focus:ring-2 focus:ring-[#5856D6]/10 focus:outline-none transition-all font-sans"
+            className="w-full rounded-full border border-[#E5E5EA] bg-[#F5F5F7] px-4.5 py-2.5 text-sm text-[#1C1C1E] placeholder-[#8E8E93]/60 focus:border-apple-purple focus:bg-white focus:ring-2 focus:ring-apple-purple/10 focus:outline-none transition-all font-sans"
           />
         </div>
 
@@ -388,7 +388,7 @@ export function TaskDialog({ isOpen, onClose, onSubmit, initialValues, isEdit = 
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             rows={3}
-            className="w-full rounded-2xl border border-[#E5E5EA] bg-[#F5F5F7] px-4 py-3 text-sm text-[#1C1C1E] placeholder-[#8E8E93]/60 focus:border-[#5856D6] focus:bg-white focus:ring-2 focus:ring-[#5856D6]/10 focus:outline-none transition-all font-sans resize-none"
+            className="w-full rounded-2xl border border-[#E5E5EA] bg-[#F5F5F7] px-4 py-3 text-sm text-[#1C1C1E] placeholder-[#8E8E93]/60 focus:border-apple-purple focus:bg-white focus:ring-2 focus:ring-apple-purple/10 focus:outline-none transition-all font-sans resize-none"
           />
         </div>
 
@@ -403,7 +403,7 @@ export function TaskDialog({ isOpen, onClose, onSubmit, initialValues, isEdit = 
               required
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="w-full rounded-full border border-[#E5E5EA] bg-[#F5F5F7] px-4 py-2.5 text-xs text-[#1C1C1E] focus:border-[#5856D6] focus:bg-white focus:ring-2 focus:ring-[#5856D6]/10 focus:outline-none transition-all font-sans"
+              className="w-full rounded-full border border-[#E5E5EA] bg-[#F5F5F7] px-4 py-2.5 text-xs text-[#1C1C1E] focus:border-apple-purple focus:bg-white focus:ring-2 focus:ring-apple-purple/10 focus:outline-none transition-all font-sans"
             />
           </div>
 
@@ -415,7 +415,7 @@ export function TaskDialog({ isOpen, onClose, onSubmit, initialValues, isEdit = 
               {(["low", "medium", "high"] as Priority[]).map((p) => {
                 const colors = {
                   low: p === priority ? "bg-[#8E8E93] text-white font-medium border-transparent" : "bg-[#F5F5F7] border-[#E5E5EA] text-[#8E8E93] hover:text-[#1C1C1E] hover:bg-[#E5E5EA]/40",
-                  medium: p === priority ? "bg-[#5856D6] text-white font-medium border-transparent" : "bg-[#F5F5F7] border-[#E5E5EA] text-[#8E8E93] hover:text-[#1C1C1E] hover:bg-[#E5E5EA]/40",
+                  medium: p === priority ? "bg-apple-purple text-white font-medium border-transparent" : "bg-[#F5F5F7] border-[#E5E5EA] text-[#8E8E93] hover:text-[#1C1C1E] hover:bg-[#E5E5EA]/40",
                   high: p === priority ? "bg-[#FF3B30] text-white font-medium border-transparent" : "bg-[#F5F5F7] border-[#E5E5EA] text-[#8E8E93] hover:text-[#1C1C1E] hover:bg-[#E5E5EA]/40",
                 };
                 return (
@@ -446,7 +446,7 @@ export function TaskDialog({ isOpen, onClose, onSubmit, initialValues, isEdit = 
           <button
             id="task-submit-btn"
             type="submit"
-            className="cursor-pointer rounded-full bg-[#5856D6] px-5 py-2.5 text-xs font-medium text-white shadow-sm shadow-[#5856D6]/15 hover:bg-[#4846B6] active:scale-95 transition-all focus:outline-none"
+            className="cursor-pointer rounded-full bg-apple-purple px-5 py-2.5 text-xs font-medium text-white shadow-sm shadow-apple-purple/15 hover:bg-apple-purple-hover active:scale-95 transition-all focus:outline-none"
           >
             {isEdit ? "Update Task" : "Save Task"}
           </button>
@@ -502,7 +502,7 @@ export function SubtaskDialog({ isOpen, onClose, onSubmit, initialValue = "", is
             placeholder="e.g. Deploy DNS verification text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full rounded-full border border-[#E5E5EA] bg-[#F5F5F7] px-4 py-2.5 text-sm text-[#1C1C1E] placeholder-[#8E8E93]/60 focus:border-[#5856D6] focus:bg-white focus:ring-2 focus:ring-[#5856D6]/10 focus:outline-none transition-all font-sans"
+            className="w-full rounded-full border border-[#E5E5EA] bg-[#F5F5F7] px-4 py-2.5 text-sm text-[#1C1C1E] placeholder-[#8E8E93]/60 focus:border-apple-purple focus:bg-white focus:ring-2 focus:ring-apple-purple/10 focus:outline-none transition-all font-sans"
           />
         </div>
 
@@ -518,7 +518,7 @@ export function SubtaskDialog({ isOpen, onClose, onSubmit, initialValue = "", is
           <button
             id="subtask-submit-btn"
             type="submit"
-            className="cursor-pointer rounded-full bg-[#5856D6] px-5 py-2.5 text-xs font-medium text-white shadow-sm shadow-[#5856D6]/15 hover:bg-[#4846B6] active:scale-95 transition-all focus:outline-none"
+            className="cursor-pointer rounded-full bg-apple-purple px-5 py-2.5 text-xs font-medium text-white shadow-sm shadow-apple-purple/15 hover:bg-apple-purple-hover active:scale-95 transition-all focus:outline-none"
           >
             {isEdit ? "Update Subtask" : "Add Subtask"}
           </button>
@@ -574,3 +574,73 @@ export function ConfirmDialog({ isOpen, onClose, onConfirm, title, message }: Co
     </DialogBase>
   );
 }
+
+// 6. Theme Settings Dialog
+import { useAppTheme, AccentTheme, themesInfo } from "../context/ThemeContext";
+
+interface SettingsDialogProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export function SettingsDialog({ isOpen, onClose }: SettingsDialogProps) {
+  const { theme: currentTheme, setTheme } = useAppTheme();
+
+  return (
+    <DialogBase
+      isOpen={isOpen}
+      onClose={onClose}
+      title="Appearance Settings"
+      description="Choose your system accent color to customize buttons, checkboxes, and active tabs."
+    >
+      <div className="space-y-6">
+        <div>
+          <label className="block text-[11px] font-bold text-[#8E8E93] uppercase tracking-wider mb-3 ml-1 text-left">
+            Accent Color
+          </label>
+          <div className="grid grid-cols-4 gap-3 p-1">
+            {(Object.keys(themesInfo) as AccentTheme[]).map((tKey) => {
+              const th = themesInfo[tKey];
+              const isSelected = currentTheme === tKey;
+              return (
+                <button
+                  key={tKey}
+                  onClick={() => setTheme(tKey)}
+                  className={`flex flex-col items-center justify-center p-2.5 rounded-2xl border transition-all cursor-pointer focus:outline-none ${
+                    isSelected
+                      ? "border-apple-purple bg-apple-purple/5 shadow-sm scale-[1.02] font-semibold"
+                      : "border-[#E5E5EA]/70 hover:border-[#8E8E93]/40 hover:bg-[#F5F5F7]/40"
+                  }`}
+                >
+                  <span
+                    className="h-7 w-7 rounded-full flex items-center justify-center shadow-inner border border-black/5"
+                    style={{ backgroundColor: th.primary }}
+                  >
+                    {isSelected && (
+                      <Check className="h-4 w-4 text-white stroke-[3px]" />
+                    )}
+                  </span>
+                  <span className="text-[10px] text-[#1C1C1E] mt-1.5 font-sans font-medium">
+                    {th.name}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="flex justify-end pt-2 border-t border-[#E5E5EA]/60">
+          <button
+            id="settings-done-btn"
+            type="button"
+            onClick={onClose}
+            className="cursor-pointer rounded-full bg-apple-purple px-6 py-2.5 text-xs font-semibold text-white shadow-sm shadow-apple-purple/15 hover:bg-apple-purple-hover active:scale-95 transition-all focus:outline-none"
+          >
+            Done
+          </button>
+        </div>
+      </div>
+    </DialogBase>
+  );
+}
+

@@ -8,6 +8,7 @@ import { MobileSidebar } from "./MobileSidebar";
 import { DashboardDialogs } from "./DashboardDialogs";
 import { ShortcutOverlay } from "../ShortcutOverlay";
 import { GuideModal } from "../GuideModal";
+import { SettingsDialog } from "../Dialogs";
 import { useDashboard } from "../../hooks/useDashboard";
 import { useTaskFilters } from "../../hooks/useTaskFilters";
 import { formatDateLabel } from "../../utils/dateHelpers";
@@ -27,6 +28,7 @@ export function Dashboard({ user, onLogout }: DashboardProps) {
     const { groupedTasksMap, sortedDates } = useTaskFilters(dash.activeOrg, dash.searchQuery);
 
     const [isGuideOpen, setIsGuideOpen] = useState(false);
+    const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
     useEffect(() => {
         const hasSeen = localStorage.getItem("has_seen_guide");
@@ -85,7 +87,7 @@ export function Dashboard({ user, onLogout }: DashboardProps) {
                 <motion.div
                     animate={{ rotate: 360 }}
                     transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-                    className="w-10 h-10 border-2 border-[#5856D6] border-t-transparent rounded-full"
+                    className="w-10 h-10 border-2 border-apple-purple border-t-transparent rounded-full"
                 />
                 <p className="text-sm font-medium text-[#8E8E93]">Loading your workspaces...</p>
             </div>
@@ -108,6 +110,7 @@ export function Dashboard({ user, onLogout }: DashboardProps) {
                     onDeleteOrg={dash.handleDeleteOrg}
                     onLogout={onLogout}
                     onOpenGuide={() => setIsGuideOpen(true)}
+                    onOpenSettings={() => setIsSettingsOpen(true)}
                 />
             </div>
 
@@ -124,6 +127,7 @@ export function Dashboard({ user, onLogout }: DashboardProps) {
                 onDeleteOrg={dash.handleDeleteOrg}
                 onLogout={onLogout}
                 onOpenGuide={() => setIsGuideOpen(true)}
+                onOpenSettings={() => setIsSettingsOpen(true)}
             />
 
             {/* Main content */}
@@ -170,20 +174,20 @@ export function Dashboard({ user, onLogout }: DashboardProps) {
                                                     transition={{ type: "spring", damping: 25, stiffness: 220, delay: i * 0.03 }}
                                                     onMouseEnter={(e) => e.currentTarget.focus()}
                                                     onClick={() => navigate(`/workspace/${dash.activeOrg!.id}/date/${dateStr}`)}
-                                                    className="date-nav-item cursor-pointer text-left bg-white border border-[#E5E5EA]/60 rounded-[24px] p-5 hover:shadow-[0_8px_24px_rgba(0,0,0,0.04)] transition-all group focus:outline-none focus:ring-2 focus:ring-[#5856D6]/40 focus:-translate-y-0.5 shadow-[0_4px_16px_rgba(0,0,0,0.01)]"
+                                                    className="date-nav-item cursor-pointer text-left bg-white border border-[#E5E5EA]/60 rounded-[24px] p-5 hover:shadow-[0_8px_24px_rgba(0,0,0,0.04)] transition-all group focus:outline-none focus:ring-2 focus:ring-apple-purple/40 focus:-translate-y-0.5 shadow-[0_4px_16px_rgba(0,0,0,0.01)]"
                                                 >
                                                     <div className="flex items-start justify-between gap-2 mb-4">
-                                                        <Calendar className="h-4.5 w-4.5 text-[#8E8E93] shrink-0 mt-0.5 group-hover:text-[#5856D6] transition-colors" />
+                                                        <Calendar className="h-4.5 w-4.5 text-[#8E8E93] shrink-0 mt-0.5 group-hover:text-apple-purple transition-colors" />
                                                         <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full border ${pct === 100 ? "bg-[#34C759]/10 border-transparent text-[#34C759]" : "bg-[#F5F5F7] border-[#E5E5EA]/40 text-[#8E8E93]"}`}>
                                                             {done}/{tasks.length}
                                                         </span>
                                                     </div>
-                                                    <p className="text-sm font-semibold text-[#1C1C1E] tracking-tight group-hover:text-[#5856D6] transition-colors">
+                                                    <p className="text-sm font-semibold text-[#1C1C1E] tracking-tight group-hover:text-apple-purple transition-colors">
                                                         {formatDateLabel(dateStr)}
                                                     </p>
                                                     <div className="mt-4 w-full bg-[#E5E5EA] rounded-full h-1 overflow-hidden">
                                                         <div
-                                                            className={`h-full rounded-full transition-all duration-500 ${pct === 100 ? "bg-[#34C759]" : "bg-gradient-to-r from-[#5856D6] to-[#4F46E5]"}`}
+                                                            className={`h-full rounded-full transition-all duration-500 ${pct === 100 ? "bg-[#34C759]" : "bg-gradient-to-r from-apple-purple to-apple-indigo"}`}
                                                             style={{ width: `${pct}%` }}
                                                         />
                                                     </div>
@@ -206,6 +210,7 @@ export function Dashboard({ user, onLogout }: DashboardProps) {
 
             <ShortcutOverlay overlayId="dashboard" shortcuts={dashboardShortcuts} />
             <GuideModal isOpen={isGuideOpen} onClose={() => setIsGuideOpen(false)} />
+            <SettingsDialog isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
 
             <DashboardDialogs
                 orgDialog={dash.orgDialog}
@@ -254,7 +259,7 @@ function EmptyState({ hasSearch, onClearSearch, onAddDate, onAddTask }: {
                     : "Add a date to start organising your tasks by day."}
             </p>
             {hasSearch ? (
-                <button onClick={onClearSearch} className="cursor-pointer mt-5 text-xs font-semibold text-[#5856D6] hover:underline">
+                <button onClick={onClearSearch} className="cursor-pointer mt-5 text-xs font-semibold text-apple-purple hover:underline">
                     Clear search
                 </button>
             ) : (
@@ -262,7 +267,7 @@ function EmptyState({ hasSearch, onClearSearch, onAddDate, onAddTask }: {
                     <button onClick={onAddDate} className="cursor-pointer h-10 px-4 border border-[#E5E5EA] bg-white hover:bg-[#F5F5F7] text-[#1C1C1E] font-medium rounded-full text-xs transition-colors">
                         + Add Date
                     </button>
-                    <button onClick={onAddTask} className="cursor-pointer h-10 px-5 bg-[#5856D6] hover:bg-[#4846B6] text-white font-medium rounded-full text-xs shadow-sm shadow-[#5856D6]/15 transition-colors">
+                    <button onClick={onAddTask} className="cursor-pointer h-10 px-5 bg-apple-purple hover:bg-apple-purple-hover text-white font-medium rounded-full text-xs shadow-sm shadow-apple-purple/15 transition-colors">
                         + Plan Task
                     </button>
                 </div>

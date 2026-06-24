@@ -16,7 +16,7 @@ export function WorkspaceWelcome({ onCreateOrg, onLogout, onOpenMobileSidebar }:
             >
                 <Menu className="h-5 w-5" />
             </button>
-            <div className="w-12 h-12 rounded-full bg-[#5856D6] text-white flex items-center justify-center mb-5 shadow-sm shadow-[#5856D6]/15">
+            <div className="w-12 h-12 rounded-full bg-apple-purple text-white flex items-center justify-center mb-5 shadow-sm shadow-apple-purple/15">
                 <Check className="h-6 w-6 stroke-[3.5px]" />
             </div>
             <h2 className="font-display font-semibold text-xl sm:text-2xl text-[#1C1C1E] tracking-tight">
@@ -28,7 +28,7 @@ export function WorkspaceWelcome({ onCreateOrg, onLogout, onOpenMobileSidebar }:
             <button
                 id="global-create-workspace-btn"
                 onClick={onCreateOrg}
-                className="cursor-pointer mt-6 bg-[#5856D6] hover:bg-[#4846B6] text-white font-medium text-xs px-5 py-3 rounded-full shadow-sm shadow-[#5856D6]/15 transition-all hover:scale-[1.02] active:scale-[0.98]"
+                className="cursor-pointer mt-6 bg-apple-purple hover:bg-apple-purple-hover text-white font-medium text-xs px-5 py-3 rounded-full shadow-sm shadow-apple-purple/15 transition-all hover:scale-[1.02] active:scale-[0.98]"
             >
                 + Create Workspace
             </button>

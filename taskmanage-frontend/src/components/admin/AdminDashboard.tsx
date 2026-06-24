@@ -32,7 +32,7 @@ export function AdminDashboard({ user, onLogout }: AdminDashboardProps) {
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-          className="w-10 h-10 border-2 border-[#5856D6] border-t-transparent rounded-full"
+          className="w-10 h-10 border-2 border-apple-purple border-t-transparent rounded-full"
         />
       </div>
     );
@@ -44,7 +44,7 @@ export function AdminDashboard({ user, onLogout }: AdminDashboardProps) {
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#E5E5EA] bg-white text-[11px] font-medium tracking-[0.25em] uppercase text-[#8E8E93]">
-              <Shield className="h-3.5 w-3.5 text-[#5856D6]" />
+              <Shield className="h-3.5 w-3.5 text-apple-purple" />
               Admin View
             </div>
             <h1 className="font-display text-2xl sm:text-3xl font-semibold tracking-tight text-[#1C1C1E] mt-3.5">
@@ -86,7 +86,7 @@ export function AdminDashboard({ user, onLogout }: AdminDashboardProps) {
                       <p className="font-semibold text-[#1C1C1E]">{item.name}</p>
                       <p className="text-xs text-[#8E8E93] mt-0.5">{item.email}</p>
                     </div>
-                    <span className={`text-[10px] font-medium uppercase tracking-wider px-2.5 py-1 rounded-full ${item.role === "admin" ? "bg-[#5856D6] text-white shadow-sm" : "bg-[#E5E5EA] text-[#8E8E93]"}`}>
+                    <span className={`text-[10px] font-medium uppercase tracking-wider px-2.5 py-1 rounded-full ${item.role === "admin" ? "bg-apple-purple text-white shadow-sm" : "bg-[#E5E5EA] text-[#8E8E93]"}`}>
                       {item.role}
                     </span>
                   </div>
@@ -154,7 +154,7 @@ function StatCard({ label, value, icon }: { label: string; value: number; icon: 
           <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-[#8E8E93]">{label}</p>
           <p className="font-display text-3xl font-semibold tracking-tight mt-2 text-[#1C1C1E]">{value}</p>
         </div>
-        <div className="h-11 w-11 rounded-full bg-[#5856D6] text-white flex items-center justify-center shadow-sm shadow-[#5856D6]/15">
+        <div className="h-11 w-11 rounded-full bg-apple-purple text-white flex items-center justify-center shadow-sm shadow-apple-purple/15">
           {icon}
         </div>
       </div>

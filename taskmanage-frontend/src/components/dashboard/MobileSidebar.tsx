@@ -15,11 +15,12 @@ interface MobileSidebarProps {
     onDeleteOrg: (id: string) => void;
     onLogout: () => void;
     onOpenGuide: () => void;
+    onOpenSettings?: () => void;
 }
 
 export function MobileSidebar({
     user, isOpen, organizations, activeOrgId, onClose,
-    onSelectOrg, onCreateOrg, onRenameOrg, onDeleteOrg, onLogout, onOpenGuide,
+    onSelectOrg, onCreateOrg, onRenameOrg, onDeleteOrg, onLogout, onOpenGuide, onOpenSettings,
 }: MobileSidebarProps) {
     return (
         <AnimatePresence>
@@ -45,6 +46,7 @@ export function MobileSidebar({
                             onDeleteOrg={(id) => { onDeleteOrg(id); onClose(); }}
                             onLogout={onLogout}
                             onOpenGuide={() => { onOpenGuide(); onClose(); }}
+                            onOpenSettings={() => { onOpenSettings?.(); onClose(); }}
                         />
                     </motion.div>
                 </>

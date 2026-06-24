@@ -32,7 +32,7 @@ export function EmptyWorkspace({ searchQuery, onAddDate, onAddTask }: EmptyWorks
                     <button
                         id="empty-dashboard-add-task"
                         onClick={onAddTask}
-                        className="cursor-pointer h-10 px-5 bg-[#5856D6] hover:bg-[#4846B6] text-white font-medium rounded-full text-xs shadow-sm shadow-[#5856D6]/15 transition-colors"
+                        className="cursor-pointer h-10 px-5 bg-apple-purple hover:bg-apple-purple-hover text-white font-medium rounded-full text-xs shadow-sm shadow-apple-purple/15 transition-colors"
                     >
                         + Draft Initial Task
                     </button>

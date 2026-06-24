@@ -128,7 +128,7 @@ export function DateDetailPage({ onLogout: _ }: DateDetailPageProps) {
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-          className="w-10 h-10 border-2 border-[#5856D6] border-t-transparent rounded-full"
+          className="w-10 h-10 border-2 border-apple-purple border-t-transparent rounded-full"
         />
       </div>
     );
@@ -138,7 +138,7 @@ export function DateDetailPage({ onLogout: _ }: DateDetailPageProps) {
     return (
       <div className="fixed inset-0 bg-[#F5F5F7] flex flex-col items-center justify-center gap-4 select-none">
         <p className="text-sm text-[#8E8E93]">Workspace or date not found.</p>
-        <button onClick={() => navigate("/")} className="text-xs font-semibold text-[#5856D6] hover:underline">
+        <button onClick={() => navigate("/")} className="text-xs font-semibold text-apple-purple hover:underline">
           Go back
         </button>
       </div>
@@ -182,7 +182,7 @@ export function DateDetailPage({ onLogout: _ }: DateDetailPageProps) {
                     initial={{ width: 0 }}
                     animate={{ width: `${progressPercent}%` }}
                     transition={{ duration: 0.5, ease: "easeOut" }}
-                    className="h-full bg-[#5856D6] rounded-full"
+                    className="h-full bg-apple-purple rounded-full"
                   />
                 </div>
                 <span className="text-[10px] text-[#8E8E93]">{Math.round(progressPercent)}%</span>
@@ -198,7 +198,7 @@ export function DateDetailPage({ onLogout: _ }: DateDetailPageProps) {
             </button>
             <button
               onClick={() => dash.setTaskDialog({ isOpen: true, isEdit: false, prepopulatedDate: date })}
-              className="cursor-pointer h-9 px-4 bg-[#5856D6] hover:bg-[#4846B6] text-white rounded-full text-xs font-medium flex items-center gap-1.5 shadow-sm shadow-[#5856D6]/15 transition-all active:scale-95 animate-checkbox-pop"
+              className="cursor-pointer h-9 px-4 bg-apple-purple hover:bg-apple-purple-hover text-white rounded-full text-xs font-medium flex items-center gap-1.5 shadow-sm shadow-apple-purple/15 transition-all active:scale-95 animate-checkbox-pop"
             >
               <Plus className="h-3.5 w-3.5" />
               Add Task
@@ -228,7 +228,7 @@ export function DateDetailPage({ onLogout: _ }: DateDetailPageProps) {
             </p>
             <button
               onClick={() => dash.setTaskDialog({ isOpen: true, isEdit: false, prepopulatedDate: date })}
-              className="cursor-pointer mt-5 h-9 px-4 bg-[#5856D6] hover:bg-[#4846B6] text-white rounded-full text-xs font-medium shadow-sm shadow-[#5856D6]/15 transition-all"
+              className="cursor-pointer mt-5 h-9 px-4 bg-apple-purple hover:bg-apple-purple-hover text-white rounded-full text-xs font-medium shadow-sm shadow-apple-purple/15 transition-all"
             >
               + Add First Task
             </button>

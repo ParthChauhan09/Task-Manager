@@ -19,7 +19,7 @@ export function GuideModal({ isOpen, onClose }: GuideModalProps) {
   const steps = [
     {
       title: "Welcome to taskManage",
-      icon: <Sparkles className="h-7 w-7 text-[#5856D6]" />,
+      icon: <Sparkles className="h-7 w-7 text-apple-purple" />,
       content: (
         <div className="space-y-3 text-center">
           <p className="text-sm text-[#8E8E93] leading-relaxed">
@@ -33,7 +33,7 @@ export function GuideModal({ isOpen, onClose }: GuideModalProps) {
     },
     {
       title: "Organize with Workspaces",
-      icon: <Layers className="h-7 w-7 text-[#5856D6]" />,
+      icon: <Layers className="h-7 w-7 text-apple-purple" />,
       content: (
         <div className="space-y-3">
           <p className="text-sm text-[#8E8E93] leading-relaxed text-center">
@@ -41,11 +41,11 @@ export function GuideModal({ isOpen, onClose }: GuideModalProps) {
           </p>
           <ul className="text-xs text-[#1C1C1E]/80 space-y-2 max-w-xs mx-auto">
             <li className="flex items-start gap-2">
-              <span className="font-semibold text-[#5856D6]">•</span>
+              <span className="font-semibold text-apple-purple">•</span>
               <span>Create new workspaces using the <strong>+</strong> icon in the sidebar.</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="font-semibold text-[#5856D6]">•</span>
+              <span className="font-semibold text-apple-purple">•</span>
               <span>Rename or delete workspaces by hovering and clicking the edit options.</span>
             </li>
           </ul>
@@ -54,7 +54,7 @@ export function GuideModal({ isOpen, onClose }: GuideModalProps) {
     },
     {
       title: "Plan by Dates",
-      icon: <Calendar className="h-7 w-7 text-[#5856D6]" />,
+      icon: <Calendar className="h-7 w-7 text-apple-purple" />,
       content: (
         <div className="space-y-3">
           <p className="text-sm text-[#8E8E93] leading-relaxed text-center">
@@ -62,11 +62,11 @@ export function GuideModal({ isOpen, onClose }: GuideModalProps) {
           </p>
           <ul className="text-xs text-[#1C1C1E]/80 space-y-2 max-w-xs mx-auto">
             <li className="flex items-start gap-2">
-              <span className="font-semibold text-[#5856D6]">•</span>
+              <span className="font-semibold text-apple-purple">•</span>
               <span>Click <strong>Add Date</strong> in the top bar to group tasks under a calendar day.</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="font-semibold text-[#5856D6]">•</span>
+              <span className="font-semibold text-apple-purple">•</span>
               <span>Click any date capsule to view, check, and edit tasks scheduled for that day.</span>
             </li>
           </ul>
@@ -75,7 +75,7 @@ export function GuideModal({ isOpen, onClose }: GuideModalProps) {
     },
     {
       title: "Fluid Shortcuts HUD",
-      icon: <Keyboard className="h-7 w-7 text-[#5856D6]" />,
+      icon: <Keyboard className="h-7 w-7 text-apple-purple" />,
       content: (
         <div className="space-y-3 text-center">
           <p className="text-sm text-[#8E8E93] leading-relaxed">
@@ -145,7 +145,7 @@ export function GuideModal({ isOpen, onClose }: GuideModalProps) {
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ type: "spring", damping: 15 }}
-              className="mt-6 mb-4 h-14 w-14 bg-[#5856D6]/10 rounded-full flex items-center justify-center shrink-0"
+              className="mt-6 mb-4 h-14 w-14 bg-apple-purple/10 rounded-full flex items-center justify-center shrink-0"
             >
               {steps[currentStep].icon}
             </motion.div>
@@ -172,7 +172,7 @@ export function GuideModal({ isOpen, onClose }: GuideModalProps) {
                 <div
                   key={i}
                   className={`h-1.5 rounded-full transition-all duration-300 ${
-                    i === currentStep ? "w-4 bg-[#5856D6]" : "w-1.5 bg-[#E5E5EA]"
+                    i === currentStep ? "w-4 bg-apple-purple" : "w-1.5 bg-[#E5E5EA]"
                   }`}
                 />
               ))}
@@ -193,7 +193,7 @@ export function GuideModal({ isOpen, onClose }: GuideModalProps) {
               </button>
               <button
                 onClick={handleNext}
-                className="cursor-pointer h-9 px-5 bg-[#5856D6] hover:bg-[#4846B6] text-white rounded-full text-xs font-semibold flex items-center gap-1 shadow-sm shadow-[#5856D6]/15 transition-colors"
+                className="cursor-pointer h-9 px-5 bg-apple-purple hover:bg-apple-purple-hover text-white rounded-full text-xs font-semibold flex items-center gap-1 shadow-sm shadow-apple-purple/15 transition-colors"
               >
                 {currentStep === steps.length - 1 ? "Get Started" : "Next"}
                 {currentStep !== steps.length - 1 && <ChevronRight className="h-3.5 w-3.5" />}

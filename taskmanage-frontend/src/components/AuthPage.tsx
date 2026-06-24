@@ -67,7 +67,7 @@ export function AuthPage() {
                 className="w-full max-w-sm"
             >
                 <div className="text-center mb-8">
-                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#5856D6] mb-3.5 shadow-md shadow-[#5856D6]/25">
+                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-apple-purple mb-3.5 shadow-md shadow-apple-purple/25">
                         <Check className="h-6 w-6 text-white stroke-[3px]" />
                     </div>
                     <h1 className="font-display text-2xl font-semibold tracking-tight text-[#1C1C1E]">
@@ -103,7 +103,7 @@ export function AuthPage() {
                                             placeholder="John Doe"
                                             value={name}
                                             onChange={(e) => setName(e.target.value)}
-                                            className="w-full pl-10 pr-4 py-2.5 text-sm rounded-full border border-transparent bg-[#F5F5F7] text-[#1C1C1E] placeholder-[#8E8E93]/60 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#5856D6]/20 transition-all font-sans"
+                                            className="w-full pl-10 pr-4 py-2.5 text-sm rounded-full border border-transparent bg-[#F5F5F7] text-[#1C1C1E] placeholder-[#8E8E93]/60 focus:outline-none focus:bg-white focus:ring-2 focus:ring-apple-purple/20 transition-all font-sans"
                                         />
                                     </div>
                                 </div>
@@ -122,7 +122,7 @@ export function AuthPage() {
                                         placeholder="you@example.com"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        className="w-full pl-10 pr-4 py-2.5 text-sm rounded-full border border-transparent bg-[#F5F5F7] text-[#1C1C1E] placeholder-[#8E8E93]/60 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#5856D6]/20 transition-all font-sans"
+                                        className="w-full pl-10 pr-4 py-2.5 text-sm rounded-full border border-transparent bg-[#F5F5F7] text-[#1C1C1E] placeholder-[#8E8E93]/60 focus:outline-none focus:bg-white focus:ring-2 focus:ring-apple-purple/20 transition-all font-sans"
                                     />
                                 </div>
                             </div>
@@ -140,7 +140,7 @@ export function AuthPage() {
                                         placeholder="••••••••"
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
-                                        className="w-full pl-10 pr-12 py-2.5 text-sm rounded-full border border-transparent bg-[#F5F5F7] text-[#1C1C1E] placeholder-[#8E8E93]/60 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#5856D6]/20 transition-all font-sans"
+                                        className="w-full pl-10 pr-12 py-2.5 text-sm rounded-full border border-transparent bg-[#F5F5F7] text-[#1C1C1E] placeholder-[#8E8E93]/60 focus:outline-none focus:bg-white focus:ring-2 focus:ring-apple-purple/20 transition-all font-sans"
                                     />
                                     <button
                                         type="button"
@@ -174,7 +174,7 @@ export function AuthPage() {
                             <button
                                 type="submit"
                                 disabled={isLoading}
-                                className="cursor-pointer w-full h-11 bg-[#5856D6] hover:bg-[#4846B6] disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-medium rounded-full transition-all active:scale-[0.98] flex items-center justify-center gap-2 shadow-sm shadow-[#5856D6]/15"
+                                className="cursor-pointer w-full h-11 bg-apple-purple hover:bg-apple-purple-hover disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-medium rounded-full transition-all active:scale-[0.98] flex items-center justify-center gap-2 shadow-sm shadow-apple-purple/15"
                             >
                                 {isLoading ? (
                                     <Loader2 className="h-4 w-4 animate-spin" />
@@ -206,7 +206,7 @@ export function AuthPage() {
                         <button
                             type="button"
                             onClick={switchMode}
-                            className="cursor-pointer text-[#5856D6] font-medium hover:underline transition-colors"
+                            className="cursor-pointer text-apple-purple font-medium hover:underline transition-colors"
                         >
                             {mode === "login" ? "Register" : "Sign in"}
                         </button>

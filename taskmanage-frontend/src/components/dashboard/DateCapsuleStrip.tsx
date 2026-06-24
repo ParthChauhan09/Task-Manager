@@ -34,7 +34,7 @@ export function DateCapsuleStrip({ orgId, dates, tasksByDate, activeDateStr }: D
             title={`View all tasks for ${formatDateLabel(dateStr)}`}
             className={`cursor-pointer shrink-0 flex items-center gap-2 px-3.5 py-1.5 rounded-full border text-xs font-medium transition-all active:scale-95
               ${isActive
-                ? "bg-[#5856D6] border-transparent text-white shadow-sm shadow-[#5856D6]/15"
+                ? "bg-apple-purple border-transparent text-white shadow-sm shadow-apple-purple/15"
                 : allDone
                   ? "bg-[#34C759]/10 border-transparent text-[#34C759] hover:bg-[#34C759]/20"
                   : "bg-white border-[#E5E5EA] text-[#1C1C1E]/80 hover:bg-[#F5F5F7] hover:border-[#E5E5EA]/80"

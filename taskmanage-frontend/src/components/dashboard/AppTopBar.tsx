@@ -29,7 +29,7 @@ export function AppTopBar({
                 </button>
                 <div className="flex flex-col text-left group cursor-pointer min-w-0" onClick={onRenameOrg}>
                     <div className="flex items-center gap-2">
-                        <h2 className="font-display text-xl sm:text-2xl font-semibold tracking-tight text-[#1C1C1E] group-hover:text-[#5856D6] transition-colors">
+                        <h2 className="font-display text-xl sm:text-2xl font-semibold tracking-tight text-[#1C1C1E] group-hover:text-apple-purple transition-colors">
                             {activeOrg.name}
                         </h2>
                         <span className="text-[10px] bg-[#F5F5F7] text-[#8E8E93] px-2.5 py-0.5 rounded-full border border-[#E5E5EA] font-sans opacity-0 group-hover:opacity-100 transition-opacity">
@@ -52,7 +52,7 @@ export function AppTopBar({
                         placeholder="Search dates..."
                         value={searchQuery}
                         onChange={(e) => onSearchChange(e.target.value)}
-                        className="w-full bg-[#F5F5F7] text-xs border border-transparent text-[#1C1C1E] placeholder-[#8E8E93]/60 rounded-full pl-10 pr-8 py-2.5 h-10 focus:outline-none focus:bg-white focus:border-[#5856D6] focus:ring-2 focus:ring-[#5856D6]/10 transition-all duration-200 font-sans"
+                        className="w-full bg-[#F5F5F7] text-xs border border-transparent text-[#1C1C1E] placeholder-[#8E8E93]/60 rounded-full pl-10 pr-8 py-2.5 h-10 focus:outline-none focus:bg-white focus:border-apple-purple focus:ring-2 focus:ring-apple-purple/10 transition-all duration-200 font-sans"
                     />
                     <Search className="absolute left-3.5 top-[13px] h-3.5 w-3.5 text-[#8E8E93]" />
                     {searchQuery && (
@@ -64,9 +64,9 @@ export function AppTopBar({
 
                 {searchQuery && (
                     <div className="flex items-center gap-1.5 text-xs text-[#8E8E93] bg-[#F5F5F7] px-3.5 py-1.5 rounded-full border border-[#E5E5EA]">
-                        <Filter className="h-3.5 w-3.5 text-[#5856D6]" />
+                        <Filter className="h-3.5 w-3.5 text-apple-purple" />
                         <span>{filteredCount} match{filteredCount !== 1 ? "es" : ""}</span>
-                        <button onClick={() => onSearchChange("")} className="ml-1 text-[#5856D6] hover:underline font-semibold">
+                        <button onClick={() => onSearchChange("")} className="ml-1 text-apple-purple hover:underline font-semibold">
                             Clear
                         </button>
                     </div>
@@ -84,7 +84,7 @@ export function AppTopBar({
                 <button
                     id="header-create-task-btn"
                     onClick={onAddTask}
-                    className="cursor-pointer h-10 px-5 bg-[#5856D6] text-white hover:bg-[#4846B6] rounded-full text-xs font-medium flex items-center gap-1.5 shadow-sm shadow-[#5856D6]/15 transition-all duration-200 active:scale-95"
+                    className="cursor-pointer h-10 px-5 bg-apple-purple text-white hover:bg-apple-purple-hover rounded-full text-xs font-medium flex items-center gap-1.5 shadow-sm shadow-apple-purple/15 transition-all duration-200 active:scale-95"
                 >
                     <Plus className="h-3.5 w-3.5" />
                     Plan Task

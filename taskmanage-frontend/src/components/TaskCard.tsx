@@ -181,8 +181,8 @@ export function TaskCard({
       glow: "hover:border-[#E5E5EA]",
     },
     medium: {
-      bg: "bg-[#5856D6]/10 border-transparent text-[#5856D6]",
-      glow: "hover:border-[#5856D6]/20",
+      bg: "bg-apple-purple/10 border-transparent text-apple-purple",
+      glow: "hover:border-apple-purple/20",
     },
     high: {
       bg: "bg-[#FF3B30]/10 border-transparent text-[#FF3B30]",
@@ -226,12 +226,12 @@ export function TaskCard({
           }
           setIsDetailModalOpen(true);
         }}
-        className={`task-nav-item relative flex flex-col p-6 select-none transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#5856D6]/40 focus:-translate-y-0.5 rounded-[24px] border ${task.completed
+        className={`task-nav-item relative flex flex-col p-6 select-none transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-apple-purple/40 focus:-translate-y-0.5 rounded-[24px] border ${task.completed
           ? "border-[#E5E5EA]/60 bg-[#F5F5F7]/60 opacity-60 shadow-none"
           : `${priorityColors[task.priority].glow} border-[#E5E5EA]/60 bg-white shadow-[0_4px_16px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.05)]`
           } ${
             contextMenu
-              ? "z-[51] ring-2 ring-[#5856D6]/30 shadow-2xl scale-[1.01] bg-white border-transparent !opacity-100"
+              ? "z-[51] ring-2 ring-apple-purple/30 shadow-2xl scale-[1.01] bg-white border-transparent !opacity-100"
               : ""
           } cursor-pointer`}
       >
@@ -249,18 +249,18 @@ export function TaskCard({
               className="cursor-pointer mt-0.5 shrink-0 focus:outline-none transition-all duration-200 active:scale-90"
             >
               {task.completed ? (
-                <div className="h-5.5 w-5.5 rounded-full bg-[#5856D6] text-white flex items-center justify-center scale-100 transition-all select-none animate-checkbox-pop shadow-sm shadow-[#5856D6]/20">
+                <div className="h-5.5 w-5.5 rounded-full bg-apple-purple text-white flex items-center justify-center scale-100 transition-all select-none animate-checkbox-pop shadow-sm shadow-apple-purple/20">
                   <Check className="h-3.5 w-3.5 stroke-[3px]" />
                 </div>
               ) : (
-                <div className="h-5.5 w-5.5 rounded-full border-2 border-[#8E8E93]/40 hover:border-[#5856D6] hover:bg-[#5856D6]/5 transition-all" />
+                <div className="h-5.5 w-5.5 rounded-full border-2 border-[#8E8E93]/40 hover:border-apple-purple hover:bg-apple-purple/5 transition-all" />
               )}
             </button>
 
             <div className="text-left flex-1 min-w-0">
               <h4
                 id={`task-title-text-${task.id}`}
-                className={`text-sm font-semibold tracking-tight transition-all leading-snug break-words group-hover/title:text-[#5856D6] ${task.completed
+                className={`text-sm font-semibold tracking-tight transition-all leading-snug break-words group-hover/title:text-apple-purple ${task.completed
                   ? "line-through text-[#8E8E93]"
                   : "text-[#1C1C1E]"
                   }`}
@@ -336,7 +336,7 @@ export function TaskCard({
               transition={{ duration: 0.4, ease: "easeOut" }}
               className={`h-full rounded-full ${task.completed
                 ? "bg-[#8E8E93]/60"
-                : "bg-gradient-to-r from-[#5856D6] to-[#4F46E5]"
+                : "bg-gradient-to-r from-apple-purple to-apple-indigo"
                 }`}
             />
           </div>
@@ -351,7 +351,7 @@ export function TaskCard({
               <button
                 id={`add-step-trigger-${task.id}`}
                 onClick={openAddSubtask}
-                className="text-[11px] font-semibold text-[#5856D6] hover:underline flex items-center gap-0.5 cursor-pointer"
+                className="text-[11px] font-semibold text-apple-purple hover:underline flex items-center gap-0.5 cursor-pointer"
               >
                 <Plus className="h-3 w-3" />
                 Add item
@@ -388,11 +388,11 @@ export function TaskCard({
                         className="cursor-pointer shrink-0 focus:outline-none transition-all active:scale-90"
                       >
                         {sub.completed ? (
-                          <div className="h-4.5 w-4.5 rounded-full bg-[#5856D6] text-white flex items-center justify-center animate-checkbox-pop">
+                          <div className="h-4.5 w-4.5 rounded-full bg-apple-purple text-white flex items-center justify-center animate-checkbox-pop">
                             <Check className="h-3 w-3 stroke-[3px]" />
                           </div>
                         ) : (
-                          <div className="h-4.5 w-4.5 rounded-full border-2 border-[#8E8E93]/40 hover:border-[#5856D6] hover:bg-[#5856D6]/5 transition-all" />
+                          <div className="h-4.5 w-4.5 rounded-full border-2 border-[#8E8E93]/40 hover:border-apple-purple hover:bg-apple-purple/5 transition-all" />
                         )}
                       </button>
 
@@ -414,7 +414,7 @@ export function TaskCard({
                               handleSaveSubtaskEdit(sub.id);
                             }
                           }}
-                          className="w-full bg-white text-xs border border-[#E5E5EA] text-[#1C1C1E] px-2.5 py-1 rounded-full focus:outline-none focus:border-[#5856D6] font-sans"
+                          className="w-full bg-white text-xs border border-[#E5E5EA] text-[#1C1C1E] px-2.5 py-1 rounded-full focus:outline-none focus:border-apple-purple font-sans"
                           autoFocus
                         />
                       ) : (
@@ -502,14 +502,14 @@ export function TaskCard({
                       }
                     }, 200);
                   }}
-                  className="flex-1 bg-white text-xs border border-[#E5E5EA] text-[#1C1C1E] px-3 py-1.5 rounded-full focus:outline-none focus:border-[#5856D6] font-sans"
+                  className="flex-1 bg-white text-xs border border-[#E5E5EA] text-[#1C1C1E] px-3 py-1.5 rounded-full focus:outline-none focus:border-apple-purple font-sans"
                 />
                 <button
                   id="quick-subtask-submit-btn"
                   type="submit"
                   onMouseDown={(e) => e.stopPropagation()}
                   onPointerDown={(e) => e.stopPropagation()}
-                  className="cursor-pointer shrink-0 p-1.5 text-xs text-[#5856D6] hover:bg-[#5856D6]/5 border border-[#E5E5EA] rounded-full"
+                  className="cursor-pointer shrink-0 p-1.5 text-xs text-apple-purple hover:bg-apple-purple/5 border border-[#E5E5EA] rounded-full"
                 >
                   <Plus className="h-3.5 w-3.5" />
                 </button>
@@ -545,7 +545,7 @@ export function TaskCard({
                   closeContextMenu();
                   onEditTask(task);
                 }}
-                className="flex w-full items-center gap-2 px-3 py-2 rounded-xl text-left text-xs font-medium text-[#1C1C1E] hover:bg-[#5856D6] hover:text-white group transition-all duration-150"
+                className="flex w-full items-center gap-2 px-3 py-2 rounded-xl text-left text-xs font-medium text-[#1C1C1E] hover:bg-apple-purple hover:text-white group transition-all duration-150"
               >
                 <Edit2 className="h-4 w-4 text-[#8E8E93] group-hover:text-white transition-colors" />
                 Edit task
@@ -556,7 +556,7 @@ export function TaskCard({
                   closeContextMenu();
                   openAddSubtask();
                 }}
-                className="flex w-full items-center gap-2 px-3 py-2 rounded-xl text-left text-xs font-medium text-[#1C1C1E] hover:bg-[#5856D6] hover:text-white group transition-all duration-150"
+                className="flex w-full items-center gap-2 px-3 py-2 rounded-xl text-left text-xs font-medium text-[#1C1C1E] hover:bg-apple-purple hover:text-white group transition-all duration-150"
               >
                 <Plus className="h-4 w-4 text-[#8E8E93] group-hover:text-white transition-colors" />
                 Add subtask
@@ -567,7 +567,7 @@ export function TaskCard({
                   closeContextMenu();
                   onMoveTaskDate(task);
                 }}
-                className="flex w-full items-center gap-2 px-3 py-2 rounded-xl text-left text-xs font-medium text-[#1C1C1E] hover:bg-[#5856D6] hover:text-white group transition-all duration-150"
+                className="flex w-full items-center gap-2 px-3 py-2 rounded-xl text-left text-xs font-medium text-[#1C1C1E] hover:bg-apple-purple hover:text-white group transition-all duration-150"
               >
                 <CalendarDays className="h-4 w-4 text-[#8E8E93] group-hover:text-white transition-colors" />
                 Move to
