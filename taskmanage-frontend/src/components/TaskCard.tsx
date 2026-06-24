@@ -365,7 +365,7 @@ export function TaskCard({
             </p>
           )}
 
-          <div className="space-y-1">
+          <div className="space-y-1 max-h-[172px] overflow-y-auto pr-1">
             <AnimatePresence initial={false}>
               {task.subtasks.map((sub) => {
                 const isEditing = editingSubtaskId === sub.id;
@@ -405,9 +405,14 @@ export function TaskCard({
                           onMouseDown={(e) => e.stopPropagation()}
                           onPointerDown={(e) => e.stopPropagation()}
                           onKeyDown={(e) => {
-                            e.stopPropagation();
-                            if (e.key === "Enter") handleSaveSubtaskEdit(sub.id);
-                            if (e.key === "Escape") setEditingSubtaskId(null);
+                            if (e.key === "Escape") {
+                              e.stopPropagation();
+                              setEditingSubtaskId(null);
+                              e.currentTarget.blur();
+                            } else if (e.key === "Enter") {
+                              e.stopPropagation();
+                              handleSaveSubtaskEdit(sub.id);
+                            }
                           }}
                           className="w-full bg-white text-xs border border-[#E5E5EA] text-[#1C1C1E] px-2.5 py-1 rounded-full focus:outline-none focus:border-[#5856D6] font-sans"
                           autoFocus
@@ -481,10 +486,11 @@ export function TaskCard({
                   value={newSubtaskTitle}
                   onChange={(e) => setNewSubtaskTitle(e.target.value)}
                   onKeyDown={(e) => {
-                    e.stopPropagation();
                     if (e.key === "Escape") {
+                      e.stopPropagation();
                       setNewSubtaskTitle("");
                       setIsAddingSubtask(false);
+                      e.currentTarget.blur();
                     }
                   }}
                   onMouseDown={(e) => e.stopPropagation()}

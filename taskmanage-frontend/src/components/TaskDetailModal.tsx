@@ -205,7 +205,7 @@ export function TaskDetailModal({
                 )}
 
                 {/* Subtasks List */}
-                <div className="space-y-2 max-h-[30vh] overflow-y-auto pr-1">
+                <div className="space-y-2 max-h-[244px] overflow-y-auto pr-1">
                   {totalSubtasks === 0 ? (
                     <div className="text-center py-8 bg-[#F5F5F7]/50 rounded-2xl border border-dashed border-[#E5E5EA]">
                       <p className="text-sm text-[#8E8E93] italic">No action steps added yet.</p>
@@ -244,9 +244,14 @@ export function TaskDetailModal({
                                     value={editingSubtaskTitle}
                                     onChange={(e) => setEditingSubtaskTitle(e.target.value)}
                                     onKeyDown={(e) => {
-                                      e.stopPropagation();
-                                      if (e.key === "Enter") handleSaveSubtaskEdit(sub.id);
-                                      if (e.key === "Escape") setEditingSubtaskId(null);
+                                      if (e.key === "Escape") {
+                                        e.stopPropagation();
+                                        setEditingSubtaskId(null);
+                                        e.currentTarget.blur();
+                                      } else if (e.key === "Enter") {
+                                        e.stopPropagation();
+                                        handleSaveSubtaskEdit(sub.id);
+                                      }
                                     }}
                                     className="w-full bg-white text-sm border border-[#E5E5EA] text-[#1C1C1E] px-4 py-1.5 rounded-full focus:outline-none focus:border-[#5856D6] font-sans"
                                     autoFocus
@@ -311,6 +316,7 @@ export function TaskDetailModal({
                     onKeyDown={(e) => {
                       if (e.key === "Escape") {
                         e.stopPropagation();
+                        setNewSubtaskTitle("");
                         e.currentTarget.blur();
                       }
                     }}
