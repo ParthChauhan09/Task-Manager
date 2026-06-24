@@ -244,6 +244,7 @@ export function TaskDetailModal({
                                     value={editingSubtaskTitle}
                                     onChange={(e) => setEditingSubtaskTitle(e.target.value)}
                                     onKeyDown={(e) => {
+                                      e.stopPropagation();
                                       if (e.key === "Enter") handleSaveSubtaskEdit(sub.id);
                                       if (e.key === "Escape") setEditingSubtaskId(null);
                                     }}
@@ -307,6 +308,12 @@ export function TaskDetailModal({
                     placeholder="Add a new action step..."
                     value={newSubtaskTitle}
                     onChange={(e) => setNewSubtaskTitle(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Escape") {
+                        e.stopPropagation();
+                        e.currentTarget.blur();
+                      }
+                    }}
                     className="flex-1 bg-[#F5F5F7] text-sm border border-transparent text-[#1C1C1E] px-4 py-2.5 rounded-full focus:outline-none focus:bg-white focus:border-[#5856D6] focus:ring-2 focus:ring-[#5856D6]/10 font-sans transition-all"
                   />
                   <button

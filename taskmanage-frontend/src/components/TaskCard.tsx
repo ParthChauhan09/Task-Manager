@@ -200,6 +200,14 @@ export function TaskCard({
         onContextMenu={openContextMenu}
         tabIndex={0}
         onKeyDown={(e) => {
+          const target = e.target as HTMLElement;
+          if (
+            target.closest("input") ||
+            target.closest("textarea") ||
+            target.closest("button")
+          ) {
+            return;
+          }
           if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
             setIsDetailModalOpen(true);
@@ -397,6 +405,7 @@ export function TaskCard({
                           onMouseDown={(e) => e.stopPropagation()}
                           onPointerDown={(e) => e.stopPropagation()}
                           onKeyDown={(e) => {
+                            e.stopPropagation();
                             if (e.key === "Enter") handleSaveSubtaskEdit(sub.id);
                             if (e.key === "Escape") setEditingSubtaskId(null);
                           }}
@@ -471,6 +480,13 @@ export function TaskCard({
                   placeholder="New subtask title..."
                   value={newSubtaskTitle}
                   onChange={(e) => setNewSubtaskTitle(e.target.value)}
+                  onKeyDown={(e) => {
+                    e.stopPropagation();
+                    if (e.key === "Escape") {
+                      setNewSubtaskTitle("");
+                      setIsAddingSubtask(false);
+                    }
+                  }}
                   onMouseDown={(e) => e.stopPropagation()}
                   onPointerDown={(e) => e.stopPropagation()}
                   onBlur={() => {
