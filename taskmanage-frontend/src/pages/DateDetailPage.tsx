@@ -86,11 +86,11 @@ export function DateDetailPage({ onLogout: _ }: DateDetailPageProps) {
 
   if (!dash.isHydrated) {
     return (
-      <div className="fixed inset-0 bg-slate-50 flex items-center justify-center">
+      <div className="fixed inset-0 bg-[#F5F5F7] flex items-center justify-center">
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-          className="w-10 h-10 border-2 border-slate-800 border-t-transparent rounded-full"
+          className="w-10 h-10 border-2 border-[#5856D6] border-t-transparent rounded-full"
         />
       </div>
     );
@@ -98,9 +98,9 @@ export function DateDetailPage({ onLogout: _ }: DateDetailPageProps) {
 
   if (!org || !date) {
     return (
-      <div className="fixed inset-0 bg-slate-50 flex flex-col items-center justify-center gap-4">
-        <p className="text-sm text-slate-500">Workspace or date not found.</p>
-        <button onClick={() => navigate("/")} className="text-xs font-semibold text-slate-900 underline">
+      <div className="fixed inset-0 bg-[#F5F5F7] flex flex-col items-center justify-center gap-4 select-none">
+        <p className="text-sm text-[#8E8E93]">Workspace or date not found.</p>
+        <button onClick={() => navigate("/")} className="text-xs font-semibold text-[#5856D6] hover:underline">
           Go back
         </button>
       </div>
@@ -108,28 +108,28 @@ export function DateDetailPage({ onLogout: _ }: DateDetailPageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans">
+    <div className="min-h-screen bg-[#F5F5F7] text-[#1C1C1E] font-sans select-none">
       <CustomCursor />
 
       {/* Top bar */}
-      <div className="sticky top-0 z-20 bg-white border-b border-slate-200">
+      <div className="sticky top-0 z-20 bg-white/85 backdrop-blur-md border-b border-[#E5E5EA]/60">
         <div className="flex items-center justify-between gap-4 px-4 sm:px-8 py-4">
           {/* Back + title */}
           <div className="flex items-center gap-3 min-w-0">
             <button
               onClick={() => navigate("/")}
-              className="cursor-pointer h-9 w-9 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-center text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors shrink-0"
+              className="cursor-pointer h-9 w-9 rounded-full border border-[#E5E5EA] bg-[#F5F5F7] flex items-center justify-center text-[#8E8E93] hover:text-[#1C1C1E] hover:bg-[#E5E5EA]/60 transition-colors shrink-0"
             >
               <ArrowLeft className="h-4 w-4" />
             </button>
             <div className="min-w-0">
               <div className="flex items-center gap-2">
-                <Calendar className="h-4 w-4 text-slate-400 shrink-0" />
-                <h1 className="font-display text-lg sm:text-xl font-black tracking-tight text-slate-900 truncate">
+                <Calendar className="h-4 w-4 text-[#8E8E93] shrink-0" />
+                <h1 className="font-display text-lg sm:text-xl font-semibold tracking-tight text-[#1C1C1E] truncate">
                   {formatDateLabel(date)}
                 </h1>
               </div>
-              <p className="text-[11px] font-mono text-slate-400 tracking-wide mt-0.5">
+              <p className="text-[11px] text-[#8E8E93] tracking-wide mt-0.5">
                 {org.name} · {doneCount}/{totalCount} complete
               </p>
             </div>
@@ -139,20 +139,20 @@ export function DateDetailPage({ onLogout: _ }: DateDetailPageProps) {
           <div className="flex items-center gap-3 shrink-0">
             {totalCount > 0 && (
               <div className="hidden sm:flex items-center gap-2">
-                <div className="w-24 bg-slate-100 rounded-full h-1.5 overflow-hidden">
+                <div className="w-24 bg-[#E5E5EA] rounded-full h-1 overflow-hidden">
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${progressPercent}%` }}
                     transition={{ duration: 0.5, ease: "easeOut" }}
-                    className="h-full bg-slate-900 rounded-full"
+                    className="h-full bg-[#5856D6] rounded-full"
                   />
                 </div>
-                <span className="text-[10px] font-mono text-slate-400">{Math.round(progressPercent)}%</span>
+                <span className="text-[10px] text-[#8E8E93]">{Math.round(progressPercent)}%</span>
               </div>
             )}
             <button
               onClick={() => dash.setTaskDialog({ isOpen: true, isEdit: false, prepopulatedDate: date })}
-              className="cursor-pointer h-9 px-4 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all active:scale-95"
+              className="cursor-pointer h-9 px-4 bg-[#5856D6] hover:bg-[#4846B6] text-white rounded-full text-xs font-medium flex items-center gap-1.5 shadow-sm shadow-[#5856D6]/15 transition-all active:scale-95 animate-checkbox-pop"
             >
               <Plus className="h-3.5 w-3.5" />
               Add Task
@@ -173,16 +173,16 @@ export function DateDetailPage({ onLogout: _ }: DateDetailPageProps) {
       <div className="px-4 sm:px-8 py-8">
         {tasksOnDate.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24 text-center">
-            <div className="w-14 h-14 rounded-full bg-white border border-slate-200 flex items-center justify-center mb-4 shadow-sm">
-              <Calendar className="h-7 w-7 text-slate-300" />
+            <div className="w-14 h-14 rounded-full bg-white border border-[#E5E5EA] flex items-center justify-center mb-4 shadow-sm shadow-[#1C1C1E]/02">
+              <Calendar className="h-7 w-7 text-[#8E8E93]/60" />
             </div>
-            <h3 className="font-display font-black text-lg text-slate-900 tracking-tight">No tasks for this date</h3>
-            <p className="text-xs text-slate-400 mt-2 max-w-xs leading-relaxed">
+            <h3 className="font-display font-semibold text-lg text-[#1C1C1E] tracking-tight">No tasks for this date</h3>
+            <p className="text-xs text-[#8E8E93] mt-2 max-w-xs leading-relaxed">
               Add a task to get started on this day.
             </p>
             <button
               onClick={() => dash.setTaskDialog({ isOpen: true, isEdit: false, prepopulatedDate: date })}
-              className="cursor-pointer mt-5 h-9 px-4 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-semibold transition-all"
+              className="cursor-pointer mt-5 h-9 px-4 bg-[#5856D6] hover:bg-[#4846B6] text-white rounded-full text-xs font-medium shadow-sm shadow-[#5856D6]/15 transition-all"
             >
               + Add First Task
             </button>

@@ -11,7 +11,7 @@ interface DialogBaseProps {
   children: React.ReactNode;
 }
 
-// Reusable animated popup frame matching Clean Minimalism style
+// Reusable animated popup frame matching Clean Apple style
 export function DialogBase({ isOpen, onClose, title, description, children }: DialogBaseProps) {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -33,7 +33,7 @@ export function DialogBase({ isOpen, onClose, title, description, children }: Di
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-slate-900/30 backdrop-blur-sm"
+            className="fixed inset-0 bg-[#1C1C1E]/20 backdrop-blur-md"
           />
 
           {/* Dialog Container */}
@@ -42,24 +42,24 @@ export function DialogBase({ isOpen, onClose, title, description, children }: Di
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 15 }}
             transition={{ type: "spring", damping: 25, stiffness: 350 }}
-            className="relative w-full max-w-md overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-xl z-10"
+            className="relative w-full max-w-md overflow-hidden rounded-[28px] border border-[#E5E5EA]/60 bg-white/95 backdrop-blur-xl p-8 shadow-2xl z-10"
           >
-            {/* Close Button Button */}
+            {/* Close Button */}
             <button
               id="dialog-close-btn"
               onClick={onClose}
-              className="absolute right-4 top-4 rounded-lg p-1 hover:bg-slate-100 text-slate-400 hover:text-slate-800 transition-colors focus:outline-none"
+              className="absolute right-6 top-6 rounded-full p-2 hover:bg-[#F5F5F7] text-[#8E8E93] hover:text-[#1C1C1E] transition-all focus:outline-none cursor-pointer"
             >
               <X className="h-4 w-4" />
             </button>
 
             {/* Header */}
             <div className="mb-4 text-left">
-              <h3 className="font-display text-lg font-bold tracking-tight text-slate-900 flex items-center gap-2">
+              <h3 className="font-display text-lg font-semibold tracking-tight text-[#1C1C1E] flex items-center gap-2">
                 {title}
               </h3>
               {description && (
-                <p className="mt-1 text-xs text-slate-500 font-sans">
+                <p className="mt-1 text-xs text-[#8E8E93] font-sans leading-relaxed">
                   {description}
                 </p>
               )}
@@ -109,7 +109,7 @@ export function OrgDialog({ isOpen, onClose, onSubmit, initialValue = "", isEdit
     >
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="text-left">
-          <label htmlFor="org-name-input" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+          <label htmlFor="org-name-input" className="block text-[11px] font-medium text-[#8E8E93] mb-1.5 ml-3">
             Workspace Name
           </label>
           <input
@@ -117,10 +117,10 @@ export function OrgDialog({ isOpen, onClose, onSubmit, initialValue = "", isEdit
             type="text"
             required
             autoFocus
-            placeholder="e.g. ⚡ Personal Ventures"
+            placeholder="e.g. Personal Projects"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-850 shadow-inner placeholder-slate-400 focus:border-slate-400 focus:outline-none transition-colors font-sans"
+            className="w-full rounded-full border border-[#E5E5EA] bg-[#F5F5F7] px-4 py-2.5 text-sm text-[#1C1C1E] placeholder-[#8E8E93]/60 focus:border-[#5856D6] focus:bg-white focus:ring-2 focus:ring-[#5856D6]/10 focus:outline-none transition-all font-sans"
           />
         </div>
 
@@ -129,14 +129,14 @@ export function OrgDialog({ isOpen, onClose, onSubmit, initialValue = "", isEdit
             id="org-cancel-btn"
             type="button"
             onClick={onClose}
-            className="cursor-pointer rounded-xl bg-slate-100 px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-200 hover:text-slate-800 transition-all focus:outline-none"
+            className="cursor-pointer rounded-full bg-[#F5F5F7] px-5 py-2.5 text-xs font-medium text-[#1C1C1E] hover:bg-[#E5E5EA] transition-all focus:outline-none"
           >
             Cancel
           </button>
           <button
             id="org-submit-btn"
             type="submit"
-            className="cursor-pointer rounded-xl bg-slate-900 px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-slate-800 active:scale-95 transition-all focus:outline-none"
+            className="cursor-pointer rounded-full bg-[#5856D6] px-5 py-2.5 text-xs font-medium text-white shadow-sm shadow-[#5856D6]/15 hover:bg-[#4846B6] active:scale-95 transition-all focus:outline-none"
           >
             {isEdit ? "Save Changes" : "Create Workspace"}
           </button>
@@ -181,7 +181,7 @@ export function DateDialog({ isOpen, onClose, onSubmit }: DateDialogProps) {
     >
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="text-left">
-          <label htmlFor="date-group-input" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+          <label htmlFor="date-group-input" className="block text-[11px] font-medium text-[#8E8E93] mb-1.5 ml-3">
             Target Date
           </label>
           <div className="relative">
@@ -192,9 +192,9 @@ export function DateDialog({ isOpen, onClose, onSubmit }: DateDialogProps) {
               autoFocus
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-800 placeholder-slate-400 focus:border-slate-400 focus:outline-none transition-colors font-sans"
+              className="w-full rounded-full border border-[#E5E5EA] bg-[#F5F5F7] px-4 py-2.5 text-sm text-[#1C1C1E] focus:border-[#5856D6] focus:bg-white focus:ring-2 focus:ring-[#5856D6]/10 focus:outline-none transition-all font-sans"
             />
-            <Calendar className="absolute right-3.5 top-3 h-4 w-4 text-slate-400 pointer-events-none" />
+            <Calendar className="absolute right-4 top-3.5 h-4 w-4 text-[#8E8E93] pointer-events-none" />
           </div>
         </div>
 
@@ -203,14 +203,14 @@ export function DateDialog({ isOpen, onClose, onSubmit }: DateDialogProps) {
             id="date-cancel-btn"
             type="button"
             onClick={onClose}
-            className="cursor-pointer rounded-xl bg-slate-100 px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-200 hover:text-slate-800 transition-all focus:outline-none"
+            className="cursor-pointer rounded-full bg-[#F5F5F7] px-5 py-2.5 text-xs font-medium text-[#1C1C1E] hover:bg-[#E5E5EA] transition-all focus:outline-none"
           >
             Cancel
           </button>
           <button
             id="date-submit-btn"
             type="submit"
-            className="cursor-pointer rounded-xl bg-slate-900 px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-slate-800 active:scale-95 transition-all focus:outline-none"
+            className="cursor-pointer rounded-full bg-[#5856D6] px-5 py-2.5 text-xs font-medium text-white shadow-sm shadow-[#5856D6]/15 hover:bg-[#4846B6] active:scale-95 transition-all focus:outline-none"
           >
             Add Date Group
           </button>
@@ -261,7 +261,7 @@ export function MoveTaskDateDialog({
     >
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="text-left">
-          <label htmlFor="move-task-date-input" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+          <label htmlFor="move-task-date-input" className="block text-[11px] font-medium text-[#8E8E93] mb-1.5 ml-3">
             New Date
           </label>
           <div className="relative">
@@ -272,9 +272,9 @@ export function MoveTaskDateDialog({
               autoFocus
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-800 placeholder-slate-400 focus:border-slate-400 focus:outline-none transition-colors font-sans"
+              className="w-full rounded-full border border-[#E5E5EA] bg-[#F5F5F7] px-4 py-2.5 text-sm text-[#1C1C1E] focus:border-[#5856D6] focus:bg-white focus:ring-2 focus:ring-[#5856D6]/10 focus:outline-none transition-all font-sans"
             />
-            <Calendar className="absolute right-3.5 top-3 h-4 w-4 text-slate-400 pointer-events-none" />
+            <Calendar className="absolute right-4 top-3.5 h-4 w-4 text-[#8E8E93] pointer-events-none" />
           </div>
         </div>
 
@@ -283,14 +283,14 @@ export function MoveTaskDateDialog({
             id="move-task-date-cancel-btn"
             type="button"
             onClick={onClose}
-            className="cursor-pointer rounded-xl bg-slate-100 px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-200 hover:text-slate-800 transition-all focus:outline-none"
+            className="cursor-pointer rounded-full bg-[#F5F5F7] px-5 py-2.5 text-xs font-medium text-[#1C1C1E] hover:bg-[#E5E5EA] transition-all focus:outline-none"
           >
             Cancel
           </button>
           <button
             id="move-task-date-submit-btn"
             type="submit"
-            className="cursor-pointer rounded-xl bg-slate-900 px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-slate-800 active:scale-95 transition-all focus:outline-none"
+            className="cursor-pointer rounded-full bg-[#5856D6] px-5 py-2.5 text-xs font-medium text-white shadow-sm shadow-[#5856D6]/15 hover:bg-[#4846B6] active:scale-95 transition-all focus:outline-none"
           >
             Move Task
           </button>
@@ -363,7 +363,7 @@ export function TaskDialog({ isOpen, onClose, onSubmit, initialValues, isEdit = 
     >
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="text-left">
-          <label htmlFor="task-title-input" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">
+          <label htmlFor="task-title-input" className="block text-[11px] font-medium text-[#8E8E93] mb-1.5 ml-3">
             Task Heading
           </label>
           <input
@@ -374,12 +374,12 @@ export function TaskDialog({ isOpen, onClose, onSubmit, initialValues, isEdit = 
             placeholder="e.g. Conduct CDN system load inspection"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-800 placeholder-slate-400 focus:border-slate-400 focus:outline-none transition-colors font-sans"
+            className="w-full rounded-full border border-[#E5E5EA] bg-[#F5F5F7] px-4.5 py-2.5 text-sm text-[#1C1C1E] placeholder-[#8E8E93]/60 focus:border-[#5856D6] focus:bg-white focus:ring-2 focus:ring-[#5856D6]/10 focus:outline-none transition-all font-sans"
           />
         </div>
 
         <div className="text-left">
-          <label htmlFor="task-desc-input" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">
+          <label htmlFor="task-desc-input" className="block text-[11px] font-medium text-[#8E8E93] mb-1.5 ml-3">
             Details (Optional)
           </label>
           <textarea
@@ -388,13 +388,13 @@ export function TaskDialog({ isOpen, onClose, onSubmit, initialValues, isEdit = 
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             rows={3}
-            className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-800 placeholder-slate-400 focus:border-slate-400 focus:outline-none transition-colors font-sans resize-none"
+            className="w-full rounded-2xl border border-[#E5E5EA] bg-[#F5F5F7] px-4 py-3 text-sm text-[#1C1C1E] placeholder-[#8E8E93]/60 focus:border-[#5856D6] focus:bg-white focus:ring-2 focus:ring-[#5856D6]/10 focus:outline-none transition-all font-sans resize-none"
           />
         </div>
 
         <div className="grid grid-cols-2 gap-3 text-left">
           <div>
-            <label htmlFor="task-date-input" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">
+            <label htmlFor="task-date-input" className="block text-[11px] font-medium text-[#8E8E93] mb-1.5 ml-3">
               Due Date
             </label>
             <input
@@ -403,20 +403,20 @@ export function TaskDialog({ isOpen, onClose, onSubmit, initialValues, isEdit = 
               required
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-800 focus:border-slate-300 focus:outline-none transition-colors font-sans"
+              className="w-full rounded-full border border-[#E5E5EA] bg-[#F5F5F7] px-4 py-2.5 text-xs text-[#1C1C1E] focus:border-[#5856D6] focus:bg-white focus:ring-2 focus:ring-[#5856D6]/10 focus:outline-none transition-all font-sans"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">
+            <label className="block text-[11px] font-medium text-[#8E8E93] mb-1.5 ml-3">
               Priority Tier
             </label>
             <div className="flex gap-1 h-[38px]">
               {(["low", "medium", "high"] as Priority[]).map((p) => {
                 const colors = {
-                  low: p === priority ? "bg-slate-200 border-slate-300 text-slate-800 font-bold" : "bg-slate-50 border-slate-200 text-slate-400 hover:text-slate-600",
-                  medium: p === priority ? "bg-blue-50 border-blue-200 text-blue-700 font-bold" : "bg-slate-50 border-slate-200 text-slate-400 hover:text-slate-600",
-                  high: p === priority ? "bg-red-50 border-red-200 text-red-700 font-bold" : "bg-slate-50 border-slate-200 text-slate-400 hover:text-slate-600",
+                  low: p === priority ? "bg-[#8E8E93] text-white font-medium border-transparent" : "bg-[#F5F5F7] border-[#E5E5EA] text-[#8E8E93] hover:text-[#1C1C1E] hover:bg-[#E5E5EA]/40",
+                  medium: p === priority ? "bg-[#5856D6] text-white font-medium border-transparent" : "bg-[#F5F5F7] border-[#E5E5EA] text-[#8E8E93] hover:text-[#1C1C1E] hover:bg-[#E5E5EA]/40",
+                  high: p === priority ? "bg-[#FF3B30] text-white font-medium border-transparent" : "bg-[#F5F5F7] border-[#E5E5EA] text-[#8E8E93] hover:text-[#1C1C1E] hover:bg-[#E5E5EA]/40",
                 };
                 return (
                   <button
@@ -424,7 +424,7 @@ export function TaskDialog({ isOpen, onClose, onSubmit, initialValues, isEdit = 
                     key={p}
                     type="button"
                     onClick={() => setPriority(p)}
-                    className={`flex-1 rounded-xl border text-[10px] font-bold uppercase transition-all tracking-wider cursor-pointer ${colors[p]}`}
+                    className={`flex-1 rounded-full border text-[10px] font-semibold uppercase transition-all tracking-wider cursor-pointer h-9 ${colors[p]}`}
                   >
                     {p}
                   </button>
@@ -439,14 +439,14 @@ export function TaskDialog({ isOpen, onClose, onSubmit, initialValues, isEdit = 
             id="task-cancel-btn"
             type="button"
             onClick={onClose}
-            className="cursor-pointer rounded-xl bg-slate-100 px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-200 hover:text-slate-800 transition-all focus:outline-none"
+            className="cursor-pointer rounded-full bg-[#F5F5F7] px-5 py-2.5 text-xs font-medium text-[#1C1C1E] hover:bg-[#E5E5EA] transition-all focus:outline-none"
           >
             Cancel
           </button>
           <button
             id="task-submit-btn"
             type="submit"
-            className="cursor-pointer rounded-xl bg-slate-900 px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-slate-800 active:scale-95 transition-all focus:outline-none"
+            className="cursor-pointer rounded-full bg-[#5856D6] px-5 py-2.5 text-xs font-medium text-white shadow-sm shadow-[#5856D6]/15 hover:bg-[#4846B6] active:scale-95 transition-all focus:outline-none"
           >
             {isEdit ? "Update Task" : "Save Task"}
           </button>
@@ -491,7 +491,7 @@ export function SubtaskDialog({ isOpen, onClose, onSubmit, initialValue = "", is
     >
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="text-left">
-          <label htmlFor="subtask-title-input" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+          <label htmlFor="subtask-title-input" className="block text-[11px] font-medium text-[#8E8E93] mb-1.5 ml-3">
             Subtask Label
           </label>
           <input
@@ -502,7 +502,7 @@ export function SubtaskDialog({ isOpen, onClose, onSubmit, initialValue = "", is
             placeholder="e.g. Deploy DNS verification text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-850 shadow-inner placeholder-slate-400 focus:border-slate-450 focus:outline-none transition-colors font-sans"
+            className="w-full rounded-full border border-[#E5E5EA] bg-[#F5F5F7] px-4 py-2.5 text-sm text-[#1C1C1E] placeholder-[#8E8E93]/60 focus:border-[#5856D6] focus:bg-white focus:ring-2 focus:ring-[#5856D6]/10 focus:outline-none transition-all font-sans"
           />
         </div>
 
@@ -511,14 +511,14 @@ export function SubtaskDialog({ isOpen, onClose, onSubmit, initialValue = "", is
             id="subtask-cancel-btn"
             type="button"
             onClick={onClose}
-            className="cursor-pointer rounded-xl bg-slate-100 px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-200 hover:text-slate-800 transition-all focus:outline-none"
+            className="cursor-pointer rounded-full bg-[#F5F5F7] px-5 py-2.5 text-xs font-medium text-[#1C1C1E] hover:bg-[#E5E5EA] transition-all focus:outline-none"
           >
             Cancel
           </button>
           <button
             id="subtask-submit-btn"
             type="submit"
-            className="cursor-pointer rounded-xl bg-slate-900 px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-slate-800 active:scale-95 transition-all focus:outline-none"
+            className="cursor-pointer rounded-full bg-[#5856D6] px-5 py-2.5 text-xs font-medium text-white shadow-sm shadow-[#5856D6]/15 hover:bg-[#4846B6] active:scale-95 transition-all focus:outline-none"
           >
             {isEdit ? "Update Subtask" : "Add Subtask"}
           </button>
@@ -545,7 +545,7 @@ export function ConfirmDialog({ isOpen, onClose, onConfirm, title, message }: Co
       title={title}
     >
       <div className="space-y-4 text-left">
-        <p className="text-sm text-slate-500 font-sans leading-relaxed">
+        <p className="text-sm text-[#8E8E93] font-sans leading-relaxed">
           {message}
         </p>
 
@@ -554,7 +554,7 @@ export function ConfirmDialog({ isOpen, onClose, onConfirm, title, message }: Co
             id="confirm-cancel-btn"
             type="button"
             onClick={onClose}
-            className="cursor-pointer rounded-xl bg-slate-100 px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-250 hover:text-slate-800 transition-all focus:outline-none"
+            className="cursor-pointer rounded-full bg-[#F5F5F7] px-5 py-2.5 text-xs font-medium text-[#1C1C1E] hover:bg-[#E5E5EA] transition-all focus:outline-none"
           >
             Nevermind
           </button>
@@ -565,7 +565,7 @@ export function ConfirmDialog({ isOpen, onClose, onConfirm, title, message }: Co
               onConfirm();
               onClose();
             }}
-            className="cursor-pointer rounded-xl bg-red-600 px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-red-700 active:scale-95 transition-all focus:outline-none"
+            className="cursor-pointer rounded-full bg-[#FF3B30] px-5 py-2.5 text-xs font-medium text-white shadow-sm shadow-[#FF3B30]/15 hover:bg-[#E02B20] active:scale-95 transition-all focus:outline-none"
           >
             Delete Permanently
           </button>

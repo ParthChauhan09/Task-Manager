@@ -177,16 +177,16 @@ export function TaskCard({
 
   const priorityColors = {
     low: {
-      bg: "bg-slate-100 border-slate-200 text-slate-600",
-      glow: "hover:border-slate-300",
+      bg: "bg-[#8E8E93]/10 border-transparent text-[#8E8E93]",
+      glow: "hover:border-[#E5E5EA]",
     },
     medium: {
-      bg: "bg-blue-50 border-blue-100 text-blue-600",
-      glow: "hover:border-slate-300",
+      bg: "bg-[#5856D6]/10 border-transparent text-[#5856D6]",
+      glow: "hover:border-[#5856D6]/20",
     },
     high: {
-      bg: "bg-red-50 border-red-100 text-red-600",
-      glow: "hover:border-slate-300",
+      bg: "bg-[#FF3B30]/10 border-transparent text-[#FF3B30]",
+      glow: "hover:border-[#FF3B30]/20",
     },
   };
 
@@ -218,12 +218,12 @@ export function TaskCard({
           }
           setIsDetailModalOpen(true);
         }}
-        className={`task-nav-item relative flex flex-col p-6 select-none transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500/80 focus:shadow-lg focus:-translate-y-0.5 ${task.completed
-          ? "border-slate-200/60 bg-slate-50/50 opacity-70 shadow-none grayscale"
-          : `${priorityColors[task.priority].glow} border-slate-100 bg-white`
+        className={`task-nav-item relative flex flex-col p-6 select-none transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#5856D6]/40 focus:-translate-y-0.5 rounded-[24px] border ${task.completed
+          ? "border-[#E5E5EA]/60 bg-[#F5F5F7]/60 opacity-60 shadow-none"
+          : `${priorityColors[task.priority].glow} border-[#E5E5EA]/60 bg-white shadow-[0_4px_16px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.05)]`
           } ${
             contextMenu
-              ? "z-[51] ring-2 ring-indigo-500/50 shadow-2xl scale-[1.02] bg-white border-transparent !opacity-100 !grayscale-0"
+              ? "z-[51] ring-2 ring-[#5856D6]/30 shadow-2xl scale-[1.01] bg-white border-transparent !opacity-100"
               : ""
           } cursor-pointer`}
       >
@@ -238,28 +238,30 @@ export function TaskCard({
               }}
               onMouseDown={(e) => e.stopPropagation()}
               onPointerDown={(e) => e.stopPropagation()}
-              className="cursor-pointer mt-1 rounded shrink-0 text-slate-400 hover:text-slate-600 focus:outline-none transition-transform active:scale-90 duration-200"
+              className="cursor-pointer mt-0.5 shrink-0 focus:outline-none transition-all duration-200 active:scale-90"
             >
               {task.completed ? (
-                <CheckSquare className="h-5 w-5 text-emerald-500 shrink-0 select-none animate-checkbox-pop" />
+                <div className="h-5.5 w-5.5 rounded-full bg-[#5856D6] text-white flex items-center justify-center scale-100 transition-all select-none animate-checkbox-pop shadow-sm shadow-[#5856D6]/20">
+                  <Check className="h-3.5 w-3.5 stroke-[3px]" />
+                </div>
               ) : (
-                <Square className="h-5 w-5 hover:border-slate-400 hover:text-slate-600 shrink-0" />
+                <div className="h-5.5 w-5.5 rounded-full border-2 border-[#8E8E93]/40 hover:border-[#5856D6] hover:bg-[#5856D6]/5 transition-all" />
               )}
             </button>
 
             <div className="text-left flex-1 min-w-0">
               <h4
                 id={`task-title-text-${task.id}`}
-                className={`text-sm font-semibold tracking-tight transition-all leading-snug break-words group-hover/title:text-indigo-600 ${task.completed
-                  ? "line-through text-slate-400"
-                  : "text-slate-900"
+                className={`text-sm font-semibold tracking-tight transition-all leading-snug break-words group-hover/title:text-[#5856D6] ${task.completed
+                  ? "line-through text-[#8E8E93]"
+                  : "text-[#1C1C1E]"
                   }`}
               >
                 {task.title}
               </h4>
               {task.description && (
                 <p
-                  className={`mt-1.5 text-xs font-sans leading-relaxed break-words line-clamp-3 ${task.completed ? "text-slate-400" : "text-slate-500"
+                  className={`mt-1.5 text-xs leading-relaxed break-words line-clamp-3 ${task.completed ? "text-[#8E8E93]" : "text-[#8E8E93]"
                     }`}
                 >
                   {task.description}
@@ -276,7 +278,7 @@ export function TaskCard({
               onMouseDown={(e) => e.stopPropagation()}
               onPointerDown={(e) => e.stopPropagation()}
               title="Edit Task"
-              className="cursor-pointer p-1 rounded hover:bg-slate-100 text-slate-400 hover:text-slate-900 transition-colors"
+              className="cursor-pointer p-1 rounded hover:bg-[#F5F5F7] text-[#8E8E93] hover:text-[#1C1C1E] transition-colors"
             >
               <Edit2 className="h-3.5 w-3.5" />
             </button>
@@ -287,29 +289,29 @@ export function TaskCard({
               onMouseDown={(e) => e.stopPropagation()}
               onPointerDown={(e) => e.stopPropagation()}
               title="Delete Task"
-              className="cursor-pointer p-1 rounded hover:bg-slate-100 text-slate-400 hover:text-red-600 transition-colors"
+              className="cursor-pointer p-1 rounded hover:bg-[#F5F5F7] text-[#8E8E93] hover:text-[#FF3B30] transition-colors"
             >
               <Trash2 className="h-3.5 w-3.5" />
             </button>
           </div>
         </div>
 
-        <div className="mt-4 flex items-center justify-between gap-2 border-t border-slate-100 pt-3">
+        <div className="mt-4 flex items-center justify-between gap-2 border-t border-[#E5E5EA]/60 pt-3">
           <div className="flex items-center gap-2">
             <span
-              className={`text-[9px] font-bold font-mono tracking-widest uppercase px-2 py-0.5 rounded border ${priorityColors[task.priority].bg
+              className={`text-[9px] font-bold tracking-wider uppercase px-2 py-0.5 rounded-full border ${priorityColors[task.priority].bg
                 }`}
             >
               {task.priority}
             </span>
             {totalSubtasks > 0 && (
-              <span className="text-[10px] font-mono text-slate-400">
+              <span className="text-[10px] font-medium text-[#8E8E93]">
                 {completedSubtasks} / {totalSubtasks} complete
               </span>
             )}
           </div>
 
-          <span className="text-[10px] font-mono text-slate-400">
+          <span className="text-[10px] font-medium text-[#8E8E93]">
             Created{" "}
             {new Date(task.createdAt).toLocaleDateString(undefined, {
               month: "short",
@@ -319,29 +321,29 @@ export function TaskCard({
         </div>
 
         {totalSubtasks > 0 && (
-          <div className="mt-3 w-full bg-slate-100 rounded-full h-1.5 overflow-hidden relative">
+          <div className="mt-3.5 w-full bg-[#E5E5EA] rounded-full h-1 overflow-hidden relative">
             <motion.div
               initial={{ width: 0 }}
               animate={{ width: `${progressPercent}%` }}
               transition={{ duration: 0.4, ease: "easeOut" }}
-              className={`h-full bg-gradient-to-r ${task.completed
-                ? "from-slate-400 to-slate-300"
-                : "from-indigo-600 to-blue-500"
+              className={`h-full rounded-full ${task.completed
+                ? "bg-[#8E8E93]/60"
+                : "bg-gradient-to-r from-[#5856D6] to-[#4F46E5]"
                 }`}
             />
           </div>
         )}
 
-        <div className="mt-4 space-y-2 text-left bg-slate-50 p-3 rounded-xl border border-slate-100">
+        <div className="mt-4 space-y-3.5 text-left bg-[#F5F5F7]/80 p-4 rounded-[20px] border border-[#E5E5EA]/40">
           <div className="flex items-center justify-between mb-1">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 font-sans">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-[#8E8E93] font-sans">
               Action Items ({totalSubtasks})
             </span>
             {!isAddingSubtask && (
               <button
                 id={`add-step-trigger-${task.id}`}
                 onClick={openAddSubtask}
-                className="text-[10px] font-bold text-indigo-600 hover:text-indigo-500 flex items-center gap-0.5 cursor-pointer"
+                className="text-[11px] font-semibold text-[#5856D6] hover:underline flex items-center gap-0.5 cursor-pointer"
               >
                 <Plus className="h-3 w-3" />
                 Add item
@@ -350,7 +352,7 @@ export function TaskCard({
           </div>
 
           {totalSubtasks === 0 && !isAddingSubtask && (
-            <p className="text-[10px] text-slate-300 font-sans italic py-1">
+            <p className="text-[10px] text-[#8E8E93] font-sans italic py-1">
               No action items documented.
             </p>
           )}
@@ -366,21 +368,23 @@ export function TaskCard({
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: "auto" }}
                     exit={{ opacity: 0, height: 0 }}
-                    className="group/sub flex items-center justify-between gap-2 p-1 rounded-lg hover:bg-slate-100/60 transition-colors"
+                    className="group/sub flex items-center justify-between gap-2.5 p-1 rounded-lg hover:bg-white/60 transition-colors"
                   >
-                    <div className="flex items-center gap-2 flex-1 min-w-0">
+                    <div className="flex items-center gap-2.5 flex-1 min-w-0">
                       <button
                         id={`subtask-check-${task.id}-${sub.id}`}
                         type="button"
                         onClick={() => onToggleSubtask(task.id, sub.id)}
                         onMouseDown={(e) => e.stopPropagation()}
                         onPointerDown={(e) => e.stopPropagation()}
-                        className="cursor-pointer text-slate-300 hover:text-slate-500 shrink-0"
+                        className="cursor-pointer shrink-0 focus:outline-none transition-all active:scale-90"
                       >
                         {sub.completed ? (
-                          <CheckSquare className="h-3.5 w-3.5 text-indigo-600 shrink-0 animate-checkbox-pop" />
+                          <div className="h-4.5 w-4.5 rounded-full bg-[#5856D6] text-white flex items-center justify-center animate-checkbox-pop">
+                            <Check className="h-3 w-3 stroke-[3px]" />
+                          </div>
                         ) : (
-                          <Square className="h-3.5 w-3.5 shrink-0" />
+                          <div className="h-4.5 w-4.5 rounded-full border-2 border-[#8E8E93]/40 hover:border-[#5856D6] hover:bg-[#5856D6]/5 transition-all" />
                         )}
                       </button>
 
@@ -396,15 +400,15 @@ export function TaskCard({
                             if (e.key === "Enter") handleSaveSubtaskEdit(sub.id);
                             if (e.key === "Escape") setEditingSubtaskId(null);
                           }}
-                          className="w-full bg-white text-xs border border-slate-200 text-slate-800 px-2 py-1 rounded-lg focus:outline-none focus:border-indigo-500 font-sans"
+                          className="w-full bg-white text-xs border border-[#E5E5EA] text-[#1C1C1E] px-2.5 py-1 rounded-full focus:outline-none focus:border-[#5856D6] font-sans"
                           autoFocus
                         />
                       ) : (
                         <span
                           onDoubleClick={() => startEditSubtask(sub)}
                           className={`text-xs truncate transition-all cursor-text font-sans ${sub.completed
-                            ? "line-through text-slate-400"
-                            : "text-slate-600"
+                            ? "line-through text-[#8E8E93]"
+                            : "text-[#1C1C1E]/80"
                             }`}
                         >
                           {sub.title}
@@ -432,7 +436,7 @@ export function TaskCard({
                             onClick={() => startEditSubtask(sub)}
                             onMouseDown={(e) => e.stopPropagation()}
                             onPointerDown={(e) => e.stopPropagation()}
-                            className="cursor-pointer p-0.5 rounded text-slate-400 hover:text-slate-700 hover:bg-slate-150"
+                            className="cursor-pointer p-0.5 rounded text-[#8E8E93] hover:text-[#1C1C1E] hover:bg-slate-150"
                           >
                             <Edit3 className="h-3 w-3" />
                           </button>
@@ -442,7 +446,7 @@ export function TaskCard({
                             onClick={() => onDeleteSubtask(task.id, sub.id)}
                             onMouseDown={(e) => e.stopPropagation()}
                             onPointerDown={(e) => e.stopPropagation()}
-                            className="cursor-pointer p-0.5 rounded text-slate-400 hover:text-red-600 hover:bg-slate-150/80"
+                            className="cursor-pointer p-0.5 rounded text-[#8E8E93] hover:text-[#FF3B30] hover:bg-slate-150/80"
                           >
                             <Trash2 className="h-3 w-3" />
                           </button>
@@ -457,14 +461,14 @@ export function TaskCard({
             {isAddingSubtask && (
               <form
                 onSubmit={handleCreateSubtask}
-                className="flex gap-2 items-center mt-2 p-1"
+                className="flex gap-2 items-center mt-2.5 p-1"
               >
-                <CornerDownRight className="h-3.5 w-3.5 text-slate-400 shrink-0" />
+                <CornerDownRight className="h-3.5 w-3.5 text-[#8E8E93] shrink-0" />
                 <input
                   id="quick-subtask-title-input"
                   ref={addInputRef}
                   type="text"
-                  placeholder="Draft step title..."
+                  placeholder="New subtask title..."
                   value={newSubtaskTitle}
                   onChange={(e) => setNewSubtaskTitle(e.target.value)}
                   onMouseDown={(e) => e.stopPropagation()}
@@ -476,14 +480,14 @@ export function TaskCard({
                       }
                     }, 200);
                   }}
-                  className="flex-1 bg-white text-xs border border-slate-200 text-slate-800 px-2 py-1 rounded-lg focus:outline-none focus:border-indigo-500 font-sans"
+                  className="flex-1 bg-white text-xs border border-[#E5E5EA] text-[#1C1C1E] px-3 py-1.5 rounded-full focus:outline-none focus:border-[#5856D6] font-sans"
                 />
                 <button
                   id="quick-subtask-submit-btn"
                   type="submit"
                   onMouseDown={(e) => e.stopPropagation()}
                   onPointerDown={(e) => e.stopPropagation()}
-                  className="cursor-pointer shrink-0 p-1 text-xs text-indigo-600 hover:text-indigo-500 hover:bg-slate-50 border border-slate-200 rounded"
+                  className="cursor-pointer shrink-0 p-1.5 text-xs text-[#5856D6] hover:bg-[#5856D6]/5 border border-[#E5E5EA] rounded-full"
                 >
                   <Plus className="h-3.5 w-3.5" />
                 </button>
@@ -497,7 +501,7 @@ export function TaskCard({
         createPortal(
           <>
             <div
-              className="fixed inset-0 z-50 bg-slate-900/15 backdrop-blur-[3px] transition-all duration-300"
+              className="fixed inset-0 z-50 bg-[#1C1C1E]/10 backdrop-blur-[2px] transition-all duration-300"
               onClick={closeContextMenu}
               onContextMenu={(e) => {
                 e.preventDefault();
@@ -505,7 +509,7 @@ export function TaskCard({
               }}
             />
             <div
-              className="fixed z-[70] w-52 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl shadow-slate-900/15"
+              className="fixed z-[70] w-52 overflow-hidden rounded-2xl border border-[#E5E5EA]/60 bg-white/90 backdrop-blur-xl shadow-2xl shadow-[#1C1C1E]/10 p-1"
               style={{
                 left: menuX,
                 top: menuY,
@@ -519,9 +523,9 @@ export function TaskCard({
                   closeContextMenu();
                   onEditTask(task);
                 }}
-                className="flex w-full items-center gap-2 px-3 py-2.5 text-left text-sm text-slate-700 hover:bg-slate-50 transition-colors"
+                className="flex w-full items-center gap-2 px-3 py-2 rounded-xl text-left text-xs font-medium text-[#1C1C1E] hover:bg-[#5856D6] hover:text-white group transition-all duration-150"
               >
-                <Edit2 className="h-4 w-4 text-slate-500" />
+                <Edit2 className="h-4 w-4 text-[#8E8E93] group-hover:text-white transition-colors" />
                 Edit task
               </button>
               <button
@@ -530,9 +534,9 @@ export function TaskCard({
                   closeContextMenu();
                   openAddSubtask();
                 }}
-                className="flex w-full items-center gap-2 px-3 py-2.5 text-left text-sm text-slate-700 hover:bg-slate-50 transition-colors"
+                className="flex w-full items-center gap-2 px-3 py-2 rounded-xl text-left text-xs font-medium text-[#1C1C1E] hover:bg-[#5856D6] hover:text-white group transition-all duration-150"
               >
-                <Plus className="h-4 w-4 text-slate-500" />
+                <Plus className="h-4 w-4 text-[#8E8E93] group-hover:text-white transition-colors" />
                 Add subtask
               </button>
               <button
@@ -541,21 +545,21 @@ export function TaskCard({
                   closeContextMenu();
                   onMoveTaskDate(task);
                 }}
-                className="flex w-full items-center gap-2 px-3 py-2.5 text-left text-sm text-slate-700 hover:bg-slate-50 transition-colors"
+                className="flex w-full items-center gap-2 px-3 py-2 rounded-xl text-left text-xs font-medium text-[#1C1C1E] hover:bg-[#5856D6] hover:text-white group transition-all duration-150"
               >
-                <CalendarDays className="h-4 w-4 text-slate-500" />
+                <CalendarDays className="h-4 w-4 text-[#8E8E93] group-hover:text-white transition-colors" />
                 Move to
               </button>
-              <div className="h-px bg-slate-100" />
+              <div className="h-px bg-[#E5E5EA]/55 my-1" />
               <button
                 type="button"
                 onClick={() => {
                   closeContextMenu();
                   onDeleteTask(task.id);
                 }}
-                className="flex w-full items-center gap-2 px-3 py-2.5 text-left text-sm text-red-600 hover:bg-red-50 transition-colors"
+                className="flex w-full items-center gap-2 px-3 py-2 rounded-xl text-left text-xs font-medium text-[#FF3B30] hover:bg-[#FF3B30] hover:text-white group transition-all duration-150"
               >
-                <Trash2 className="h-4 w-4" />
+                <Trash2 className="h-4 w-4 text-[#FF3B30] group-hover:text-white transition-colors" />
                 Delete
               </button>
             </div>

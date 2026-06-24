@@ -29,19 +29,19 @@ export function Dashboard({ user, onLogout }: DashboardProps) {
 
     if (!dash.isHydrated) {
         return (
-            <div className="fixed inset-0 bg-slate-50 flex flex-col items-center justify-center gap-4">
+            <div className="fixed inset-0 bg-[#F5F5F7] flex flex-col items-center justify-center gap-4 select-none">
                 <motion.div
                     animate={{ rotate: 360 }}
                     transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-                    className="w-10 h-10 border-2 border-slate-800 border-t-transparent rounded-full"
+                    className="w-10 h-10 border-2 border-[#5856D6] border-t-transparent rounded-full"
                 />
-                <p className="text-sm font-medium text-slate-500">Loading your workspaces...</p>
+                <p className="text-sm font-medium text-[#8E8E93]">Loading your workspaces...</p>
             </div>
         );
     }
 
     return (
-        <div className="flex h-screen w-screen bg-slate-50 text-slate-900 overflow-hidden relative">
+        <div className="flex h-screen w-screen bg-[#F5F5F7] text-[#1C1C1E] overflow-hidden relative select-none">
             <CustomCursor />
 
             {/* Desktop sidebar */}
@@ -73,7 +73,7 @@ export function Dashboard({ user, onLogout }: DashboardProps) {
             />
 
             {/* Main content */}
-            <div className="flex-1 flex flex-col h-full bg-slate-50/40 overflow-hidden font-sans">
+            <div className="flex-1 flex flex-col h-full bg-[#F5F5F7]/30 overflow-hidden font-sans">
                 {dash.activeOrg ? (
                     <>
                         <AppTopBar
@@ -98,10 +98,10 @@ export function Dashboard({ user, onLogout }: DashboardProps) {
                                 />
                             ) : (
                                 <div className="flex-1 overflow-y-auto p-4 sm:p-6">
-                                    <p className="text-[11px] font-mono text-slate-400 uppercase tracking-wider mb-4">
+                                    <p className="text-[11px] font-medium text-[#8E8E93] uppercase tracking-wider mb-4">
                                         {sortedDates.length} schedule{sortedDates.length !== 1 ? "s" : ""} — click a date to view tasks
                                     </p>
-                                    <div ref={datesGridRef} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                                    <div ref={datesGridRef} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
                                         {sortedDates.map((dateStr, i) => {
                                             const tasks = groupedTasksMap[dateStr] ?? [];
                                             const done = tasks.filter((t) => t.completed).length;
@@ -113,23 +113,23 @@ export function Dashboard({ user, onLogout }: DashboardProps) {
                                                     autoFocus={i === 0}
                                                     initial={{ opacity: 0, y: 10 }}
                                                     animate={{ opacity: 1, y: 0 }}
-                                                    transition={{ delay: i * 0.05 }}
+                                                    transition={{ type: "spring", damping: 25, stiffness: 220, delay: i * 0.03 }}
                                                     onMouseEnter={(e) => e.currentTarget.focus()}
                                                     onClick={() => navigate(`/workspace/${dash.activeOrg!.id}/date/${dateStr}`)}
-                                                    className="date-nav-item cursor-pointer text-left bg-white border border-slate-200 rounded-2xl p-4 hover:border-slate-300 hover:shadow-sm transition-all group focus:outline-none focus:ring-2 focus:ring-indigo-500/80 focus:-translate-y-0.5 focus:shadow-md"
+                                                    className="date-nav-item cursor-pointer text-left bg-white border border-[#E5E5EA]/60 rounded-[24px] p-5 hover:shadow-[0_8px_24px_rgba(0,0,0,0.04)] transition-all group focus:outline-none focus:ring-2 focus:ring-[#5856D6]/40 focus:-translate-y-0.5 shadow-[0_4px_16px_rgba(0,0,0,0.01)]"
                                                 >
-                                                    <div className="flex items-start justify-between gap-2 mb-3">
-                                                        <Calendar className="h-4 w-4 text-slate-400 shrink-0 mt-0.5 group-hover:text-indigo-500 transition-colors" />
-                                                        <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full border ${pct === 100 ? "bg-emerald-50 border-emerald-200 text-emerald-700" : "bg-slate-100 border-slate-200 text-slate-500"}`}>
+                                                    <div className="flex items-start justify-between gap-2 mb-4">
+                                                        <Calendar className="h-4.5 w-4.5 text-[#8E8E93] shrink-0 mt-0.5 group-hover:text-[#5856D6] transition-colors" />
+                                                        <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full border ${pct === 100 ? "bg-[#34C759]/10 border-transparent text-[#34C759]" : "bg-[#F5F5F7] border-[#E5E5EA]/40 text-[#8E8E93]"}`}>
                                                             {done}/{tasks.length}
                                                         </span>
                                                     </div>
-                                                    <p className="text-sm font-bold text-slate-900 tracking-tight group-hover:text-indigo-600 transition-colors">
+                                                    <p className="text-sm font-semibold text-[#1C1C1E] tracking-tight group-hover:text-[#5856D6] transition-colors">
                                                         {formatDateLabel(dateStr)}
                                                     </p>
-                                                    <div className="mt-3 w-full bg-slate-100 rounded-full h-1 overflow-hidden">
+                                                    <div className="mt-4 w-full bg-[#E5E5EA] rounded-full h-1 overflow-hidden">
                                                         <div
-                                                            className={`h-full rounded-full transition-all duration-500 ${pct === 100 ? "bg-emerald-500" : "bg-slate-800"}`}
+                                                            className={`h-full rounded-full transition-all duration-500 ${pct === 100 ? "bg-[#34C759]" : "bg-gradient-to-r from-[#5856D6] to-[#4F46E5]"}`}
                                                             style={{ width: `${pct}%` }}
                                                         />
                                                     </div>
@@ -184,28 +184,28 @@ function EmptyState({ hasSearch, onClearSearch, onAddDate, onAddTask }: {
     onAddTask: () => void;
 }) {
     return (
-        <div className="flex-1 flex flex-col items-center justify-center py-20 px-4 text-center">
-            <div className="w-16 h-16 rounded-full bg-white border border-slate-200 flex items-center justify-center mb-4 shadow-sm">
-                <Inbox className="h-8 w-8 text-slate-400" />
+        <div className="flex-1 flex flex-col items-center justify-center py-20 px-4 text-center select-none">
+            <div className="w-16 h-16 rounded-full bg-white border border-[#E5E5EA] flex items-center justify-center mb-4 shadow-sm shadow-[#1C1C1E]/02">
+                <Inbox className="h-8 w-8 text-[#8E8E93]" />
             </div>
-            <h3 className="font-display font-black text-lg text-slate-900 tracking-tight">
+            <h3 className="font-display font-semibold text-lg text-[#1C1C1E] tracking-tight">
                 {hasSearch ? "No matching dates" : "No schedules yet"}
             </h3>
-            <p className="max-w-xs text-xs text-slate-400 mt-2.5 leading-relaxed">
+            <p className="max-w-xs text-xs text-[#8E8E93] mt-2.5 leading-relaxed">
                 {hasSearch
                     ? "Clear the search or try a different term."
                     : "Add a date to start organising your tasks by day."}
             </p>
             {hasSearch ? (
-                <button onClick={onClearSearch} className="cursor-pointer mt-5 text-xs font-semibold text-indigo-600 hover:text-indigo-500">
+                <button onClick={onClearSearch} className="cursor-pointer mt-5 text-xs font-semibold text-[#5856D6] hover:underline">
                     Clear search
                 </button>
             ) : (
                 <div className="flex gap-2.5 mt-6">
-                    <button onClick={onAddDate} className="cursor-pointer h-10 px-4 border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-semibold rounded-xl text-xs transition-colors">
+                    <button onClick={onAddDate} className="cursor-pointer h-10 px-4 border border-[#E5E5EA] bg-white hover:bg-[#F5F5F7] text-[#1C1C1E] font-medium rounded-full text-xs transition-colors">
                         + Add Date
                     </button>
-                    <button onClick={onAddTask} className="cursor-pointer h-10 px-5 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-xl text-xs transition-colors">
+                    <button onClick={onAddTask} className="cursor-pointer h-10 px-5 bg-[#5856D6] hover:bg-[#4846B6] text-white font-medium rounded-full text-xs shadow-sm shadow-[#5856D6]/15 transition-colors">
                         + Plan Task
                     </button>
                 </div>

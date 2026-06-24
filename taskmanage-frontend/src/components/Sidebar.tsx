@@ -36,23 +36,15 @@ export function Sidebar({
   };
 
   return (
-    <div className="w-72 border-r border-slate-200 bg-white flex flex-col h-full relative z-30 font-sans">
+    <div className="w-72 border-r border-[#E5E5EA] bg-white flex flex-col h-full relative z-30 font-sans select-none">
       {/* Brand Header */}
-      <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-white">
-        <div className="group relative">
-          {/* Flipper text: App Title taskManage */}
-          <div className="flipper-container cursor-default">
-            <div className="flipper-list group-hover:-translate-y-1/2">
-              <span className="block h-[1.5em] font-display text-2xl font-black tracking-tight bg-gradient-to-r from-slate-900 to-slate-800 bg-clip-text text-transparent uppercase">
-                taskManage
-              </span>
-              <span className="block h-[1.5em] font-display text-2xl font-black tracking-tight bg-gradient-to-r from-indigo-600 to-blue-500 bg-clip-text text-transparent uppercase">
-                Productive
-              </span>
-            </div>
-          </div>
-          <p className="text-[10px] font-mono uppercase tracking-wider text-slate-400 mt-1">
-            v2.0.0 // User testing
+      <div className="p-6 border-b border-[#E5E5EA]/60 flex justify-between items-center">
+        <div>
+          <span className="block font-sans text-xl font-bold tracking-tight text-[#1C1C1E]">
+            taskManage
+          </span>
+          <p className="text-[10px] text-[#8E8E93] mt-0.5 font-sans font-medium">
+            Workspace Manager
           </p>
         </div>
 
@@ -61,7 +53,7 @@ export function Sidebar({
           id="sidebar-create-org-btn"
           onClick={onCreateOrg}
           title="Create Workspace"
-          className="cursor-pointer h-8 w-8 rounded-lg border border-slate-200 bg-slate-50 flex items-center justify-center text-slate-500 hover:text-slate-900 hover:border-slate-300 transition-all hover:scale-105 active:scale-95 duration-200 focus:outline-none"
+          className="cursor-pointer h-7 w-7 rounded-full bg-[#F5F5F7] hover:bg-[#E5E5EA] flex items-center justify-center text-[#8E8E93] hover:text-[#1C1C1E] transition-all focus:outline-none"
         >
           <Plus className="h-4 w-4" />
         </button>
@@ -69,11 +61,11 @@ export function Sidebar({
 
       {/* Directory Title */}
       <div className="px-6 py-4 flex items-center justify-between">
-        <span className="text-xs font-semibold tracking-wider uppercase text-slate-400 flex items-center gap-2">
-          <Layers className="h-3.5 w-3.5 text-slate-400" />
+        <span className="text-xs font-semibold text-[#8E8E93] flex items-center gap-2 font-sans">
+          <Layers className="h-3.5 w-3.5 text-[#8E8E93]" />
           Workspaces
         </span>
-        <span className="text-[10px] font-mono text-slate-500 bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded">
+        <span className="text-[10px] font-medium text-[#8E8E93] bg-[#F5F5F7] px-2 py-0.5 rounded-full font-sans">
           {organizations.length} Active
         </span>
       </div>
@@ -81,16 +73,16 @@ export function Sidebar({
       {/* Organization Navigator list */}
       <div className="flex-1 overflow-y-auto px-4 pb-6 space-y-1">
         {organizations.length === 0 ? (
-          <div className="py-8 px-4 text-center rounded-xl border border-dashed border-slate-200 bg-slate-50/50">
-            <span className="block text-xs text-slate-400 font-sans">
+          <div className="py-8 px-4 text-center rounded-2xl border border-dashed border-[#E5E5EA] bg-[#F5F5F7]/50">
+            <span className="block text-xs text-[#8E8E93] font-sans">
               No active workspaces found
             </span>
             <button
               id="empty-sidebar-create-btn"
               onClick={onCreateOrg}
-              className="mt-3 text-xs font-semibold text-slate-900 hover:text-slate-700 cursor-pointer"
+              className="mt-2 text-xs font-medium text-[#5856D6] hover:underline cursor-pointer"
             >
-              + Create your first
+              + Create Workspace
             </button>
           </div>
         ) : (
@@ -100,26 +92,26 @@ export function Sidebar({
 
             return (
               <motion.div
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.05 }}
+                initial={{ opacity: 0, y: 4 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ type: "spring", damping: 25, stiffness: 220, delay: index * 0.03 }}
                 key={org.id}
                 onMouseEnter={() => setHoveredOrgId(org.id)}
                 onMouseLeave={() => setHoveredOrgId(null)}
-                className={`group/item relative rounded-xl flex items-center justify-between p-3 cursor-pointer select-none transition-all duration-300 ${isActive
-                  ? "bg-slate-100 border-l-2 border-slate-900 shadow-sm"
-                  : "hover:bg-slate-50 border-l-2 border-transparent"
+                className={`group/item relative rounded-full flex items-center justify-between px-4 h-9 cursor-pointer transition-all ${isActive
+                  ? "bg-[#5856D6] text-white shadow-sm shadow-[#5856D6]/15"
+                  : "hover:bg-[#E5E5EA]/50 text-[#1C1C1E]"
                   }`}
                 onClick={() => onSelectOrg(org.id)}
               >
                 {/* Organ Name details */}
-                <div className="flex items-center gap-3 overflow-hidden pr-2">
+                <div className="flex items-center gap-2.5 overflow-hidden pr-12 flex-1">
                   <Folder
-                    className={`h-4 w-4 shrink-0 transition-all ${isActive ? "text-slate-900" : "text-slate-400 group-hover/item:text-slate-600"
+                    className={`h-4 w-4 shrink-0 transition-colors ${isActive ? "text-white" : "text-[#8E8E93] group-hover/item:text-[#1C1C1E]"
                       }`}
                   />
                   <span
-                    className={`text-sm truncate font-medium transition-colors ${isActive ? "text-slate-900 font-semibold" : "text-slate-600 group-hover/item:text-slate-800"
+                    className={`text-[13px] truncate font-sans font-medium transition-colors ${isActive ? "text-white font-medium" : "text-[#1C1C1E]/80 group-hover/item:text-[#1C1C1E]"
                       }`}
                   >
                     {org.name}
@@ -127,18 +119,21 @@ export function Sidebar({
                 </div>
 
                 {/* Right side status / Actions */}
-                <div className="flex items-center gap-1 shrink-0">
+                <div className="relative flex items-center justify-end shrink-0 min-w-[24px]">
                   {/* Inline Action Nodes configured on Hover */}
                   <div
-                    className={`flex items-center gap-0.5 transition-opacity duration-200 ${hoveredOrgId === org.id ? "opacity-100" : "opacity-0 pointer-events-none md:absolute md:right-3 md:group-hover/item:opacity-100 md:group-hover/item:pointer-events-auto"
-                      }`}
+                    className={`absolute right-0 top-1/2 -translate-y-1/2 flex items-center gap-0.5 transition-all duration-200 ${
+                      hoveredOrgId === org.id
+                        ? "opacity-100 scale-100 pointer-events-auto"
+                        : "opacity-0 scale-90 pointer-events-none"
+                    }`}
                     onClick={(e) => e.stopPropagation()} // Stop triggering selection on action click
                   >
                     <button
                       id={`rename-org-btn-${org.id}`}
                       onClick={() => onRenameOrg(org.id, org.name)}
                       title="Rename Workspace"
-                      className="cursor-pointer p-1 rounded hover:bg-slate-200 text-slate-400 hover:text-slate-900 transition-colors"
+                      className={`cursor-pointer p-1 rounded-full hover:bg-white/20 transition-colors ${isActive ? "text-white/80 hover:text-white" : "text-[#8E8E93] hover:text-[#1C1C1E]"}`}
                     >
                       <Edit3 className="h-3.5 w-3.5" />
                     </button>
@@ -146,7 +141,7 @@ export function Sidebar({
                       id={`delete-org-btn-${org.id}`}
                       onClick={() => onDeleteOrg(org.id)}
                       title="Delete Workspace"
-                      className="cursor-pointer p-1 rounded hover:bg-slate-200 text-slate-400 hover:text-red-600 transition-colors"
+                      className={`cursor-pointer p-1 rounded-full hover:bg-white/20 transition-colors ${isActive ? "text-white/80 hover:text-red-200" : "text-[#8E8E93] hover:text-[#FF3B30]"}`}
                     >
                       <Trash2 className="h-3.5 w-3.5" />
                     </button>
@@ -154,14 +149,15 @@ export function Sidebar({
 
                   {/* Upcoming incomplete count pill (hidden when hover actions appear for sleek neatness) */}
                   <span
-                    className={`text-[10px] font-mono px-2 py-0.5 rounded-full transition-all border ${hoveredOrgId === org.id
-                      ? "md:opacity-0 md:scale-75"
-                      : "opacity-100 scale-100"
-                      } ${upcoming > 0
+                    className={`text-[10px] font-medium px-2 py-0.5 rounded-full transition-all duration-200 ${
+                      hoveredOrgId === org.id
+                        ? "opacity-0 scale-75 pointer-events-none"
+                        : "opacity-100 scale-100"
+                    } ${upcoming > 0
                         ? isActive
-                          ? "bg-white border-slate-200 text-slate-800"
-                          : "bg-slate-200 border-transparent text-slate-600"
-                        : "bg-transparent border-transparent text-slate-300"
+                          ? "bg-white/20 text-white"
+                          : "bg-[#E5E5EA] text-[#8E8E93]"
+                        : "bg-transparent text-transparent select-none"
                       }`}
                   >
                     {upcoming}
@@ -174,38 +170,38 @@ export function Sidebar({
       </div>
 
       {/* Footer — stats + logout */}
-      <div className="p-4 border-t border-slate-100 bg-slate-50/50 text-[11px] text-slate-400 font-mono space-y-1">
-        <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-3 py-2 mb-3 shadow-sm">
-          <span className="h-9 w-9 rounded-full bg-slate-900 text-white flex items-center justify-center shrink-0">
-            <UserCircle2 className="h-4.5 w-4.5" />
+      <div className="p-4 border-t border-[#E5E5EA]/60 bg-[#F5F5F7]/30 space-y-1.5 font-sans">
+        <div className="flex items-center gap-3 rounded-2xl border border-[#E5E5EA]/60 bg-white/50 px-3.5 py-2.5 mb-3 font-sans">
+          <span className="h-9 w-9 rounded-full bg-[#5856D6] text-white flex items-center justify-center shrink-0 shadow-sm shadow-[#5856D6]/15">
+            <UserCircle2 className="h-5 w-5" />
           </span>
           <div className="min-w-0 flex-1">
-            <p className="text-[11px] font-semibold text-slate-900 truncate">
-              {user?.name || "Signed in user"}
+            <p className="text-[11px] font-semibold text-[#1C1C1E] truncate">
+              {user?.name || "User Profile"}
             </p>
-            <p className="text-[10px] text-slate-400 truncate">
-              {user?.email || "Account profile"}
+            <p className="text-[10px] text-[#8E8E93] truncate">
+              {user?.email || "Account settings"}
             </p>
           </div>
-          <span className="h-7 w-7 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-[10px] font-bold">
+          <span className="h-7 w-7 rounded-full bg-[#5856D6]/10 text-[#5856D6] flex items-center justify-center text-[10px] font-bold">
             {initials}
           </span>
         </div>
-        <div className="flex justify-between">
+        <div className="flex justify-between px-1 text-xs text-[#8E8E93] font-sans">
           <span>Total Tasks:</span>
-          <span className="text-slate-700">
+          <span className="text-[#1C1C1E] font-semibold">
             {organizations.reduce((sum, o) => sum + o.tasks.length, 0)}
           </span>
         </div>
-        <div className="flex justify-between">
-          <span>Total Incomplete:</span>
-          <span className="text-indigo-600 font-semibold">
+        <div className="flex justify-between px-1 text-xs text-[#8E8E93] font-sans">
+          <span>Incomplete:</span>
+          <span className="text-[#5856D6] font-semibold">
             {organizations.reduce((sum, o) => sum + o.tasks.filter(t => !t.completed).length, 0)}
           </span>
         </div>
         <button
           onClick={onLogout}
-          className="cursor-pointer w-full mt-2 flex items-center gap-2 text-slate-400 hover:text-red-500 transition-colors pt-2 border-t border-slate-100"
+          className="cursor-pointer w-full mt-3 flex items-center gap-2 text-xs text-[#8E8E93] hover:text-[#FF3B30] transition-colors pt-3 border-t border-[#E5E5EA] font-sans font-medium"
         >
           <LogOut className="h-3.5 w-3.5" />
           <span>Sign out</span>

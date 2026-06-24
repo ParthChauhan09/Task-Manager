@@ -1,4 +1,4 @@
-import { Sparkles, LogOut, Menu } from "lucide-react";
+import { Check, LogOut, Menu } from "lucide-react";
 
 interface WorkspaceWelcomeProps {
     onCreateOrg: () => void;
@@ -8,31 +8,33 @@ interface WorkspaceWelcomeProps {
 
 export function WorkspaceWelcome({ onCreateOrg, onLogout, onOpenMobileSidebar }: WorkspaceWelcomeProps) {
     return (
-        <div className="flex-1 flex flex-col items-center justify-center p-6 text-center bg-slate-50/55 relative">
+        <div className="flex-1 flex flex-col items-center justify-center p-6 text-center bg-[#F5F5F7]/50 relative select-none">
             <button
                 id="mobile-hamburger-empty-btn"
                 onClick={onOpenMobileSidebar}
-                className="absolute top-6 left-6 cursor-pointer md:hidden h-10 w-10 shrink-0 rounded-xl border border-slate-200 bg-white flex items-center justify-center text-slate-500 hover:text-slate-900 focus:outline-none transition-colors"
+                className="absolute top-6 left-6 cursor-pointer md:hidden h-10 w-10 shrink-0 rounded-full border border-[#E5E5EA] bg-white flex items-center justify-center text-[#8E8E93] hover:text-[#1C1C1E] hover:bg-[#F5F5F7] focus:outline-none transition-colors"
             >
                 <Menu className="h-5 w-5" />
             </button>
-            <Sparkles className="h-12 w-12 text-slate-800 mb-4 animate-pulse" />
-            <h2 className="font-display font-black text-xl sm:text-2xl text-slate-900 tracking-tight uppercase">
+            <div className="w-12 h-12 rounded-full bg-[#5856D6] text-white flex items-center justify-center mb-5 shadow-sm shadow-[#5856D6]/15">
+                <Check className="h-6 w-6 stroke-[3.5px]" />
+            </div>
+            <h2 className="font-display font-semibold text-xl sm:text-2xl text-[#1C1C1E] tracking-tight">
                 Start taskManage
             </h2>
-            <p className="max-w-md text-xs text-slate-500 font-sans mt-3 leading-relaxed">
+            <p className="max-w-md text-xs text-[#8E8E93] font-sans mt-3 leading-relaxed">
                 Create a workspace to start planning tasks and tracking deadlines.
             </p>
             <button
                 id="global-create-workspace-btn"
                 onClick={onCreateOrg}
-                className="cursor-pointer mt-6 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs px-5 py-3 rounded-xl shadow-lg transition-all hover:-translate-y-0.5"
+                className="cursor-pointer mt-6 bg-[#5856D6] hover:bg-[#4846B6] text-white font-medium text-xs px-5 py-3 rounded-full shadow-sm shadow-[#5856D6]/15 transition-all hover:scale-[1.02] active:scale-[0.98]"
             >
                 + Create Workspace
             </button>
             <button
                 onClick={onLogout}
-                className="cursor-pointer mt-3 text-xs text-slate-400 hover:text-red-500 flex items-center gap-1.5 transition-colors"
+                className="cursor-pointer mt-4.5 text-xs text-[#8E8E93] hover:text-[#FF3B30] flex items-center gap-1.5 transition-colors"
             >
                 <LogOut className="h-3.5 w-3.5" /> Sign out
             </button>

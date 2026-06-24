@@ -27,7 +27,7 @@ export function MobileSidebar({
                     <motion.div
                         initial={{ opacity: 0 }} animate={{ opacity: 0.4 }} exit={{ opacity: 0 }}
                         onClick={onClose}
-                        className="fixed inset-0 bg-slate-950/40 z-40 md:hidden backdrop-blur-[2px]"
+                        className="fixed inset-0 bg-[#1C1C1E]/20 z-40 md:hidden backdrop-blur-md"
                     />
                     <motion.div
                         initial={{ x: "-100%" }} animate={{ x: 0 }} exit={{ x: "-100%" }}
