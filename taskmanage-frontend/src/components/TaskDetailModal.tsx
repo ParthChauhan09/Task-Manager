@@ -259,7 +259,7 @@ export function TaskDetailModal({
                                 ) : (
                                   <span
                                     onDoubleClick={() => startEditSubtask(sub)}
-                                    className={`text-sm truncate cursor-text font-sans font-medium transition-all ${
+                                    className={`text-sm block break-all cursor-text font-sans font-medium transition-all ${
                                       sub.completed ? "line-through text-[#8E8E93]" : "text-[#1C1C1E]/80"
                                     }`}
                                   >
