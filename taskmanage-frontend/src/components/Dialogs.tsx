@@ -42,19 +42,19 @@ export function DialogBase({ isOpen, onClose, title, description, children }: Di
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 15 }}
             transition={{ type: "spring", damping: 25, stiffness: 350 }}
-            className="relative w-full max-w-md overflow-hidden rounded-[28px] border border-[#E5E5EA]/60 bg-white/95 backdrop-blur-xl p-8 shadow-2xl z-10"
+            className="relative w-full max-w-md max-h-[90vh] overflow-hidden rounded-[28px] border border-[#E5E5EA]/60 bg-white/95 backdrop-blur-xl p-8 shadow-2xl z-10 flex flex-col"
           >
             {/* Close Button */}
             <button
               id="dialog-close-btn"
               onClick={onClose}
-              className="absolute right-6 top-6 rounded-full p-2 hover:bg-[#F5F5F7] text-[#8E8E93] hover:text-[#1C1C1E] transition-all focus:outline-none cursor-pointer"
+              className="absolute right-6 top-6 rounded-full p-2 hover:bg-[#F5F5F7] text-[#8E8E93] hover:text-[#1C1C1E] transition-all focus:outline-none cursor-pointer shrink-0"
             >
               <X className="h-4 w-4" />
             </button>
 
             {/* Header */}
-            <div className="mb-4 text-left">
+            <div className="mb-4 text-left shrink-0">
               <h3 className="font-display text-lg font-semibold tracking-tight text-[#1C1C1E] flex items-center gap-2">
                 {title}
               </h3>
@@ -66,7 +66,7 @@ export function DialogBase({ isOpen, onClose, title, description, children }: Di
             </div>
 
             {/* Content Slot */}
-            <div className="mt-4">{children}</div>
+            <div className="mt-4 flex-1 min-h-0 overflow-y-auto pr-1 text-left">{children}</div>
           </motion.div>
         </div>
       )}
@@ -392,7 +392,7 @@ export function TaskDialog({ isOpen, onClose, onSubmit, initialValues, isEdit = 
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-3 text-left">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
           <div>
             <label htmlFor="task-date-input" className="block text-[11px] font-medium text-[#8E8E93] mb-1.5 ml-3">
               Due Date
@@ -411,7 +411,7 @@ export function TaskDialog({ isOpen, onClose, onSubmit, initialValues, isEdit = 
             <label className="block text-[11px] font-medium text-[#8E8E93] mb-1.5 ml-3">
               Priority Tier
             </label>
-            <div className="flex gap-1 h-[38px]">
+            <div className="flex gap-2 h-[38px]">
               {(["low", "medium", "high"] as Priority[]).map((p) => {
                 const colors = {
                   low: p === priority ? "bg-[#8E8E93] text-white font-medium border-transparent" : "bg-[#F5F5F7] border-[#E5E5EA] text-[#8E8E93] hover:text-[#1C1C1E] hover:bg-[#E5E5EA]/40",

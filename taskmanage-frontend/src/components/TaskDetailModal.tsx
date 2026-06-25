@@ -135,7 +135,7 @@ export function TaskDetailModal({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: "spring", damping: 25, stiffness: 350 }}
-            className="relative w-full max-w-2xl overflow-hidden rounded-[28px] border border-[#E5E5EA]/60 bg-white/95 backdrop-blur-xl shadow-2xl z-10 flex flex-col max-h-[90vh]"
+            className="relative w-full max-w-2xl h-[600px] max-h-[90vh] overflow-hidden rounded-[28px] border border-[#E5E5EA]/60 bg-white/95 backdrop-blur-xl shadow-2xl z-10 flex flex-col"
           >
             {/* Close Button */}
             <button
@@ -146,9 +146,9 @@ export function TaskDetailModal({
             </button>
 
             {/* Modal Body */}
-            <div className="p-8 space-y-6 text-left">
+            <div className="p-8 space-y-6 text-left flex flex-col flex-1 min-h-0">
               {/* Header Section */}
-              <div className="space-y-3 pr-8">
+              <div className="space-y-3 pr-8 shrink-0">
                 <div className="flex items-center gap-2.5 flex-wrap">
                   <span
                     className={`text-[10px] font-bold tracking-wider uppercase px-3 py-1 rounded-full border ${
@@ -181,7 +181,7 @@ export function TaskDetailModal({
               </div>
 
               {/* Subtask Section */}
-              <div className="space-y-4 border-t border-[#E5E5EA]/60 pt-6">
+              <div className="space-y-4 border-t border-[#E5E5EA]/60 pt-6 flex flex-col flex-1 min-h-0">
                 <div className="flex items-center justify-between">
                   <h3 className="font-display text-base font-semibold tracking-tight text-[#1C1C1E] flex items-center gap-2">
                     <ListTodo className="h-5 w-5 text-apple-purple" />
@@ -205,7 +205,7 @@ export function TaskDetailModal({
                 )}
 
                 {/* Subtasks List */}
-                <div className="space-y-2 max-h-[244px] overflow-y-auto pr-1">
+                <div className="space-y-2 flex-1 min-h-0 overflow-y-auto pr-1">
                   {totalSubtasks === 0 ? (
                     <div className="text-center py-8 bg-[#F5F5F7]/50 rounded-2xl border border-dashed border-[#E5E5EA]">
                       <p className="text-sm text-[#8E8E93] italic">No action steps added yet.</p>
@@ -305,7 +305,7 @@ export function TaskDetailModal({
                 </div>
 
                 {/* Add Subtask Input Form */}
-                <form onSubmit={handleAddSubtaskSubmit} className="flex gap-2 items-center mt-3 pt-2">
+                <form onSubmit={handleAddSubtaskSubmit} className="flex gap-2 items-center mt-3 pt-2 shrink-0">
                   <CornerDownRight className="h-4 w-4 text-[#8E8E93] shrink-0" />
                   <input
                     ref={inputRef}
