@@ -36,7 +36,20 @@ export function useDashboard(forcedOrgId?: string) {
   const orgStore = useOrganizations();
   const { organizations, createOrg, renameOrg, deleteOrg, createTask, updateTask, deleteTask, toggleTaskComplete, createSubtask, updateSubtask, deleteSubtask } = orgStore;
 
-  const [activeOrgId, setActiveOrgId] = useState<string | null>(forcedOrgId ?? null);
+  const [activeOrgId, setActiveOrgId] = useState<string | null>(() => {
+    if (forcedOrgId) return forcedOrgId;
+    return localStorage.getItem("tm_active_org_id");
+  });
+
+  const handleSetActiveOrgId = (id: string | null) => {
+    setActiveOrgId(id);
+    if (id) {
+      localStorage.setItem("tm_active_org_id", id);
+    } else {
+      localStorage.removeItem("tm_active_org_id");
+    }
+  };
+
   const [searchQuery, setSearchQuery] = useState("");
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
@@ -52,7 +65,7 @@ export function useDashboard(forcedOrgId?: string) {
     if (!orgStore.isHydrated || organizations.length === 0) return null;
     const found = organizations.find((o) => o.id === activeOrgId);
     if (found) return found;
-    setActiveOrgId(organizations[0].id);
+    handleSetActiveOrgId(organizations[0].id);
     return organizations[0];
   }, [orgStore.isHydrated, organizations, activeOrgId]);
 
@@ -60,7 +73,7 @@ export function useDashboard(forcedOrgId?: string) {
 
   const handleCreateOrg = async (name: string) => {
     const org = await createOrg(name);
-    setActiveOrgId(org.id);
+    handleSetActiveOrgId(org.id);
   };
 
   const handleRenameOrg = async (id: string, name: string) => {
@@ -78,7 +91,7 @@ export function useDashboard(forcedOrgId?: string) {
         await deleteOrg(id);
         if (activeOrgId === id) {
           const rest = organizations.filter((o) => o.id !== id);
-          setActiveOrgId(rest.length > 0 ? rest[0].id : null);
+          handleSetActiveOrgId(rest.length > 0 ? rest[0].id : null);
         }
       },
     });
@@ -179,7 +192,7 @@ export function useDashboard(forcedOrgId?: string) {
     isHydrated: orgStore.isHydrated,
     activeOrg,
     activeOrgId,
-    setActiveOrgId,
+    setActiveOrgId: handleSetActiveOrgId,
     searchQuery,
     setSearchQuery,
     isMobileSidebarOpen,
