@@ -146,7 +146,7 @@ export function TaskDetailModal({
             </button>
 
             {/* Modal Body */}
-            <div className="p-8 overflow-y-auto space-y-6 text-left">
+            <div className="p-8 space-y-6 text-left">
               {/* Header Section */}
               <div className="space-y-3 pr-8">
                 <div className="flex items-center gap-2.5 flex-wrap">
